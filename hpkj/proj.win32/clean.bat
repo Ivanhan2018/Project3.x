@@ -1,0 +1,2 @@
+attrib -r -h -s *.* /s
+del /s buildlog.htm *.intermediate.mainfest *.dep *.user *.obj *.idb *.aps *.res *.plg *.opt *.ncb *.bak *.tmp *.idb *.exp *.ilk *.pdb *.tli *.trg *.pch *.~* *.ddp *.suo *.scc thumbs.db readme.txt disasm.asm *.clw *.sbr *.bsc *.tlh

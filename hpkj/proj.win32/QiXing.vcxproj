@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{76A39BB2-9B84-4C65-98A5-654D86B86F2A}</ProjectGuid>
+    <RootNamespace>test_win32</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2dx.props" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2dx.props" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration).win32\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration).win32\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>F:\cocos2d-x-2.2.5\cocos2dx\platform\third_party\win32\iconv;F:\cocos2d-x-2.2.5\cocos2dx\support;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(_COCOS_HEADER_WIN32_BEGIN);$(ProjectDir)..\cocos2d;$(_COCOS_HEADER_WIN32_END);$(ProjectDir)..\Classes\Json;$(ProjectDir)..\Classes\ans;$(ProjectDir)..\Classes\common;$(ProjectDir)..\Classes\configMgr;$(ProjectDir)..\Classes\controls;$(ProjectDir)..\Classes\entity;$(ProjectDir)..\Classes\event;$(ProjectDir)..\Classes\globalUnits;$(ProjectDir)..\Classes\gui;$(ProjectDir)..\Classes\msgDispatch;$(ProjectDir)..\Classes\net;$(ProjectDir)..\Classes\lobby;$(ProjectDir)..\Classes\dzpk;$(ProjectDir)..\Classes\lzma;$(ProjectDir)..\Classes\bjl;$(ProjectDir)..\Classes\SysFunc\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
+xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
+      </Command>
+      <Outputs>$(TargetName).cab</Outputs>
+      <Inputs>$(TargetFileName)</Inputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libcurl_imp.lib;websockets.lib;%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Classes\ans\AnsIO.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsLog.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsNew.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsPath.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsString.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsThread.cpp" />
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\bjl\BJLSceneControl.cpp" />
+    <ClCompile Include="..\Classes\bjl\CardManager.cpp" />
+    <ClCompile Include="..\Classes\bjl\CardSprite.cpp" />
+    <ClCompile Include="..\Classes\bjl\CardTableLayer.cpp" />
+    <ClCompile Include="..\Classes\bjl\ChipManager.cpp" />
+    <ClCompile Include="..\Classes\bjl\DialogLayer.cpp" />
+    <ClCompile Include="..\Classes\bjl\GameTaskCommon.cpp" />
+    <ClCompile Include="..\Classes\bjl\JniControl.cpp" />
+    <ClCompile Include="..\Classes\bjl\MyTimer.cpp" />
+    <ClCompile Include="..\Classes\bjl\MyTools.cpp" />
+    <ClCompile Include="..\Classes\bjl\OperalayerBJL.cpp" />
+    <ClCompile Include="..\Classes\bjl\SceneLogic.cpp" />
+    <ClCompile Include="..\Classes\bjl\SceneTableInterfaceLayer.cpp" />
+    <ClCompile Include="..\Classes\bjl\SceneView.cpp" />
+    <ClCompile Include="..\Classes\bjl\SetUpLayer.cpp" />
+    <ClCompile Include="..\Classes\bjl\Tools.cpp" />
+    <ClCompile Include="..\Classes\bjl\User.cpp" />
+    <ClCompile Include="..\Classes\common\DBHandler.cpp" />
+    <ClCompile Include="..\Classes\common\Encrypt.cpp" />
+    <ClCompile Include="..\Classes\common\JsonHelper.cpp" />
+    <ClCompile Include="..\Classes\common\MyNSString.cpp" />
+    <ClCompile Include="..\Classes\common\sqlite3.c" />
+    <ClCompile Include="..\Classes\configMgr\ConfigMgr.cpp" />
+    <ClCompile Include="..\Classes\configMgr\MyConfig.cpp" />
+    <ClCompile Include="..\Classes\configMgr\TinyXmlReader.cpp" />
+    <ClCompile Include="..\Classes\controls\CCTouchSprite.cpp" />
+    <ClCompile Include="..\Classes\controls\SoundControl.cpp" />
+    <ClCompile Include="..\Classes\controls\tableViewLayer.cpp" />
+    <ClCompile Include="..\Classes\entity\EntityMgr.cpp" />
+    <ClCompile Include="..\Classes\entity\Login.cpp" />
+    <ClCompile Include="..\Classes\entity\RoomFrame.cpp" />
+    <ClCompile Include="..\Classes\entity\UserItem.cpp" />
+    <ClCompile Include="..\Classes\event\GBEvent.cpp" />
+    <ClCompile Include="..\Classes\globalUnits\GlobalUnits.cpp" />
+    <ClCompile Include="..\Classes\gui\ActivityLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ActivitySprite.cpp" />
+    <ClCompile Include="..\Classes\gui\AgreementLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\AgreementScrollView.cpp" />
+    <ClCompile Include="..\Classes\gui\BaseLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ChongCoinsLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ChoosePhotoCell.cpp" />
+    <ClCompile Include="..\Classes\gui\ChoosephotoScrollLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ChoosePlayerPhotoLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\CShaderSprite.cpp" />
+    <ClCompile Include="..\Classes\gui\CustomerServiceLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\CusTomTableViewCell.cpp" />
+    <ClCompile Include="..\Classes\gui\EmailCell.cpp" />
+    <ClCompile Include="..\Classes\gui\EmailLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\EmailScorllLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ExchangerLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FMGameItemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeCell.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeCoins.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeScrollLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FriendSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\GetCharge.cpp" />
+    <ClCompile Include="..\Classes\gui\GroupSprite.cpp" />
+    <ClCompile Include="..\Classes\gui\GuessCoinSide.cpp" />
+    <ClCompile Include="..\Classes\gui\HelpLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\HelpScrollView.cpp" />
+    <ClCompile Include="..\Classes\gui\LuckyDraw.cpp" />
+    <ClCompile Include="..\Classes\gui\MenuLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\MissionLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ModifyPassWord.cpp" />
+    <ClCompile Include="..\Classes\gui\OverRegistLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\PlayerInfoLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\PropLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RankSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RechargeLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RegistLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RoomOption.cpp" />
+    <ClCompile Include="..\Classes\gui\RuningBar.cpp" />
+    <ClCompile Include="..\Classes\gui\ShopSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\TabLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\TaskInfo.cpp" />
+    <ClCompile Include="..\Classes\gui\VIPSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\WarningLayer.cpp" />
+    <ClCompile Include="..\Classes\Json\lib_json\json_reader.cpp" />
+    <ClCompile Include="..\Classes\Json\lib_json\json_value.cpp" />
+    <ClCompile Include="..\Classes\Json\lib_json\json_writer.cpp" />
+    <ClCompile Include="..\Classes\lobby\ExitLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\GameRule.cpp" />
+    <ClCompile Include="..\Classes\lobby\Global.cpp" />
+    <ClCompile Include="..\Classes\lobby\LoadingLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\LoginLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\LotteryKindScrollView.cpp" />
+    <ClCompile Include="..\Classes\lobby\MovingLabelLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\MyLoginLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\MyRoomLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\PromptBox.cpp" />
+    <ClCompile Include="..\Classes\lobby\RoomLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\SceneControl.cpp" />
+    <ClCompile Include="..\Classes\lobby\ScenePlaza.cpp" />
+    <ClCompile Include="..\Classes\lobby\ScrollAdd.cpp" />
+    <ClCompile Include="..\Classes\lzma\Alloc.c" />
+    <ClCompile Include="..\Classes\lzma\HDLzma.cpp" />
+    <ClCompile Include="..\Classes\lzma\LzFind.c" />
+    <ClCompile Include="..\Classes\lzma\LzmaDec.c" />
+    <ClCompile Include="..\Classes\lzma\LzmaEnc.c" />
+    <ClCompile Include="..\Classes\lzma\LzmaLib.c" />
+    <ClCompile Include="..\Classes\main.cpp" />
+    <ClCompile Include="..\Classes\msgDispatch\MsgDispatch.cpp" />
+    <ClCompile Include="..\Classes\net\common.cpp" />
+    <ClCompile Include="..\Classes\net\GC_Socket.cpp" />
+    <ClCompile Include="..\Classes\net\TcpNetwork.cpp" />
+    <ClCompile Include="..\Classes\SysFunc\Source_Android\SysFunc.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Classes\ans\AnsDebug.h" />
+    <ClInclude Include="..\Classes\ans\AnsEvent.h" />
+    <ClInclude Include="..\Classes\ans\AnsGeomethry.h" />
+    <ClInclude Include="..\Classes\ans\AnsIO.h" />
+    <ClInclude Include="..\Classes\ans\AnsLog.h" />
+    <ClInclude Include="..\Classes\ans\AnsMacros.h" />
+    <ClInclude Include="..\Classes\ans\AnsNew.h" />
+    <ClInclude Include="..\Classes\ans\AnsPath.h" />
+    <ClInclude Include="..\Classes\ans\AnsSingleton.h" />
+    <ClInclude Include="..\Classes\ans\AnsString.h" />
+    <ClInclude Include="..\Classes\ans\AnsTaskPool.h" />
+    <ClInclude Include="..\Classes\ans\AnsThread.h" />
+    <ClInclude Include="..\Classes\ans\BaseObject.h" />
+    <ClInclude Include="..\Classes\ans\utf-8.h" />
+    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\AppMacros.h" />
+    <ClInclude Include="..\Classes\bjl\BJLRes.h" />
+    <ClInclude Include="..\Classes\bjl\BJLSceneControl.h" />
+    <ClInclude Include="..\Classes\bjl\CardManager.h" />
+    <ClInclude Include="..\Classes\bjl\CardSprite.h" />
+    <ClInclude Include="..\Classes\bjl\CardTableLayer.h" />
+    <ClInclude Include="..\Classes\bjl\ChipManager.h" />
+    <ClInclude Include="..\Classes\bjl\CMD_BJL.h" />
+    <ClInclude Include="..\Classes\bjl\DialogLayer.h" />
+    <ClInclude Include="..\Classes\bjl\GameTaskCommon.h" />
+    <ClInclude Include="..\Classes\bjl\JniControl.h" />
+    <ClInclude Include="..\Classes\bjl\MyTimer.h" />
+    <ClInclude Include="..\Classes\bjl\MyTools.h" />
+    <ClInclude Include="..\Classes\bjl\OperalayerBJL.h" />
+    <ClInclude Include="..\Classes\bjl\SceneLogic.h" />
+    <ClInclude Include="..\Classes\bjl\SceneTableInterfaceLayer.h" />
+    <ClInclude Include="..\Classes\bjl\SceneView.h" />
+    <ClInclude Include="..\Classes\bjl\SetUpLayer.h" />
+    <ClInclude Include="..\Classes\bjl\Tools.h" />
+    <ClInclude Include="..\Classes\bjl\User.h" />
+    <ClInclude Include="..\Classes\common\CMD_GameServer.h" />
+    <ClInclude Include="..\Classes\common\CMD_LogonServer.h" />
+    <ClInclude Include="..\Classes\common\CocosUnits.h" />
+    <ClInclude Include="..\Classes\common\comm.h" />
+    <ClInclude Include="..\Classes\common\DBHandler.h" />
+    <ClInclude Include="..\Classes\common\Define.h" />
+    <ClInclude Include="..\Classes\common\Encrypt.h" />
+    <ClInclude Include="..\Classes\common\GlobalDef.h" />
+    <ClInclude Include="..\Classes\common\GlobalField.h" />
+    <ClInclude Include="..\Classes\common\GlobalFrame.h" />
+    <ClInclude Include="..\Classes\common\IDataArchive.h" />
+    <ClInclude Include="..\Classes\common\JsonHelper.h" />
+    <ClInclude Include="..\Classes\common\MyNSString.h" />
+    <ClInclude Include="..\Classes\common\packet.h" />
+    <ClInclude Include="..\Classes\common\platform.h" />
+    <ClInclude Include="..\Classes\common\private.h" />
+    <ClInclude Include="..\Classes\common\protocol.h" />
+    <ClInclude Include="..\Classes\common\sqlite3.h" />
+    <ClInclude Include="..\Classes\common\sqlite3ext.h" />
+    <ClInclude Include="..\Classes\common\struct.h" />
+    <ClInclude Include="..\Classes\configMgr\ConfigMgr.h" />
+    <ClInclude Include="..\Classes\configMgr\MyConfig.h" />
+    <ClInclude Include="..\Classes\configMgr\TinyXmlReader.h" />
+    <ClInclude Include="..\Classes\controls\CCTouchSprite.h" />
+    <ClInclude Include="..\Classes\controls\SoundControl.h" />
+    <ClInclude Include="..\Classes\controls\tableViewLayer.h" />
+    <ClInclude Include="..\Classes\entity\EntityMgr.h" />
+    <ClInclude Include="..\Classes\entity\IUserItem.h" />
+    <ClInclude Include="..\Classes\entity\Login.h" />
+    <ClInclude Include="..\Classes\entity\RoomFrame.h" />
+    <ClInclude Include="..\Classes\entity\UserItem.h" />
+    <ClInclude Include="..\Classes\event\GBEvent.h" />
+    <ClInclude Include="..\Classes\event\GBEventIDs.h" />
+    <ClInclude Include="..\Classes\globalUnits\GlobalUnits.h" />
+    <ClInclude Include="..\Classes\gui\ActivityLayer.h" />
+    <ClInclude Include="..\Classes\gui\ActivitySprite.h" />
+    <ClInclude Include="..\Classes\gui\AgreementLayer.h" />
+    <ClInclude Include="..\Classes\gui\AgreementScrollView.h" />
+    <ClInclude Include="..\Classes\gui\BaseLayer.h" />
+    <ClInclude Include="..\Classes\gui\ChongCoinsLayer.h" />
+    <ClInclude Include="..\Classes\gui\ChoosePhotoCell.h" />
+    <ClInclude Include="..\Classes\gui\ChoosePhotoScrollLayer.h" />
+    <ClInclude Include="..\Classes\gui\ChoosePlayerPhotoLayer.h" />
+    <ClInclude Include="..\Classes\gui\CShaderSprite.h" />
+    <ClInclude Include="..\Classes\gui\CustomerServiceLayer.h" />
+    <ClInclude Include="..\Classes\gui\CusTomTableViewCell.h" />
+    <ClInclude Include="..\Classes\gui\EmailCell.h" />
+    <ClInclude Include="..\Classes\gui\EmailLayer.h" />
+    <ClInclude Include="..\Classes\gui\EmailScorllLayer.h" />
+    <ClInclude Include="..\Classes\gui\ExchangerLayer.h" />
+    <ClInclude Include="..\Classes\gui\FMGameItemLayer.h" />
+    <ClInclude Include="..\Classes\gui\FreeCell.h" />
+    <ClInclude Include="..\Classes\gui\FreeCoins.h" />
+    <ClInclude Include="..\Classes\gui\FreeLayer.h" />
+    <ClInclude Include="..\Classes\gui\FreeScrollLayer.h" />
+    <ClInclude Include="..\Classes\gui\FriendSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\GetCharge.h" />
+    <ClInclude Include="..\Classes\gui\GroupSprite.h" />
+    <ClInclude Include="..\Classes\gui\GuessCoinSide.h" />
+    <ClInclude Include="..\Classes\gui\HelpLayer.h" />
+    <ClInclude Include="..\Classes\gui\HelpScrollView.h" />
+    <ClInclude Include="..\Classes\gui\LuckyDraw.h" />
+    <ClInclude Include="..\Classes\gui\MenuLayer.h" />
+    <ClInclude Include="..\Classes\gui\MissionLayer.h" />
+    <ClInclude Include="..\Classes\gui\ModifyPassWord.h" />
+    <ClInclude Include="..\Classes\gui\OverRegistLayer.h" />
+    <ClInclude Include="..\Classes\gui\PlayerInfoLayer.h" />
+    <ClInclude Include="..\Classes\gui\PropLayer.h" />
+    <ClInclude Include="..\Classes\gui\RankSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\RechargeLayer.h" />
+    <ClInclude Include="..\Classes\gui\RegistLayer.h" />
+    <ClInclude Include="..\Classes\gui\RoomOption.h" />
+    <ClInclude Include="..\Classes\gui\RuningBar.h" />
+    <ClInclude Include="..\Classes\gui\ShopSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\TabLayer.h" />
+    <ClInclude Include="..\Classes\gui\TaskInfo.h" />
+    <ClInclude Include="..\Classes\gui\VIPSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\WarningLayer.h" />
+    <ClInclude Include="..\Classes\JniHelper.h" />
+    <ClInclude Include="..\Classes\Json\autolink.h" />
+    <ClInclude Include="..\Classes\Json\config.h" />
+    <ClInclude Include="..\Classes\Json\features.h" />
+    <ClInclude Include="..\Classes\Json\forwards.h" />
+    <ClInclude Include="..\Classes\Json\json.h" />
+    <ClInclude Include="..\Classes\Json\lib_json\json_batchallocator.h" />
+    <ClInclude Include="..\Classes\Json\reader.h" />
+    <ClInclude Include="..\Classes\Json\value.h" />
+    <ClInclude Include="..\Classes\Json\writer.h" />
+    <ClInclude Include="..\Classes\lobby\ExitLayer.h" />
+    <ClInclude Include="..\Classes\lobby\GameRule.h" />
+    <ClInclude Include="..\Classes\lobby\LoadingLayer.h" />
+    <ClInclude Include="..\Classes\lobby\LoginLayer.h" />
+    <ClInclude Include="..\Classes\lobby\LotteryKindScrollView.h" />
+    <ClInclude Include="..\Classes\lobby\MovingLabelLayer.h" />
+    <ClInclude Include="..\Classes\lobby\MyLoginLayer.h" />
+    <ClInclude Include="..\Classes\lobby\MyRoomLayer.h" />
+    <ClInclude Include="..\Classes\lobby\PromptBox.h" />
+    <ClInclude Include="..\Classes\lobby\RoomLayer.h" />
+    <ClInclude Include="..\Classes\lobby\SceneControl.h" />
+    <ClInclude Include="..\Classes\lobby\ScenePlaza.h" />
+    <ClInclude Include="..\Classes\lobby\ScrollAdd.h" />
+    <ClInclude Include="..\Classes\lzma\Alloc.h" />
+    <ClInclude Include="..\Classes\lzma\HDLzma.h" />
+    <ClInclude Include="..\Classes\lzma\LzFind.h" />
+    <ClInclude Include="..\Classes\lzma\LzHash.h" />
+    <ClInclude Include="..\Classes\lzma\LzmaDec.h" />
+    <ClInclude Include="..\Classes\lzma\LzmaEnc.h" />
+    <ClInclude Include="..\Classes\lzma\LzmaLib.h" />
+    <ClInclude Include="..\Classes\lzma\Types.h" />
+    <ClInclude Include="..\Classes\main.h" />
+    <ClInclude Include="..\Classes\msgDispatch\MsgDispatch.h" />
+    <ClInclude Include="..\Classes\net\common.h" />
+    <ClInclude Include="..\Classes\net\GC_Socket.h" />
+    <ClInclude Include="..\Classes\net\TcpNetwork.h" />
+    <ClInclude Include="..\Classes\SysFunc\Include\SysFunc.h" />
+    <ClInclude Include="main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
+      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
+      <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\cocos2d\external\Box2D\proj.win32\libbox2d.vcxproj">
+      <Project>{929480e7-23c0-4df6-8456-096d71547116}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\Json\lib_json\json_internalarray.inl" />
+    <None Include="..\Classes\Json\lib_json\json_internalmap.inl" />
+    <None Include="..\Classes\Json\lib_json\json_valueiterator.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
