@@ -159,7 +159,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\bjl\CardTableLayer.cpp" />
     <ClCompile Include="..\Classes\bjl\ChipManager.cpp" />
     <ClCompile Include="..\Classes\bjl\DialogLayer.cpp" />
-    <ClCompile Include="..\Classes\bjl\GameTaskCommon.cpp" />
     <ClCompile Include="..\Classes\bjl\JniControl.cpp" />
     <ClCompile Include="..\Classes\bjl\MyTimer.cpp" />
     <ClCompile Include="..\Classes\bjl\MyTools.cpp" />
@@ -169,7 +168,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\bjl\SceneView.cpp" />
     <ClCompile Include="..\Classes\bjl\SetUpLayer.cpp" />
     <ClCompile Include="..\Classes\bjl\Tools.cpp" />
+    <ClCompile Include="..\Classes\bjl\UpBankerList.cpp" />
     <ClCompile Include="..\Classes\bjl\User.cpp" />
+    <ClCompile Include="..\Classes\bjl\ViewMenuLayer.cpp" />
     <ClCompile Include="..\Classes\common\DBHandler.cpp" />
     <ClCompile Include="..\Classes\common\Encrypt.cpp" />
     <ClCompile Include="..\Classes\common\JsonHelper.cpp" />
@@ -245,6 +246,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\lobby\MyRoomLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\PromptBox.cpp" />
     <ClCompile Include="..\Classes\lobby\RoomLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\SceneBackDialogLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\SceneControl.cpp" />
     <ClCompile Include="..\Classes\lobby\ScenePlaza.cpp" />
     <ClCompile Include="..\Classes\lobby\ScrollAdd.cpp" />
@@ -287,7 +289,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\bjl\ChipManager.h" />
     <ClInclude Include="..\Classes\bjl\CMD_BJL.h" />
     <ClInclude Include="..\Classes\bjl\DialogLayer.h" />
-    <ClInclude Include="..\Classes\bjl\GameTaskCommon.h" />
     <ClInclude Include="..\Classes\bjl\JniControl.h" />
     <ClInclude Include="..\Classes\bjl\MyTimer.h" />
     <ClInclude Include="..\Classes\bjl\MyTools.h" />
@@ -297,7 +298,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\bjl\SceneView.h" />
     <ClInclude Include="..\Classes\bjl\SetUpLayer.h" />
     <ClInclude Include="..\Classes\bjl\Tools.h" />
+    <ClInclude Include="..\Classes\bjl\UpBankerList.h" />
     <ClInclude Include="..\Classes\bjl\User.h" />
+    <ClInclude Include="..\Classes\bjl\ViewMenuLayer.h" />
     <ClInclude Include="..\Classes\common\CMD_GameServer.h" />
     <ClInclude Include="..\Classes\common\CMD_LogonServer.h" />
     <ClInclude Include="..\Classes\common\CocosUnits.h" />
@@ -396,6 +399,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\lobby\MyRoomLayer.h" />
     <ClInclude Include="..\Classes\lobby\PromptBox.h" />
     <ClInclude Include="..\Classes\lobby\RoomLayer.h" />
+    <ClInclude Include="..\Classes\lobby\SceneBackDialogLayer.h" />
     <ClInclude Include="..\Classes\lobby\SceneControl.h" />
     <ClInclude Include="..\Classes\lobby\ScenePlaza.h" />
     <ClInclude Include="..\Classes\lobby\ScrollAdd.h" />

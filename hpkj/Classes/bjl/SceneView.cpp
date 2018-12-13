@@ -6,7 +6,7 @@
 #include "MovingLabelLayer.h"
 #include "MyNSString.h"
 #include "MyConfig.h"
-#include "GameTaskCommon.h"
+#include "UpBankerList.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 //#include "../proj.android/jni/hellocpp/Jni_system.h"
@@ -159,11 +159,14 @@ bool SceneView::init()
 		this->addChild(m_Menu3, 10);
 		ShowCurrentMenu(1);
 
-		SceneLogic *logic= SceneLogic::create();	//--逻辑命令
+		SceneLogic *logic= SceneLogic::create();//--逻辑命令
 		this->addChild(logic);
 
-		m_gameTask=GameTaskCommon::create();					//任务表现
-		this->addChild(m_gameTask);
+		m_menuLayer=ViewMenuLayer::create();//--时钟 标志
+		this->addChild(m_menuLayer);
+
+		m_UpBankerList=UpBankerList::create();//上庄列表
+		this->addChild(m_UpBankerList);
 
 		m_dialogLayer = Layer::create();
 		this->addChild(m_dialogLayer);
@@ -231,7 +234,7 @@ void SceneView::OnBankerList( Object *obj )
 	WORD m_wChairID=pMsgDispatch->m_wChairID;
 	WORD m_wTableID=pMsgDispatch->m_wTableID;
 	NotificationCenter::getInstance()->postNotification("PrintTest2", String::createWithFormat("m_dwUserID=%d,m_wTableID=%d,m_wChairID=%d,m_cbStatus=%d",m_dwUserID,m_wTableID,m_wChairID,m_cbStatus));
-	m_gameTask->runOutOrIn();
+	m_UpBankerList->runOutOrIn();
 }
 
 void SceneView::ShowCurrentMenu(int j)
@@ -268,7 +271,12 @@ void SceneView::OnMessage( Object* obj )
 	Integer* _int=(Integer*)obj;
 	switch(_int->getValue())
 	{
-
+	case msgToView_time:						//--时钟变化
+		timeConreolDral(_int);
+		break;
+	case msgToView_TimeCallBack:				//--时钟回调
+		timeCallBackDeal(_int);
+		break;
 	}
 }
 
@@ -391,12 +399,12 @@ void SceneView::OnBankerListAdd(Object *obj)
 		return;
 	}
 	DWORD dwUserID=pMsgDispatch->m_dwUserID;
-	bool bIsApply =m_gameTask->IsInApplyBankerList(dwUserID);
+	bool bIsApply =m_UpBankerList->IsInApplyBankerList(dwUserID);
 	if(!bIsApply)
 	{
-		vector<DWORD> v=m_gameTask->m_ApplyBankerList;
+		vector<DWORD> v=m_UpBankerList->m_ApplyBankerList;
 		v.push_back(dwUserID);
-	    m_gameTask->setData(v);
+	    m_UpBankerList->setData(v);
 	}
 }
 
@@ -406,7 +414,7 @@ void SceneView::OnBankerListDelete(Object *obj)
 	if(wChairID==INVALID_CHAIR)
 	{
 	   	vector<DWORD> v;
-	    m_gameTask->setData(v);
+	    m_UpBankerList->setData(v);
 		return;
 	}
 	CUserItem* pUserItem=(CUserItem*)EntityMgr::instance()->roomFrame()->getUserItemByChairID(wChairID);
@@ -415,10 +423,10 @@ void SceneView::OnBankerListDelete(Object *obj)
 		return;
 	}
 	DWORD dwUserID=pMsgDispatch->m_dwUserID;
-	bool bIsApply =m_gameTask->IsInApplyBankerList(dwUserID);
+	bool bIsApply =m_UpBankerList->IsInApplyBankerList(dwUserID);
 	if(bIsApply)
 	{
-		vector<DWORD> v=m_gameTask->m_ApplyBankerList;
+		vector<DWORD> v=m_UpBankerList->m_ApplyBankerList;
 		vector<DWORD>::iterator p=v.begin();
 		for(;p!=v.end();++p)
 		{
@@ -431,7 +439,7 @@ void SceneView::OnBankerListDelete(Object *obj)
 		{
 			vector<DWORD>::iterator vIt =v.erase(p);
 		}
-	    m_gameTask->setData(v);
+	    m_UpBankerList->setData(v);
 	}
 }
 
@@ -458,6 +466,7 @@ void SceneView::OnMeDownBanker(Object *obj)
 void SceneView::Strameobjet( Object *obj )
 {
 	int numbers = ((Integer *)obj)->getValue();
+	m_menuLayer->setTimer(1,Game_Start,numbers,true,0);
 }
 
 void SceneView::StrameNumberbjet( Object *obj )

@@ -121,5 +121,5 @@ void LoadingLayer::update(float dt)
 		pScene->addChild(layer);
 		TransitionFade *tScene = TransitionFade::create(0.5f, pScene, Color3B::WHITE);
 		Director::getInstance()->replaceScene(tScene);
-		layer->checkIfAutoLogin(0);	
+		///layer->checkIfAutoLogin(0);	
 }

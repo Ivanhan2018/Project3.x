@@ -26,6 +26,7 @@ typedef enum
 
 }DataType;
 
+// 3.x接收网络数据不崩了：MsgDispatch继承自Node，不继承自Ref
 class MsgDispatch : public BaseObject,Node
 {
 public:

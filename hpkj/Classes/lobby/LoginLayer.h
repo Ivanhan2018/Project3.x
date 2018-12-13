@@ -1,40 +1,50 @@
-ï»¿#ifndef __LOGINLAYER_H__
+#ifndef __LOGINLAYER_H__
 #define __LOGINLAYER_H__
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include"cocostudio/CocoStudio.h"
 #include "BaseObject.h"
-USING_NS_CC;
-//using namespace cocos2d;
-using namespace extension;
+using namespace cocos2d::extension;
 
-#define P_SCREEN								(Director::getInstance()->getWinSize())
+USING_NS_CC;
+#define P_SCREEN								(CCDirector::sharedDirector()->getWinSize())
 #define FRAME_CENTER_X       (P_SCREEN.width/2)
 #define FRAME_CENTER_Y       (P_SCREEN.height/2)
+
 #define GAP_X					30
 #define GAP_Y					30
+
 #define NOTICE_CENTER_X       (143+GAP_X)
 #define NOTICE_CENTER_Y       (201+GAP_Y)
 #define NOTICE_TEXT_CENTER_X       (50)
 #define NOTICE_TEXT_UP       (340)
+
 #define LOGIN_CENTER_X       (P_SCREEN.width-192-50)
 #define LOGIN_CENTER_Y       (145+110)
+
 #define REMEMBER_CENTER_X       (LOGIN_CENTER_X-90)
 #define REMEMBER_CENTER_Y       (LOGIN_CENTER_Y-10)
 #define AUTOMATIC_CENTER_X       (REMEMBER_CENTER_X+186)
 #define AUTOMATIC_CENTER_Y       (REMEMBER_CENTER_Y)
+
+// ÕÊºÅ
 #define ACCOUNT_CENTER_X        (LOGIN_CENTER_X-180)
 #define ACCOUNT_CENTER_Y        (LOGIN_CENTER_Y+105)
 #define ACCOUNT_TEXT_CENTER_X   (ACCOUNT_CENTER_X+80)
 #define ACCOUNT_TEXT_CENTER_Y   (ACCOUNT_CENTER_Y)
 #define TABLE_CENTER_X          (ACCOUNT_CENTER_X-60)
 #define TABLE_CENTER_Y          (ACCOUNT_CENTER_Y)
+
+// list button
 #define LIST_CENTER_X           (FRAME_CENTER_X+150)
 #define LIST_CENTER_Y           (FRAME_CENTER_Y-33)
+// ÃÜÂë
 #define PASSWORD_CENTER_X       (ACCOUNT_CENTER_X)
 #define PASSWORD_CENTER_Y       (289)
 #define PASSWORD_TEXT_CENTER_X  (ACCOUNT_TEXT_CENTER_X)
 #define PASSWORD_TEXT_CENTER_Y  (PASSWORD_CENTER_Y)
+
 #define LOGON_CENTER_X          (LOGIN_CENTER_X)
 #define LOGON_CENTER_Y          (LOGIN_CENTER_Y-75)
 #define REGISTER_CENTER_X       (LOGON_CENTER_X+100)
@@ -44,28 +54,33 @@ using namespace extension;
 
 typedef enum
 {
-	FLTAG_Zero				= 0,
-	FLTAG_AccountsTex		= 1,
-	FLTAG_PassWordTex		= 2,
-	FLTAG_TableView			= 3,
-	FLTAG_ClearAccountsBtn	= 4,
-	FLTAG_ClearPassWordBtn	= 5,
-	FLTAG_ListBtn			= 6,
-	FLTAG_LogonBtn			= 7,
-	FLTAG_RememberPW		= 8,
-	FLTAG_RememberLogon		= 9,
-	FLTAG_ACPWFont			= 10,
-	FLTAG_AUTOFont			= 11,
-	FLTAG_RememberPWYES		= 12,
-	FLTAG_RememberLogonYES	= 13,
+	//Ö÷
+	FLTAG_Zero				= 0,				//default
+	FLTAG_AccountsTex		= 1,				//ÕÊºÅ¿ò
+	FLTAG_PassWordTex		= 2,				//ÃÜÂë¿ò
+	FLTAG_TableView			= 3,				//ÕÊºÅÁĞ±ítable
+	FLTAG_ClearAccountsBtn	= 4,				//ÕÊºÅ°´Å¥x
+	FLTAG_ClearPassWordBtn	= 5,				//ÃÜÂë°´Å¥x
+	FLTAG_ListBtn			= 6,				//ÁĞ±í°´Å¥
+	FLTAG_LogonBtn			= 7,				//µÇÂ¼°´Å¥
+	FLTAG_RememberPW		= 8,				//¼Ç×¡ÃÜÂë°´Å¥
+	FLTAG_RememberLogon		= 9,				//×Ô¶¯µÇÂ¼°´Å¥
+	FLTAG_ACPWFont			= 10,				//¼Ç×¡ÃÜÂë×ÖÌå
+	FLTAG_AUTOFont			= 11,				//×Ô¶¯µÇÂ¼×ÖÌå
+	FLTAG_RememberPWYES		= 12,				//¼Ç×¡ÃÜÂëyes
+	FLTAG_RememberLogonYES	= 13,				//×Ô¶¯µÇÂ¼yes
+	
+	//×Ó
+	FLTAG_Viewbg			= 20,				//µ±Ç°±³¾°
+	FLTAG_Loadbg			= 21,				//µÇÂ¼±³¾°
 
-	FLTAG_Viewbg			= 20,
-	FLTAG_Loadbg			= 21,
+	TAG_USERLOGIN_LAYER=100,
 }FLTAG;
 
-class LoginLayer : public Layer
+class LoginLayer : public CCLayer, public cocos2d::ui::EditBoxDelegate//CCEditBoxDelegate
 {
-public: 
+public:
+    
     LoginLayer();
     ~LoginLayer();
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
@@ -74,53 +89,68 @@ public:
     //virtual void onEnter();
 
     // there's no 'id' in cpp, so we recommend to return the class instance pointer
-    static Scene* scene();
+    static cocos2d::CCScene* scene();
     
     // a selector callback
-    void checkIfAutoLogin(float dt);
+    
     virtual void onEnter();
     virtual void onExit();
-   
-    void onLogin(Object* obj);
-    void onRegist(Object * obj);
-    void GuestLogon(Object * obj);
-	void changePassWord(Object* obj);
-    void back(Object * obj);
-    void setIsfaildLogin(bool mIsFaildLogin);
-    void onAnsLoginFinish(Object* obj);
-    void onLoginFaild(Object* obj);
-    void onFindPassword(Object* obj);
+    
+    cocos2d::extension::EditBox * userInput;
+    cocos2d::extension::EditBox * passwordInput;
+    cocos2d::ui::EditBox   *m_pAccountEdit;
+    cocos2d::ui::EditBox   *m_pPasswordEdit;
+    // preprocessor macro for "static create()" constructor ( node() deprecated )
+    //CREATE_FUNC(LoginLayer);
+    void onLogin(CCObject* obj);								//µÇÂ½
+    void onRegist(CCObject * obj);								//×¢²á
+    void GuestLogon(CCObject * obj);							//ÕÒ»ØÃÜÂë
+	void changePassWord(CCObject* obj);							//ĞŞ¸ÄÃÜÂë
+    void back(CCObject * obj);									//·µ»Ø
+    void setIsfaildLogin(bool mIsFaildLogin);					//µÇÂ½Ê§°Ü
+    void onAnsLoginFinish(CCObject* obj);						//µÇÂ½Íê³É
+    void onLoginFaild(CCObject* obj);							//µÇÂ½Ê§°Ü
+    void onFindPassword(CCObject* obj);							//ÃÜÂëÕÒ»Ø
 	void setLogin(bool loginBool);
-    std::string createPassword();
+	void toFreeLayer(CCObject* obj);
+    //void setLogin(bool bLogin) { m_bLogin = bLogin; }  //ÉèÖÃÊÇ·ñÖ±½ÓµÇÂ½
     std::string createAccount();
+	std::string createPassword();
     static LoginLayer* create(bool bLogin = true)
     {
-		LoginLayer *pRet = new LoginLayer(); 
-		if (pRet && pRet->init(bLogin)) 
-		{ 
-			pRet->autorelease();
-			return pRet; 
-		} 
-		else
-		{ 
-			delete pRet;
-			pRet = NULL;
-			return NULL;
-		}
+        LoginLayer *pRet = new LoginLayer(); 
+        if (pRet && pRet->init(bLogin)) 
+        { 
+            pRet->autorelease();
+            return pRet; 
+        } 
+        else
+        { 
+            delete pRet;
+            pRet = NULL;
+            return NULL;
+        }
     }
-	// éœ€è¦åœ¨initä¸­è°ƒç”¨setKeyboardEnabled(true);æˆ–setKeypadEnabled(true);ï¼Œè¿™ä¸ªå›è°ƒæ‰å›æ‰§è¡Œ
-	virtual void onKeyReleased(EventKeyboard::KeyCode keycode, Event *event) override;
+	//virtual void keyBackClicked(void);					//ÊÖ»ú·µ»Ø°´Å¥
 	void setBoolFrom(bool b);
-private:
-	bool m_bLogin;
-	bool m_from;
 
-    EditBox * userInput;
-    EditBox * passwordInput;
-    Menu* m_pLoginMenu;
-    Menu* m_pRegisterMenu;
-	cocos2d::Size winSize;
-	MenuItemSprite * m_pDengluItemSprite;
+	void buttonEventWithUserLogin(Ref* target,cocos2d::ui::Widget::TouchEventType type);
+    void buttonEventWithUserLoginClose(Ref* target,cocos2d::ui::Widget::TouchEventType type);
+	void buttonEventWithLogin(Ref* target,cocos2d::ui::Widget::TouchEventType type);
+    void buttonEventWithVisitor(Ref* target,cocos2d::ui::Widget::TouchEventType type);
+    void buttonEventWithThirdPlatformLogin(Ref *ref,cocos2d::ui::Widget::TouchEventType type);
+
+    virtual void editBoxEditingDidBegin(EditBox* editBox) {};
+    virtual void editBoxEditingDidEnd(EditBox* editBox) {};
+    virtual void editBoxTextChanged(EditBox* editBox, const std::string& text) {};
+	virtual void editBoxReturn(EditBox* editBox){};
+private:
+    CCMenu* m_pLoginMenu;       //µÇÂ½
+    CCMenu* m_pRegisterMenu;    //×¢²á
+	CCSize winSize;
+	bool m_bLogin;
+	bool m_from; //ÅĞ¶ÏÊÇ´ÓÄÄ¸ö½çÃæ½øÈëµ½µÄµÇÂ½½çÃæ£¬Èç¹ûÊÇ´ÓÉèÖÃÀïµÄÇĞ»»½øÈë£¬Ôò·µ»Øµ½ÉèÖÃ½çÃæ£¬Èç¹ûÊÇ´Ó²Ëµ¥½çÃæ½øÈë£¬Ôò·µ»Øµ½´óÌü£¬Ä¬ÈÏÎªFALSE£¬´ÓÉèÖÃ½ø
+	CCMenuItemSprite * m_pDengluItemSprite;
 };
 
-#endif
+#endif // __HELLOWORLD_SCENE_H__

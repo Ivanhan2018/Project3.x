@@ -23,7 +23,8 @@ enum Game_State
 
 enum
 {
-	msgToview_TimeCallBack,						//--时间回调  Time 控制
+	msgToView_time,	
+	msgToView_TimeCallBack,						//--时间回调  Time 控制
 	msgToView_OnLine,								//--玩家在线提示
 	msgToView_Reconnect,						//--断线重连
 	msgToView_socketoffConnect,				//--网络断开自动重连

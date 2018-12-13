@@ -2,11 +2,12 @@
 #define __CC_SCENEVIEW_WUCAN_
 #include "cocos2d.h"
 #include "CardTableLayer.h"
+#include "ViewMenuLayer.h"
 #include "SetUpLayer.h"
 #include "DialogLayer.h"
 #include "SoundControl.h"
 
-#include "GameTaskCommon.h"
+#include "UpBankerList.h"
 
 USING_NS_CC;
 
@@ -65,8 +66,9 @@ private:
 
 	int longNumberuserInforID;   //庄家Id
 private:
+	CC_SYNTHESIZE(ViewMenuLayer *,m_menuLayer,MenuLayer);
     CC_SYNTHESIZE(int,m_currentMenu,CurrentMenu);//1申请上庄，2取消申请，3我要下庄
-	GameTaskCommon* m_gameTask;
+	UpBankerList* m_UpBankerList;
 	Layer * m_dialogLayer;
 
 	Menu * m_Menu1;

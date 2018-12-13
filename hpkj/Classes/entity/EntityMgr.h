@@ -41,5 +41,6 @@ private:
 };
 
 #define pMsgDispatch EntityMgr::instance()->getDispatch()
+#define pRoomFrame EntityMgr::instance()->roomFrame()
 
 #endif //__ENTITYMGR_H__

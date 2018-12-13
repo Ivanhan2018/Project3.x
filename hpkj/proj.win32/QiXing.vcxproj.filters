@@ -366,9 +366,6 @@
     <ClCompile Include="..\Classes\bjl\DialogLayer.cpp">
       <Filter>Classes\bjl</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\bjl\GameTaskCommon.cpp">
-      <Filter>Classes\bjl</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\bjl\JniControl.cpp">
       <Filter>Classes\bjl</Filter>
     </ClCompile>
@@ -407,6 +404,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\configMgr\TinyXmlReader.cpp">
       <Filter>Classes\configMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\bjl\ViewMenuLayer.cpp">
+      <Filter>Classes\bjl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\bjl\UpBankerList.cpp">
+      <Filter>Classes\bjl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\SceneBackDialogLayer.cpp">
+      <Filter>Classes\lobby</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -815,9 +821,6 @@
     <ClInclude Include="..\Classes\bjl\DialogLayer.h">
       <Filter>Classes\bjl</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\bjl\GameTaskCommon.h">
-      <Filter>Classes\bjl</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\bjl\JniControl.h">
       <Filter>Classes\bjl</Filter>
     </ClInclude>
@@ -862,6 +865,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\bjl\CMD_BJL.h">
       <Filter>Classes\bjl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\bjl\ViewMenuLayer.h">
+      <Filter>Classes\bjl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\bjl\UpBankerList.h">
+      <Filter>Classes\bjl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\SceneBackDialogLayer.h">
+      <Filter>Classes\lobby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

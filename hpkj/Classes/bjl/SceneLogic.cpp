@@ -5,7 +5,7 @@
 #include "BJLSceneControl.h"
 #include "TaskInfo.h"
 #include "utf-8.h"
-#include "GameTaskCommon.h"
+#include "UpBankerList.h"
 #include "GlobalUnits.h"
 #include "ConfigMgr.h"
 #include "CMD_BJL.h"
@@ -673,7 +673,7 @@ bool SceneLogic::onSubTipInfo( const void * pBuffer, WORD wDataSize )
 void SceneLogic::showMoveingLabelTips(const char* str)
 {
     MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(str,ccp(size.width * 0.5,size.height * 0.5));
-   this->addChild(layer,100);
+    this->addChild(layer,100);
 }
 
 //È¡Ïû×ö×¯

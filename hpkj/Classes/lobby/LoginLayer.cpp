@@ -1,36 +1,58 @@
-ï»¿#include "LoginLayer.h"
+#include "LoginLayer.h"
+#include "SimpleAudioEngine.h"
+#include "cocos-ext.h"
 #include "Login.h"
 #include "RoomLayer.h"
+#include "AnsString.h"
+#include "GBEvent.h"
+#include "GBEventIDs.h"
+#include "utf-8.h"
+#include "MyNSString.h"
 #include "ConfigMgr.h"
 #include "GroupSprite.h"
 #include "RegistLayer.h"
 #include "ModifyPassWord.h"
 #include "MovingLabelLayer.h"
+#include "RegistLayer.h"
 #include "RoomOption.h"
 #include "PromptBox.h"
-#include "SceneControl.h"
+#include "FreeLayer.h"
+#include "packet.h"
+#include "DBHandler.h"
+#include "SceneBackDialogLayer.h"
+
+using namespace cocos2d;
 using namespace CocosDenshion;
-Scene* LoginLayer::scene()
+using namespace cocos2d::extension;
+using namespace cocos2d::ui;
+
+CCScene* LoginLayer::scene()
 {
-	Scene *scene = Scene::create();
+	// 'scene' is an autorelease object
+	CCScene *scene = CCScene::create();
+
+	// 'layer' is an autorelease object
 	LoginLayer *layer = LoginLayer::create();
+
+	// add layer as a child to scene
 	scene->addChild(layer);
+
+	// return the scene
 	return scene;
 }
 
 LoginLayer::LoginLayer()
 {
-	NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(LoginLayer::onAnsLoginFinish), MSG_UI_ANS_LOGINFINISH, NULL);
-	NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(LoginLayer::onLoginFaild), MSG_UI_ANS_LOGINFAIL, NULL);
-	NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(LoginLayer::onFindPassword), MSG_UI_ANS_FINDPASS, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(LoginLayer::onAnsLoginFinish), MSG_UI_ANS_LOGINFINISH, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(LoginLayer::onLoginFaild), MSG_UI_ANS_LOGINFAIL, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(LoginLayer::onFindPassword), MSG_UI_ANS_FINDPASS, NULL);
 }
+
 LoginLayer::~LoginLayer()
 {
-	NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_LOGINFINISH);
-	NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_LOGINFAIL);
-	NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_FINDPASS);
-    
-    this->unschedule(schedule_selector(LoginLayer::checkIfAutoLogin));
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_LOGINFINISH);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_LOGINFAIL);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_FINDPASS);
 }
 
 void LoginLayer::setLogin(bool loginBool)
@@ -38,175 +60,75 @@ void LoginLayer::setLogin(bool loginBool)
 	m_bLogin = loginBool;
 }
 
+// on "init" you need to initialize your instance
 bool LoginLayer::init(bool bLogin)
 {
-	if (!Layer::init())
+	//////////////////////////////
+	// 1. super init first
+	if ( !CCLayer::init() )
 	{
 		return false;
 	}
-
-	winSize = Director::getInstance()->getWinSize();
+	EntityMgr::instance();
+	winSize = CCDirector::sharedDirector()->getWinSize();
 	m_bLogin = true;
 	m_from = false;
 
-	LayerColor* layer = LayerColor::create(ccc4(255, 255, 255, 255), SCREEN_WIDTH, SCREEN_HEIGHT);
-	layer->ignoreAnchorPointForPosition(false);
-	layer->setPosition(Vec2(winSize.width*0.5,winSize.height*0.5));
-	this->addChild(layer);
-	Sprite *logoing = Sprite::createWithSpriteFrame(spriteFrame("beark.png"));
-	logoing->setPosition(Vec2(winSize.width*0.5,winSize.height*0.5));
-	this->addChild(logoing,0);
+	auto rootNode=CSLoader::createNode("logon/Login.csb");
+	rootNode->setScale(winSize.width/ rootNode->getContentSize().width, winSize.height/ rootNode->getContentSize().height);
+	this->addChild(rootNode);
 
-	Sprite *pLogo = Sprite::createWithSpriteFrame(spriteFrame("login_02.png"));
-	if (pLogo)
-	{
-		pLogo->setAnchorPoint(Vec2(0, 1));
-		pLogo->setPosition(Vec2(winSize.width*0.5 - pLogo->getContentSize().width / 2, winSize.height-100));
-		this->addChild(pLogo, 0);
-	}
-	
-	float fontSize = 45;
+	//ÆÕÍ¨µÇÂ¼
+	auto userlogon=reinterpret_cast<Button*>(rootNode->getChildByName("Button_1"));
+	userlogon->addTouchEventListener(CC_CALLBACK_2(LoginLayer::buttonEventWithUserLogin, this));
 
-	float delta1 = 25;
-	float delta2 = 20;
-	float delta3 = 30;
-	Sprite *m_pAccountsBk = Sprite::createWithSpriteFrame(spriteFrame("home_05.png"));
-	m_pAccountsBk->setPosition(Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT - 120 - pLogo->getContentSize().height - delta1));
-	m_pAccountsBk->setAnchorPoint(Vec2(0.5f,1));
-	this->addChild(m_pAccountsBk,0);
+	//ÓÎ¿ÍµÇÂ¼
+	auto visitor=reinterpret_cast<Button*>(rootNode->getChildByName("Button_2"));
+	visitor->addTouchEventListener(CC_CALLBACK_2(LoginLayer::buttonEventWithVisitor, this));
 
-	Sprite *m_pPassWordBk = Sprite::createWithSpriteFrame(spriteFrame("home_05.png"));
-	m_pPassWordBk->setPosition(Vec2(SCREEN_WIDTH/2, m_pAccountsBk->getPositionY() -	m_pAccountsBk->getContentSize().height-delta2));
-	m_pPassWordBk->setAnchorPoint(Vec2(0.5f,1));
-	this->addChild(m_pPassWordBk,0);
+	//µÚÈý·½µÇÂ¼
+	auto thirdPlatform=reinterpret_cast<Button*>(rootNode->getChildByName("Button_3"));
+	thirdPlatform->addTouchEventListener(CC_CALLBACK_2(LoginLayer::buttonEventWithThirdPlatformLogin, this));
 
-	float accountStartX = SCREEN_WIDTH /2- m_pAccountsBk->getContentSize().width / 2 + 4;
-	Sprite *accountsTitle =  Sprite::createWithSpriteFrame(spriteFrame("home_07.png"));
-	accountsTitle->setPosition(Vec2(accountStartX+10, m_pAccountsBk->getPositionY()-m_pAccountsBk->getContentSize().height/2));
-	accountsTitle->setColor(ccc3(0,0,0));
-	accountsTitle->setAnchorPoint(Vec2(0,0.5f));
-	this->addChild(accountsTitle, 0);
-
-	Sprite *passwordTitle =  Sprite::createWithSpriteFrame(spriteFrame("home_08.png"));
-	passwordTitle->setPosition(Vec2(accountStartX+10, m_pPassWordBk->getPositionY()-m_pPassWordBk->getContentSize().height/2));
-	passwordTitle->setColor(ccc3(0,0,0));
-	passwordTitle->setAnchorPoint(Vec2(0,0.5f));
-	this->addChild(passwordTitle, 0);	
-
-	fontSize = 50;
-	int placeHolderFontSize = 45;
-	float passwordInputStartX = accountStartX+50;
-	float passwordInputWidth = SCREEN_WIDTH - passwordInputStartX - (SCREEN_WIDTH/2 - m_pAccountsBk->getContentSize().width / 2);
-
-	passwordInput = EditBox::create(cocos2d::Size(passwordInputWidth,60), Scale9Sprite::create());
-	passwordInput->setPosition(Vec2(passwordInputStartX, passwordTitle->getPositionY()));
-	passwordInput->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
-	passwordInput->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
-	passwordInput->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);//å¯ä»¥è¾“å…¥ä»»ä½•ï¼Œä½†æ˜¯ä¸åŒ…æ‹¬æ¢è¡Œ
-	passwordInput->setMaxLength(20);
-	passwordInput->setAnchorPoint(Vec2(0,0.5f));
-	passwordInput->setFontColor(ccc3(0,0,0));
-	passwordInput->setFontSize(placeHolderFontSize);
-	passwordInput->setColor(ccc3(112,112,112));
-	passwordInput->setPlaceHolder(pConfigMgr->text("display_text.xml", "t5"));
-	passwordInput->setPlaceholderFontColor(ccc3(160,160,160));
-	passwordInput->setPlaceholderFontSize(placeHolderFontSize);
-
-	userInput = EditBox::create(cocos2d::Size(passwordInputWidth,60), Scale9Sprite::create());
-	userInput->setPosition(Vec2(passwordInputStartX, accountsTitle->getPositionY()));
-	userInput->setTag(FLTAG_AccountsTex);
-	userInput->setInputFlag(ui::EditBox::InputFlag::SENSITIVE);
-	userInput->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
-	userInput->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);//å¯ä»¥è¾“å…¥ä»»ä½•ï¼Œä½†æ˜¯ä¸åŒ…æ‹¬æ¢è¡Œ
-	userInput->setAnchorPoint(Vec2(0,0.5f));
-	userInput->setFontColor(ccc3(0,0,0));
-	userInput->setFontSize(placeHolderFontSize);
-	userInput->setColor(ccc3(112,112,112));
-	userInput->setPlaceHolder(pConfigMgr->text("display_text.xml", "t4"));
-	userInput->setPlaceholderFontColor(ccc3(160,160,160));
-	userInput->setPlaceholderFontSize(placeHolderFontSize);
-
-	this->addChild(userInput);
-	this->addChild(passwordInput);
-
-	Sprite * denglNormalSprite = Sprite::createWithSpriteFrame(spriteFrame("home_03.png"));
-	Sprite * denglSelectSprite = Sprite::createWithSpriteFrame(spriteFrame("home_06.png"));
-	Sprite * denglDisSprite = Sprite::createWithSpriteFrame(spriteFrame("home_03.png"));
-	denglDisSprite->setColor(ccc3(100,100,100));
-	m_pDengluItemSprite = MenuItemSprite::create(denglNormalSprite, denglSelectSprite,denglDisSprite, CC_CALLBACK_1(LoginLayer::onLogin,this));
-	m_pLoginMenu = Menu::create(m_pDengluItemSprite,NULL);
-	m_pLoginMenu->setPosition(Vec2(SCREEN_WIDTH/2, m_pPassWordBk->getPositionY() - m_pPassWordBk->getContentSize().height -
-	denglNormalSprite->getContentSize().height/2-delta3));
-	this->addChild(m_pLoginMenu);
-
-	Sprite * registNormalSprite = Sprite::createWithSpriteFrame(spriteFrame("login_05.png"));
-	Sprite * registSelectSprite = Sprite::createWithSpriteFrame(spriteFrame("login_05.png"));
-	Sprite* guestNormal = Sprite::createWithSpriteFrame(spriteFrame("login_07.png"));
-	Sprite* guestSelect = Sprite::createWithSpriteFrame(spriteFrame("login_08.png"));
-	MenuItemSprite*regist = MenuItemSprite::create(registNormalSprite,registSelectSprite, CC_CALLBACK_1(LoginLayer::onRegist,this));
-	regist->setPosition(SCREEN_WIDTH/2, m_pLoginMenu->getPositionY() - denglNormalSprite->getContentSize().height - delta2);
-	m_pRegisterMenu = Menu::create(regist,NULL);
-	m_pRegisterMenu->setPosition(Vec2(5, registNormalSprite->getPositionY()-delta2));
-	this->addChild(m_pRegisterMenu);
-
-	std::string userAccount = UserDefault::getInstance()->getStringForKey("NEWZJD_ACCOUNT");
-	std::string userPassword = UserDefault::getInstance()->getStringForKey("NEWZJD_PASSWORD");
-    bool auto_login = UserDefault::getInstance()->getBoolForKey("AUTO_LOGIN", false);
-	if(userAccount.length() > 1 &&userPassword.length() > 1)
-	{
-		userInput->setText(userAccount.c_str());
-		passwordInput->setText(userPassword.c_str());
-	}
-
-	this->setKeypadEnabled(true);
+	setKeypadEnabled(true);
 
 	if (!bLogin)
 	{
 		return  true;
 	}
-	return true;
-}
 
-void LoginLayer::checkIfAutoLogin(float dt)
-{
-    bool auto_login = UserDefault::getInstance()->getBoolForKey("AUTO_LOGIN", false);
-    if (auto_login == true) {
-        this->unschedule(schedule_selector(LoginLayer::checkIfAutoLogin));
-        this->onLogin(NULL);
-        UserDefault::getInstance()->setBoolForKey("AUTO_LOGIN", false);
-    }
+	return true;
 }
 
 void LoginLayer::onEnter()
 {
-    Layer::onEnter();
+	CCLayer::onEnter();
 }
 void LoginLayer::onExit()
 {
-	Layer::onExit();
+	CCLayer::onExit();
 }
-void LoginLayer::onLoginFaild(Object* obj)
+void LoginLayer::onLoginFaild(CCObject* obj)
 {
-	m_pDengluItemSprite->setEnabled(true);
-	CCLOG("login faied");
-	PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptpasswordUsed);
-	this->addChild(box,100);
+	CCLOG("login failed");
+	PromptBox* box = PromptBox::PromptBoxWith(CCPointMake(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeLoginFaild);
+	addChild(box,100);
 }
 void LoginLayer::setIsfaildLogin(bool mIsFaildLogin)
 {
 
 }
-void LoginLayer::onRegist(Object *obj)
+void LoginLayer::onRegist(cocos2d::CCObject *obj)
 {
 	playButtonSound();
-	Scene* scene = Scene::create();
+	CCScene* scene = CCScene::create();
 	RegistLayer * pRegisterLayer = RegistLayer::create();
 	pRegisterLayer->setRegistLayerFrom(1);
 	scene->addChild(pRegisterLayer);
-	Director::getInstance()->replaceScene(scene);
+	CCDirector::sharedDirector()->replaceScene(scene);
 }
 
-void LoginLayer::onLogin(Object *obj)
+void LoginLayer::onLogin(cocos2d::CCObject *obj)
 {
 	CCLOG("onLogin");
 	playButtonSound();
@@ -214,20 +136,18 @@ void LoginLayer::onLogin(Object *obj)
 	char* user = const_cast<char*>( userInput->getText());
 	char* password = const_cast<char*>(passwordInput->getText());
 
-
-
-    if(strlen(user) == 0)
+	if(strlen(user) == 0)
 	{
-		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(pConfigMgr->text("t36"),Vec2(winSize.width * 0.5,winSize.height * 0.5));
-		this->addChild(layer);
+		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t36"),ccp(winSize.width * 0.5,winSize.height * 0.5));
+		addChild(layer);
 		return;
 	}
 
-	bool bRet = pMsgDispatch->connectLoginServer();
+	bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
 	if (!bRet)
 	{
-		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(pConfigMgr->text("t26"),Vec2(winSize.width * 0.5,winSize.height * 0.5));
-		this->addChild(layer);
+		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t26"),ccp(winSize.width * 0.5,winSize.height * 0.5));
+		addChild(layer);
 		return;
 	}
 	else
@@ -235,61 +155,255 @@ void LoginLayer::onLogin(Object *obj)
 		EntityMgr::instance()->login()->setUserLogin(user, password);
 	}
 }
-void LoginLayer::GuestLogon(Object *obj)
+void LoginLayer::GuestLogon(cocos2d::CCObject *obj)
 {
-
+	playButtonSound();
+	bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
+	if (!bRet)
+	{
+		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t26"),ccp(winSize.width * 0.5,winSize.height * 0.5));
+		addChild(layer);
+		return;
+	}
+	else
+	{
+		EntityMgr::instance()->login()->setUserRegister(createAccount().c_str(), createPassword().c_str(),0,1,0);
+	}
 }
 
 void LoginLayer::setBoolFrom(bool b){
 	m_from = b;
 }
 
-void LoginLayer::back(Object *obj)
+void LoginLayer::buttonEventWithUserLogin(Ref* target,cocos2d::ui::Widget::TouchEventType type)
+{
+    if(type==Widget::TouchEventType::ENDED){
+        
+        {
+            auto layout = Layout::create();
+            layout->setContentSize(winSize);
+            layout->setTag(TAG_USERLOGIN_LAYER);
+            this->addChild(layout);
+            
+            auto rootNode=CSLoader::createNode("logon/UserLogon.csb");
+            rootNode->setPosition(winSize/2);
+            layout->addChild(rootNode);
+            
+            //°ó¶¨µÇÂ¼»Øµ÷
+            Button* loginBtn = static_cast<Button*>(rootNode->getChildByName("logon_menu"));
+            loginBtn->addTouchEventListener(CC_CALLBACK_2(LoginLayer::buttonEventWithLogin, this));
+            
+            //°ó¶¨¹Ø±Õ°´Å¥
+            Button* closeBtn = static_cast<Button*>(rootNode->getChildByName("close_menu"));
+            closeBtn->addTouchEventListener(CC_CALLBACK_2(LoginLayer::buttonEventWithUserLoginClose, this));
+            
+            //°ó¶¨×¢²á°´Å¥
+            Button* InsetBtn = static_cast<Button*>(rootNode->getChildByName("insert_menu"));
+            //InsetBtn->addTouchEventListener(CC_CALLBACK_2(LoginLayer::buttonEventWithRegist, this));
+            
+            //ÕÊºÅEditBox
+            auto account = static_cast<Sprite*>(rootNode->getChildByName("inputeidtbox_5"));
+            m_pAccountEdit = ui::EditBox::create(cocos2d::Size(370, 58), "");
+			m_pAccountEdit->setInputFlag(ui::EditBox::InputFlag::INITIAL_CAPS_SENTENCE);
+            m_pAccountEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
+            m_pAccountEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
+            m_pAccountEdit->setPosition(cocos2d::Point(account->getPositionX()-account->getContentSize().width/2, account->getPositionY()));
+            m_pAccountEdit->setMaxLength(LEN_ACCOUNTS);
+            m_pAccountEdit->setFontSize(26);
+            m_pAccountEdit->setPlaceholderFontColor(Color3B::BLACK);
+            m_pAccountEdit->setPlaceHolder(G2U("ÇëÊäÈëÄúµÄÓÎÏ·ÕÊºÅ"));
+            m_pAccountEdit->setFontColor(Color3B::BLACK);
+            rootNode->addChild(m_pAccountEdit);
+            
+            //ÃÜÂëEditBox
+            auto password =static_cast<Sprite*>(rootNode->getChildByName("inputeidtbox_6"));
+            m_pPasswordEdit = ui::EditBox::create(cocos2d::Size(370, 58), "");
+            m_pPasswordEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
+            m_pPasswordEdit->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
+            m_pPasswordEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
+            m_pPasswordEdit->setPosition(cocos2d::Point(password->getPositionX()-password->getContentSize().width/2, password->getPositionY()));
+            m_pPasswordEdit->setFontSize(26);
+            m_pPasswordEdit->setPlaceholderFontColor(cocos2d::Color3B(214,246,255));
+            m_pPasswordEdit->setPlaceHolder(G2U("ÇëÊäÈëÄúµÄÓÎÏ·ÃÜÂë"));
+            m_pPasswordEdit->setFontColor(Color3B::BLACK);
+            m_pPasswordEdit->setMaxLength(LEN_PASSWORD);
+            rootNode->addChild(m_pPasswordEdit);
+        }
+        
+    }
+}
+
+void LoginLayer::buttonEventWithUserLoginClose(Ref* target,cocos2d::ui::Widget::TouchEventType type)
+{
+    auto node=reinterpret_cast<Node*>(this->getChildByTag(TAG_USERLOGIN_LAYER));
+    node->removeFromParent();
+}
+
+//µÇÂ¼
+void LoginLayer::buttonEventWithLogin(Ref* target,cocos2d::ui::Widget::TouchEventType type)
+{
+     if(type == cocos2d::ui::Widget::TouchEventType::ENDED)
+     {     
+         std::string account = std::string(m_pAccountEdit->getText());
+         std::string password = std::string(m_pPasswordEdit->getText());
+ 
+		 bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
+		 if (!bRet)
+		 {
+			 MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t26"),ccp(winSize.width * 0.5,winSize.height * 0.5));
+			 addChild(layer);
+			 return;
+		 }
+		 else
+		 {
+			 EntityMgr::instance()->login()->setUserLogin(account, password);
+		 }
+         
+     }
+}
+
+//ÓÎ¿ÍµÇÂ¼
+void LoginLayer::buttonEventWithVisitor(Ref* target,cocos2d::ui::Widget::TouchEventType type)
+{
+    if (type == Widget::TouchEventType::ENDED)
+    { 
+        	CCNode *pNode=getChildByTag(331);
+			if(pNode)
+			{
+				pNode->setVisible(true);
+			}
+			else
+			{
+				auto pLayer = SceneBackDialogLayer::create(1.0f);
+				pLayer->setPosition((SCREEN_WIDTH-pLayer->getContentSize().width)/2, (SCREEN_HEIGHT-pLayer->getContentSize().height)/2);
+				pLayer->setTag(331);
+				this->addChild(pLayer);
+			}
+    }
+}
+
+//MARK::°´Å¥»Øµ÷
+void LoginLayer::buttonEventWithThirdPlatformLogin(cocos2d::Ref *ref, cocos2d::ui::Widget::TouchEventType type)
+{
+    
+    //vx login
+    
+    //ios login
+#if(CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+    
+#endif
+    //android login
+#if(CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID)
+    
+#endif
+    
+    return;
+    
+    if (type == Widget::TouchEventType::ENDED)
+    {
+        
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
+        UMSocialSnsPlatform *snsplatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+        snsplatform.loginClickHandler(pApp.viewController, [UMSocialControllerService defaultControllerService], YES, ^(UMSocialResponseEntity *response){
+            [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *response) {
+                 if (response.responseCode == UMSResponseCodeSuccess) {
+                 NSMutableDictionary *ptest = [[response.data objectForKey:@"accounts"] objectForKey:UMShareToSina ];
+                 if (!ptest)
+                 {
+                    return;
+                 }
+                 //Í·Ïñurl
+                HallDataMgr::getInstance()->m_MethodHeadUrl = [[ptest objectForKey:@"icon"] UTF8String];
+                 //ÓÃ»§êÇ³Æ
+                HallDataMgr::getInstance()->m_pNickName = [[ptest objectForKey:@"username"] UTF8String];
+                HallDataMgr::getInstance()->m_cbGender = [[ptest objectForKey:@"gender"] intValue];
+                 
+                 //ÉèÖÃÓÃ»§ÐÅÏ¢
+                 HallDataMgr::getInstance()->m_pPassword = "21218CCA77804D2BA1922C33E0151105";
+                 HallDataMgr::getInstance()->m_pAccounts = [[ptest objectForKey:@"usid"] UTF8String];
+                 //ÐÔ±ð  Å®0 ÄÐ1
+                 HallDataMgr::getInstance()->m_loadtype = Load_Sina;
+                 this->loadLoading();    
+                 NetworkMgr::getInstance()->sendMethodLogin(PLATFORM_Sina);
+                     
+         
+                 }
+                 else
+                 {
+                    log("%s_%d", "µÚÈý·½µÇÂ¼Ê§°Ü", response.responseCode);
+                 }
+             }];
+        });
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        DebugLog("µÚÈý·½µÇÂ¼");
+        JniMethodInfo minfo;
+        jobject jobj;
+        bool isHave = JniHelper::getStaticMethodInfo(minfo, "org/cocos2dx/cpp/AppActivity","sinalogin","()V");
+        if (isHave)
+        {
+            minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID);
+            minfo.env->DeleteLocalRef(minfo.classID);
+        }
+        DebugLog("µÚÈý·½µÇÂ¼");
+#endif
+     }
+}
+
+void LoginLayer::back(cocos2d::CCObject *obj)
 {
 	playButtonSound();
-	Director::getInstance()->end();
+	if(m_bLogin)
+	{
+		if(!m_from)
+		{
+			RoomOption* option = RoomOption::create();
+			CCScene* pScene = CCScene::create();
+			pScene->addChild(option);
+			CCDirector::sharedDirector()->replaceScene(pScene);
+		}else{
+			RoomLayer *pRoomLayer = RoomLayer::create();
+			pRoomLayer->automaticLogin(false);
+			CCScene* pScene = CCScene::create();
+			pScene->addChild(pRoomLayer);
+			CCDirector::sharedDirector()->replaceScene(pScene);
+
+		}
+	}
+	else
+	{
+		CCDirector::sharedDirector()->end();
+	}
 }
 
-void LoginLayer::onKeyReleased(EventKeyboard::KeyCode keycode, Event *event)
+void LoginLayer::onAnsLoginFinish(CCObject* obj)
 {
-	if (keycode == EventKeyboard::KeyCode::KEY_BACK)  //è¿”å›ž
-	{
-		back(NULL);
-	}
-	if (keycode == EventKeyboard::KeyCode::KEY_F1)
-	{
-		onAnsLoginFinish(NULL);
-	}
-}
-
-void LoginLayer::onAnsLoginFinish(Object* obj)
-{
-	m_pDengluItemSprite->setEnabled(true);
 	RoomLayer* layer = RoomLayer::create();
 	layer->automaticLogin(false);
-	Scene* scene = Scene::create();
+	CCScene* scene = CCScene::create();
 	scene->addChild(layer);
-	Director::getInstance()->replaceScene(SceneControl::sharedSceneControl()->getScene(scene));
+	CCDirector::sharedDirector()->replaceScene(scene);
 }
 
-void LoginLayer::onFindPassword(Object* obj)
+void LoginLayer::onFindPassword(CCObject* obj)
 {
 	playButtonSound();
 	tagGetPassObj* pObj = (tagGetPassObj*)obj;
 	CCLOG((const char*)pObj->szErrorDescribe);
-	if(pObj->lErrCode == 0)
+	if(pObj->lErrCode == 0)  //³É¹¦
 	{
-		PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypePasswordFind);
-		box->setPromptText(String::createWithFormat("%s%s",pConfigMgr->text("t164"),pObj->szPassword)->getCString());
-		this->addChild(box,30);
-		UserDefault::getInstance()->setStringForKey("NEWZJD_PASSWORD",pObj->szPassword);
+		PromptBox* box = PromptBox::PromptBoxWith(ccp(winSize.width * 0.5,winSize.height * 0.5),mPromptTypePasswordFind);
+		box->setPromptText(CCString::createWithFormat("%s%s",ConfigMgr::instance()->text("t164"),pObj->szPassword)->getCString());
+		addChild(box,30);
+		cocos2d::CCUserDefault::sharedUserDefault()->setStringForKey("NEWZJD_PASSWORD",pObj->szPassword);
 		passwordInput->cleanup();
 		passwordInput->setText(pObj->szPassword);
 
 	}else
 	{
-		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(String::createWithFormat("%s",(const char*)pObj->szErrorDescribe)->getCString(),Vec2(winSize.width * 0.5,winSize.height * 0.5));
-		this->addChild(layer);
+		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(CCString::createWithFormat("%s",(const char*)pObj->szErrorDescribe)->getCString(),ccp(winSize.width * 0.5,winSize.height * 0.5));
+		addChild(layer);
 	}
 
 	userInput->setTouchEnabled(true);
@@ -298,50 +412,56 @@ void LoginLayer::onFindPassword(Object* obj)
 	m_pRegisterMenu->setTouchEnabled(true);
 }
 
-void LoginLayer::changePassWord(Object* obj)
+void LoginLayer::changePassWord(CCObject* obj)
 {
 	playButtonSound();
 	if(m_bLogin)
 	{
-		Director::getInstance()->replaceScene(ModifyPassWord::scene());
+		CCDirector::sharedDirector()->replaceScene(ModifyPassWord::scene());
 	}
 	else
 	{
-		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(pConfigMgr->text("t455"), Vec2(427, SCREEN_WIDTH/2));
-		this->addChild(layer);
+		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t455"),ccp(427,240));
+		addChild(layer);
 	}
 
 }
+void LoginLayer::toFreeLayer(CCObject* obj){
+	playButtonSound();
+	if(m_bLogin)
+	{
+		CCDirector::sharedDirector()->replaceScene(FreeLayer::scene());
+	}
+}
 
-std::string LoginLayer::createAccount()
+string LoginLayer::createAccount()
 {
 	string szAccount;
 	int t = 0;
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < 4; i++)
 	{
-		//t = rand() % 2 ? 65 : 97;
 		t = 97;
 		t += rand() % 26;
 		szAccount += (char)t;
-        
+
 	}
-    
+
 	for (int i = 0; i < 4; i++)
 	{
 		t = rand() % 10;
 		szAccount +=  ans::AnsString::int2String(t);
-        
+
 	}
 	return  szAccount;
 }
 
-std::string LoginLayer::createPassword()
+string LoginLayer::createPassword()
 {
 	string szPassword;
 	int t = 0;
 	srand((unsigned)time(NULL));
-    
+
 	for (int i = 0; i < 6; i++)
 	{
 		t = rand() % 10;

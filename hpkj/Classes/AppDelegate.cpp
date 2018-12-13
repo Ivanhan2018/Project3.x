@@ -70,6 +70,11 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
 
 	std::string wFile = CCFileUtils::sharedFileUtils()->getWritablePath();
+	FileUtils::getInstance()->addSearchPath("SceneBackDialog/");
+	FileUtils::getInstance()->addSearchPath("logon/");
+	FileUtils::getInstance()->addSearchPath("PlazzScene_Src/");
+	FileUtils::getInstance()->addSearchPath("plaza/");
+
 	FileUtils::getInstance()->addSearchPath("res/");
 	FileUtils::getInstance()->addSearchPath("res1/");
 	FileUtils::getInstance()->addSearchPath(wFile);
@@ -104,7 +109,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	//Scene *pScene = RoomLayer::scene();
 	//auto pScene = ScenePlaza::createScene();//MyRoomLayer
-	auto pScene = LoginLayer::scene();
+	//auto pScene = LoginLayer::scene();
+	CCScene *pScene = LoadingLayer::scene();
 	director->runWithScene(pScene);
 
 	return true;

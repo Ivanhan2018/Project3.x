@@ -436,6 +436,13 @@ int MyNSString::UTF8ToGBK(string &gbkStr)
 	return 0;
 }
 
+string MyNSString::GBK2UTF8(const char* src)
+{
+	string str=src;
+	GBKToUTF8(str);
+	return str;
+}
+
 int MyNSString::wc2mbs(TCHART *wc,unsigned int wc_size,char *mbs)  
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

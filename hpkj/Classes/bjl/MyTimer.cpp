@@ -95,7 +95,7 @@ void MyTimer::time_schedule(float t)
 		m_nikeSprite->setVisible(false);
 		if (m_UserID ==1)
 		{
-			CCtimeCallBack* _callBackData=CCtimeCallBack::create(msgToview_TimeCallBack);
+			CCtimeCallBack* _callBackData=CCtimeCallBack::create(msgToView_TimeCallBack);
 			_callBackData->m_gameState =m_gameState;
 			_callBackData->m_timeKey =m_timeKey;
 			NotificationCenter::getInstance()->postNotification(MESSAGE_TOVIEW,_callBackData);
