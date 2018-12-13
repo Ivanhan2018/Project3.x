@@ -1,9 +1,19 @@
-ï»¿#ifndef __Game__roomLayer__
-#define __Game__roomLayer__
+//
+//  roomLayer.h
+//  Game
+//
+//  Created by zhouwei on 13-6-17.
+//
+//
+
+#ifndef __Game1__roomLayer__
+#define __Game1__roomLayer__
 
 #include <iostream>
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
 #include "MenuLayer.h"
 #include "WarningLayer.h"
 #include "BaseLayer.h"
@@ -12,16 +22,31 @@
 #include "PromptBox.h"
 #include "FMGameItemLayer.h"
 
-#include "cocostudio/CocoStudio.h"
-#include "ui/UIHelper.h"
 
-#define MASKD_TAG 20
-#define MASKDMENU_TAG 21
-#define PAIDUI_TAG 22
-#define LOTTERY_KIND_SPRITE_TAG 9527
+#define MASKD_TAG 20          //ÂíÉÏ¿ª´ò°´Å¥µÄTAG
+#define MASKDMENU_TAG 21      //ÂíÉÏ¿ª´ò¶¯»­Ğ§¹ûTAG
+#define PAIDUI_TAG 22         //ÅÅ¶Ó¾«ÁéTAG
 
-USING_NS_CC;
-USING_NS_CC_EXT;
+//class RoomUserInfo;
+//class LevelInfo;
+//class PopFrame;
+//class tableViewLayer;
+
+enum ROOM_TYPE
+{
+	ROOM_TYPE_Super = 0,
+	ROOM_TYPE_Seniy,
+	ROOM_TYPE_Middle,
+	ROOM_TYPE_Primary
+	
+};
+
+enum ROOM_LAYER_LEVEL
+{
+	ROOM_LAYER_LEVEL_HOBBY,
+	ROOM_LAYER_LEVEL_GAMETYPE,
+	ROOM_LAYER_LEVEL_GAMEROOM
+};
 
 class RoomLayer : public BaseLayer
 {
@@ -30,75 +55,153 @@ public:
     virtual bool init();
     
     // there's no 'id' in cpp, so we recommend to return the class instance pointer
-    static Scene* scene();
-     
+    static cocos2d::CCScene* scene();
+    
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(RoomLayer);
     
     virtual void onEnter();
-    virtual void onExit();   
-
+    virtual void onExit();
+    //virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent){return true;};//3.xÖĞÎŞ·¨ÖØĞ´finalº¯Êı
     RoomLayer();
     ~RoomLayer();
 public:
-    //setting menu
-    void setting(Object* obj);
-    //player infomation menu
-    void showPlayerInformation(Object *obj);
-    //bottom menu
-    void toRoom(Object* obj);
-    void toGamble(Object* obj);
-    void toRecord(Object* obj);
-    void toMyLottery(Object* obj);
-	void toGame(Object* obj);
-	void toLottery(Object* obj);
-	void toPhysic(Object* obj);
-	void sendHttpRequest();
-	//è·å¾—ç½‘ç»œæ•°æ®
-	void onHttpRequestCompleted(Node *sender, void *data);
-    void automaticLogin(bool automatic,bool overResgist = false);
-    void onLoginFinish(Object *obj);
-    void onLoginFaild(Object* obj);
-    string createAccount();
-    string createPassword();
-    void onRegistSucc(Object* obj);	
-    void onRegisterFaild(Object* obj);
-	virtual void onKeyReleased(EventKeyboard::KeyCode keycode, Event *event);
-    void onlandcardResult(Object* obj);
-    void onPhoneCardResult(Object* obj); 
-    void onLinkResult(Object* obj);
-    void showLoginAward();
-    void closeLoginAward();
-    void permitButtonClick();
-    void forbidButtonClick();
-    void showMoveingLabelTips(const char* str);
-    void onChange(Object* obj);
-    void onPesent(Object* obj);
-    void setGoingRoomLayer();
-    void gameToBankrupt(bool isBankrupt);
-    void showDailyGetCoins(Object* obj);
-    void showDailyGetCoinsResult(Object* obj);
-    void updateArticle(Object *obj);
-	void getSystemTime(float dt);
-	void pressKindButton(int tag);
-	void resetSelect();//é‡ç½®æŒ‰é’®
-	void refreshLayer();
-	void btnCallBack(Ref * pSender, cocos2d::ui::Widget::TouchEventType type,int tag);//æŒ‰é’®å›è°ƒ
+	//Ìí¼ÓÓÎÏ·ÁĞ±í
+	void addGameList(Node * node);
+    //¸ù¾İkindid´´½¨ÓÎÏ·Í¼±ê
+    cocos2d::ui::Widget* initOneListByKind(const int &nKind);
+    void loadingGame(int game);
+	void buttonEventWithTouchUser(Ref* target,cocos2d::ui::Widget::TouchEventType type);
+
+	void toMenu(CCObject* obj);							//²Ëµ¥
+	void rechangeLittleButton(CCObject* obj);			//³å½ğ±ÒĞ¡°´Å¥
+	void huodong(CCObject * obj);						//»î¶¯
+	void geTCHARge(CCObject * obj);                     //Áì»°·Ñ
+	void onStart(ROOM_TYPE index);               //ÂíÉÏ¿ª´ò
+
+	//µ×ÏÂ²Ëµ¥º¯Êı
+	void toFriend(CCObject* obj);						//ºÃÓÑÏµÍ³
+	void toShop(CCObject* obj);							//ÓÎÏ·ÉÌ³Ç
+	void onQuickStart(CCObject *pSender);				//¿ìËÙÓÎÏ·          add by wangjun
+	void mission(CCObject* obj);						//ÈÎÎñ
+	void toRank(CCObject* obj);							//ÅÅĞĞ
+
+	//ÖĞ¼ä²Ëµ¥
+	void toExchange(CCObject* obj);							//¶Ò»»
+	void toLuckyDraw(CCObject* obj);						//ĞÒÔË³é½±
+	void toVIP(CCObject* obj);						//vip
+
+	//ÉÏÃæ²Ëµ¥º¯Êı
+	void rechange(CCObject* obj);						//³ä½ğ±Ò
+	void signIn(CCObject* obj);						//Ã¿ÈÕÇ©µ½
+	void setting(CCObject* obj);						//ÉèÖÃ
+	void toHelp(CCObject* obj);							//ÓÎÏ·°ïÖú
+	void message(CCObject* obj);						//ÏûÏ¢
+	void pressBack(CCObject* obj);						//·µ»Ø
+
+	void showPlayerInformation(CCObject *obj);          //ÈËÎïĞÅÏ¢
+
+	//ÓÎÏ·°´Å¥
+	void DDZItemCallback(CCObject* pSender);					//¶·µØÖ÷
+	void ShakeItemCallback(CCObject* pSender);					//Ò¡Ò¡ÀÖ
+	void Lucky28ItemCallback(CCObject* pSender);                //ĞÒÔË28
+	void NiuniuItemCallback(CCObject* pSender);                 //Å£Å£
+	void ZajinHuaItemCallback(CCObject* pSender);               //Õ¨½ğ»¨ 
+
+	//ÖĞ¼ä²Ëµ¥º¯Êı
+	void toNormalGame(CCObject* obj);					//ÆÕÍ¨³¡
+	void toOtherGame(CCObject* obj);					//·è¿ñÕ¨µ¯³¡
+
+	//ÖĞ¼ä²Ëµ¥º¯Êı
+	void toPrimaryGame(CCObject* obj);					//³õ¼¶³¡
+	void toMiddleGame(CCObject* obj);					//ÖĞ¼¶³¡
+	void toSeniyGame(CCObject* obj);					//¸ß¼¶³¡
+	void toSuperGame(CCObject* obj);					//¶¥¼¶³¡
+
+	void matchBackButton(CCObject* obj);				//±ÈÈü·µ»Ø
+	void gameBackButton(CCObject* obj);				    //±ÈÈü·µ»Ø
+
+	//ÁªÏµ¿Í·ş
+	void toPhoneKefu(CCObject* obj);					//ÁªÏµ¿Í·ş
+
+	void automaticLogin(bool automatic,bool overResgist = false);				//×Ô¶¯µÇÂ¼,×¢²á
+
+	void onLoginFinish();								//µÇÂ½Íê³É
+	void onLoginFaild(CCObject* obj);					//µÇÂ½Ê§°Ü
+
+	string createAccount();								//Éú³ÉÕËºÅ
+	string createPassword();							//Éú³ÉÃÜÂë
+	void onRegistSucc(CCObject* obj);					//×¢²á³É¹¦
+	void onRegisterFaild(CCObject* obj);				//×¢²áÊ§°Ü
+
+	//×Ï½ğ¿¨³äÖµ½á¹û
+	void onlandcardResult(CCObject* obj);
+	//µç»°¿¨³äÖµ½á¹û
+	void onPhoneCardResult(CCObject* obj);
+
+	void onLinkResult(CCObject* obj);
+
+	void showLoginAward();								//ÏÔÊ¾Á¬ĞøµÇÂ½½±Àø
+	void closeLoginAward();
+	void showSelectHead(CCObject* obj);								//Ñ¡ÔñÍ·Ïñ
+
+	void permitButtonClick();							//ÔÊĞí°´Å¥°´
+	void forbidButtonClick();							//½ûÖ¹°´Å¥°´
+
+	void showMoveingLabelTips(const char* str);			//ÏÔÊ¾Æ®×ÖÌáÊ¾	
+
+	void onChange(CCObject* obj);						//ÔùËÍ£¬»Øµ÷
+	void onPesent(CCObject* obj);						//Áì»°·Ñ»Øµ÷
+
+	void onUpdateScoreAndGoldEgg(CCObject* obj);		//Ë¢ĞÂ½ğ±ÒºÍ»°·Ñµã
+
+	void onRefshTotalNum(CCObject* obj);				//Ë¢ĞÂÈËÊı
+
+	//virtual void keyBackClicked(void);					//ÊÖ»ú·µ»Ø°´Å¥//3.xÖĞÎŞ·¨ÖØĞ´finalº¯Êı
+
+	void setGoingRoomLayer();
+
+	void gameToBankrupt(bool isBankrupt);			//Ğ¡ÓÎÏ··µ»Ø´óÌüÊÇÊÇ·ñÆÆ²ú
+
+	void showDailyGetCoins(CCObject* obj);			//ÏÔÊ¾Ã¿ÈÕÁì½ğ±Ò
+	void showDailyGetCoinsResult(CCObject* obj);	//Ã¿ÈÕÁìÈ¡¾È¼Ã½ğ½á¹û
+	void setRoomLayerLevel(ROOM_LAYER_LEVEL level);
 private:
-    bool       mMenuCloseOrOpen;
-    int        isGoingRoomLayer;
-    int        m_nGameType;
-    cocos2d::Size winSize;
-    Menu *m_pPlayerMenu;	
-    Menu *m_pButtonMenu;	
-	Menu* selectMenu;
-    MenuLayer  *mMenuLayer;
-    Layer *pWarningLayer;
-    CustomerServiceLayer *pCustomerService;
-    PromptBox* m_pRuberBox;
-    Layer *pHelpView;
-	Layer *pScrollAdd;
-	ui::Widget*   ScenePlazaRoot;
+	bool      mMenuCloseOrOpen;
+	int       isGoingRoomLayer;
+	CCSize    winSize;
+	int       roomLevel;
+	int       m_nGameType;						//ÓÎÏ·ÀàĞÍ »¶ÀÖÊ²Ã´µÄ
+	MenuLayer  *mMenuLayer;
+	CCLayer *pWarningLayer;
+	CustomerServiceLayer *pCustomerService;
+    Node* m_rootNode;
+	cocos2d::ui::ListView*     _list;
+	CCMenu* m_pPlayerMenu;			//ÈËÎïĞÅÏ¢°´Å¥
+	CCMenu* m_pButtonMenu;			//µ×ÏÂ°´Å¥
+	CCMenu* m_pStartMenu;			//¿ìËÙ¿ªÊ¼°´Å¥
+	CCMenu* m_pOtherMenu;				//ÉÏÃæ°´Å¥
+	CCMenu* m_pTopMenu;				//ÉÏÃæ°´Å¥
+	GameItemLayer* m_pMiddleHobbyMenu;		//ÖĞ¼ä°´Å¥£¨Ñ¡ÔñÓÎÏ·£©
+	CCMenu* m_pMiddleMenu;			//ÖĞ¼ä°´Å¥£¨ÆÕÍ¨·è¿ñ£©
+	CCMenu* m_pMiddleMenu2;			//ÖĞ¼ä°´Å¥2£¨³õÖĞ¸ß£©
+	CCMenuItemSprite* pPlayerMenuSprite;		//ÈËÎïÍ·Ïñ
+	CCLabelTTF* m_pUserScore;				//½ğ±Ò
+	CCLabelTTF* m_pUserPhonePoint;
+
+	CCMenuItemSprite * m_pHappyS;
+	CCMenuItemSprite * m_pPrimaryS;
+	CCMenuItemSprite * m_pMiddleS;
+	CCMenuItemSprite * m_pSeniyS;
+	CCMenuItemSprite * m_pSuperS;
+
+	CCSprite* m_MessageNumBack;
+	CCLabelTTF* m_MessageNum;
+
+	CCSprite* m_UMMessageNumBack;
+	CCLabelTTF* m_UMMessageNum;
+
+	PromptBox* m_pRuberBox;
 };
 
-#endif
+#endif /* defined(__Game1__roomLayer__) */

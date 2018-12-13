@@ -1,6 +1,14 @@
-Ôªø#include "roomLayer.h"
+//
+//  roomLayer.cpp
+//  Game
+//
+//  Created by zhouwei on 13-6-17.
+//
+//
+
+#include "roomLayer.h"
 #include "GBEventIDs.h"
-#include "TableViewLayer.h"
+#include "tableViewLayer.h"
 #include "ConfigMgr.h"
 #include "utf-8.h"
 #include "GBEvent.h"
@@ -13,7 +21,8 @@
 #include "MovingLabelLayer.h"
 #include "PromptBox.h"
 #include "SceneControl.h"
-#include "GetCharge.h"
+#include "BJLRes.h"
+#include "GeTCHARge.h"
 #include "GroupSprite.h"
 #include "TaskInfo.h"
 #include "RuningBar.h"
@@ -32,171 +41,274 @@
 #include "LoginLayer.h"
 #include "VIPSystemLayer.h"
 #include "RankSystemLayer.h"
-#include "GuessCoinSide.h"
-#include "JsonHelper.h"
-#include "MyNSString.h"
-#include "ScrollAdd.h"
-#include "LotteryKindScrollView.h"
 #include "BJLSceneControl.h"
-#include "SceneView.h"
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "../JniHelper.h"
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "AppController.h"
-#import "ConfigHeader.h"
-#endif
-
-#include "network/HttpClient.h"
-
 using namespace cocos2d;
 using namespace cocos2d::ui;
 
-Scene* RoomLayer::scene()
+CCScene* RoomLayer::scene()
 {
-    // 'scene' is an autorelease object
-    Scene *scene = Scene::create();
-    
-    // 'layer' is an autorelease object
-    Layer *layer = RoomLayer::create();
-    
-    // add layer as a child to scene
-    scene->addChild(layer);
-    
-    // return the scene
-    return scene;
+	// 'scene' is an autorelease object
+	CCScene *scene = CCScene::create();
+
+	// 'layer' is an autorelease object
+	CCLayer *layer = RoomLayer::create();
+
+	// add layer as a child to scene
+	scene->addChild(layer);
+
+	// return the scene
+	return scene;
 }
 
 RoomLayer::RoomLayer()
 {
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //[YouMiNewSpot showYouMiSpotAction:nil];
-#endif
-    pWarningLayer=NULL;
-    isGoingRoomLayer = 0;
-    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::showDailyGetCoins),MSG_UI_ANS_CANNELRECHANGER , NULL);
-    NotificationCenter::getInstance()->addObserver(this,callfuncO_selector(RoomLayer::showDailyGetCoinsResult),MSG_UI_ANS_GETSAVECOINS,NULL);
-    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onlandcardResult),MSG_UI_ANS_LANDCARDRESULT , NULL);
-    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onPhoneCardResult),MSG_UI_ANS_PHONECARDRESULT , NULL);
-    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onLinkResult),MSG_UI_ANS_GAMELINK , NULL);
-    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onChange),MSG_UI_ANS_CHARGE, NULL);
-    NotificationCenter::getInstance()->postNotification("CancelHttpRequest");
-    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::updateArticle), "UpdateUserPacket", NULL);
+	pWarningLayer=NULL;
+	isGoingRoomLayer = 0;
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::onUpdateScoreAndGoldEgg),MSG_UI_ANS_UPDATESCOREANDGOLDEGG , NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::showDailyGetCoins),MSG_UI_ANS_CANNELRECHANGER , NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(RoomLayer::showDailyGetCoinsResult),MSG_UI_ANS_GETSAVECOINS,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::onlandcardResult),MSG_UI_ANS_LANDCARDRESULT , NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::onPhoneCardResult),MSG_UI_ANS_PHONECARDRESULT , NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::onLinkResult),MSG_UI_ANS_GAMELINK , NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::onRefshTotalNum),MSG_UI_ANS_REFRESHTOTALNUM, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::onChange),MSG_UI_ANS_CHARGE, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->postNotification("CancelHttpRequest");
 }
 
 RoomLayer::~RoomLayer()
 {
-    //GBEVENT_ARG_UNREGISTER(GBEVENT_UI_LOGINFINISH, RoomLayer::onLoginFinish);
-    NotificationCenter::getInstance()->removeObserver(this,MSG_UI_ANS_REGNFAIL);
-    NotificationCenter::getInstance()->removeObserver(this,MSG_UI_ANS_CANNELRECHANGER);
-    NotificationCenter::getInstance()->removeObserver(this,MSG_UI_ANS_GETSAVECOINS);
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_UPDATESCOREANDGOLDEGG);
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_LANDCARDRESULT);
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_PHONECARDRESULT);
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_LOGINFAIL);
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_CHARGE);
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_REFRESHTOTALNUM);
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_GAMELINK);
-    NotificationCenter::getInstance()->removeObserver(this, "UpdateUserPacket");
-	this->unschedule(schedule_selector(RoomLayer::getSystemTime));
+	GBEVENT_NOARG_UNREGISTER(GBEVENT_UI_LOGINFINISH, RoomLayer::onLoginFinish);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this,MSG_UI_ANS_REGNFAIL);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this,MSG_UI_ANS_CANNELRECHANGER);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this,MSG_UI_ANS_GETSAVECOINS);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_UPDATESCOREANDGOLDEGG);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_LANDCARDRESULT);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_PHONECARDRESULT);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_LOGINFAIL);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_CHARGE);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_REFRESHTOTALNUM);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_GAMELINK);
 }
 
-void RoomLayer::updateArticle(Object *obj)
-{
-    Array *data = (Array *)obj;
-    for(int i = 0 ; i < data->count(); i+=2)
-    {
-        Integer *number1 = (Integer *)data->objectAtIndex(i);
-        Integer *number2 = (Integer *)data->objectAtIndex(i+1);
-        int key = number1->getValue();
-        int value = number2->getValue();
-        pMsgDispatch->m_wArticleNum[key-2] = value;
-    }
-}
 
 void RoomLayer::automaticLogin(bool automatic,bool overResgist /* = false */)
 {
-    if(automatic)
-    {
-        
-        bool bRet = pMsgDispatch->connectLoginServer();
-        if(bRet)
-        {
-            if(EntityMgr::instance()->login()->getAccout().length() > 0 && !overResgist)
-            {
-                onLoginFinish(NULL);
-            }
-            else
-            {
-                std::string userAccount = UserDefault::getInstance()->getStringForKey("NEWZJD_ACCOUNT");
-                std::string userPassword = UserDefault::getInstance()->getStringForKey("NEWZJD_PASSWORD");
-                if(userAccount.length() > 1 &&userPassword.length() > 1)
-                {
-                    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onLoginFaild), MSG_UI_ANS_LOGINFAIL, NULL);
-                    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onLoginFinish), MSG_UI_ANS_LOGINFINISH, NULL);
-                
-                    bool bRet = pMsgDispatch->connectLoginServer();
-                    if(!bRet)
-                    {
-                        MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(pConfigMgr->text("t26"),Vec2(winSize.width * 0.5,winSize.height * 0.5));
-                       this->addChild(layer,100);
-                    }
-                    else
-                    {
-                        EntityMgr::instance()->login()->setUserLogin(userAccount.c_str(), userPassword);
-                    }
-                }
-                else
-                {
-                    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onRegisterFaild), MSG_UI_ANS_REGNFAIL, NULL);
-                    NotificationCenter::getInstance()->addObserver(this, callfuncO_selector(RoomLayer::onRegistSucc), MSG_UI_ANS_REGSUCC, NULL);
-                    int nGender = 0;
-                    int nFaceId = 0;
-                    string szAccount = createAccount();
-                    string szPassword = createPassword();
-                    
-                    bool bRet = pMsgDispatch->connectLoginServer();
-                    if (!bRet)
-                    {
-                        PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeServerShut);
-                       this->addChild(box,100);
-                    }
-                    EntityMgr::instance()->login()->setUserRegister(szAccount.c_str(),szPassword.c_str(),nFaceId,nGender,1);
-                    
-                }
-            }
-        }
-        else
-        {
-            PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeServerShut);
-           this->addChild(box,100);
-        }
-    }
+	if(automatic)
+	{
+
+		bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
+		if(bRet)
+		{
+			if(EntityMgr::instance()->login()->getAccout().length() > 0 && !overResgist)
+			{
+				onLoginFinish();
+			}
+			else
+			{
+				std::string userAccount = CCUserDefault::sharedUserDefault()->getStringForKey("NEWZJD_ACCOUNT");
+				std::string userPassword = CCUserDefault::sharedUserDefault()->getStringForKey("NEWZJD_PASSWORD");
+				userAccount = DEFAULT_ACCOUNT;
+				userPassword = DEFAULT_PASSWORD;
+				if(userAccount.length() > 1 &&userPassword.length() > 1)
+				{
+					CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(RoomLayer::onLoginFaild), MSG_UI_ANS_LOGINFAIL, NULL);
+					GBEVENT_NOARG_REGISTER(GBEVENT_UI_LOGINFINISH, RoomLayer::onLoginFinish);
+
+					bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
+					if(!bRet)
+					{
+						MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t26"),ccp(winSize.width * 0.5,winSize.height * 0.5));
+						addChild(layer,100);
+					}
+					else
+					{
+						EntityMgr::instance()->login()->setUserLogin(userAccount.c_str(), userPassword);
+					}	
+				}
+				else
+				{
+					CCNotificationCenter::sharedNotificationCenter()->addObserver(
+						this, callfuncO_selector(RoomLayer::onRegisterFaild), MSG_UI_ANS_REGNFAIL, NULL);
+
+					CCNotificationCenter::sharedNotificationCenter()->addObserver(
+						this, callfuncO_selector(RoomLayer::onRegistSucc), MSG_UI_ANS_REGSUCC, NULL);
+					//√ª”–’À∫≈ ◊¢≤·”ŒøÕ’À∫≈
+					int nGender = 0;
+					int nFaceId = 0;
+					string szAccount = createAccount();
+					string szPassword = createPassword();
+
+					bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
+					if (!bRet)
+					{
+						PromptBox* box = PromptBox::PromptBoxWith(ccp(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeServerShut);
+						addChild(box,100);
+					}
+					EntityMgr::instance()->login()->setUserRegister(szAccount.c_str(),szPassword.c_str(),nFaceId,nGender,1);
+
+				}
+			}
+		}
+		else
+		{
+			PromptBox* box = PromptBox::PromptBoxWith(ccp(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeServerShut);
+			addChild(box,100);
+		}
+	}
+	else
+	{
+		string szText0;
+		if(strlen(g_GlobalUnits.getGolbalUserData()->szNickName)>0)
+		{
+			CCLOG("have nick name");
+			szText0 = g_GlobalUnits.getGolbalUserData()->szNickName;
+		}
+		else
+		{
+			CCLOG("not have nick name");
+			szText0 = EntityMgr::instance()->login()->getAccout();
+		}
+		long scoreNumber = g_GlobalUnits.getGolbalUserData()->lScore;
+		string szText1 = CCString::createWithFormat("%d",scoreNumber)->getCString();//addCommaToNumber(scoreNumber);
+		string szText2 = CCString::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString();//addCommaToNumber(telephonePointNumber);
+		szText0 = ConfigMgr::instance()->text("t1002")+szText0;
+		szText1 = ConfigMgr::instance()->text("t1003")+szText1;
+		szText2 = ConfigMgr::instance()->text("t1004")+szText2;
+
+		CCLabelTTF* userNmae;
+		if(g_GlobalUnits.getGolbalUserData()->cbVisitor == 0)
+		{
+			userNmae = CCLabelTTF::create(szText0.c_str(),"",20);
+		}
+		else
+		{
+			userNmae = CCLabelTTF::create(CCString::createWithFormat("%s%s%s", ConfigMgr::instance()->text("t1002"),ConfigMgr::instance()->text("t161"),szText0.c_str())->getCString(),"",20);
+		}
+		m_pUserScore = CCLabelTTF::create(szText1.c_str(),"",20);
+		m_pUserPhonePoint = CCLabelTTF::create(szText2.c_str(),"",20);
+		userNmae->setColor(cocos2d::Color3B::WHITE);
+		m_pUserScore->setColor(cocos2d::Color3B::YELLOW);
+		m_pUserPhonePoint->setColor(cocos2d::Color3B::WHITE);
+		userNmae->setPosition(ccp(winSize.width * 0.15f,winSize.height * 0.965f));
+		m_pUserScore->setPosition(ccp(winSize.width * 0.15f,winSize.height * 0.9f));
+		m_pUserPhonePoint->setPosition(ccp(winSize.width * 0.28f,winSize.height * 0.965f));
+		userNmae->setAnchorPoint(ccp(0.0f,0.5f));
+		m_pUserScore->setAnchorPoint(ccp(0.0f,0.5f));
+		m_pUserPhonePoint->setAnchorPoint(ccp(0.0f,0.5f));
+		addChild(userNmae);
+		addChild(m_pUserScore);
+		addChild(m_pUserPhonePoint,0,301);
+
+		CCSprite *pPlayerNormalSprite;
+		CCSprite *pPlayerSelectSprite;
+		if(g_GlobalUnits.getGolbalUserData()->cbGender == 1)
+		{
+			pPlayerNormalSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_10.png"));
+			pPlayerSelectSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_10.png"));
+		}
+		else
+		{
+			pPlayerNormalSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_8.png"));
+			pPlayerSelectSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_8.png"));
+		}
+
+		return;
+	}
 }
 
-void RoomLayer::onLoginFinish(Object *obj)
+void RoomLayer::onLoginFinish()
 {
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_LOGINFINISH);
-    showLoginAward();
+	GBEVENT_NOARG_UNREGISTER(GBEVENT_UI_LOGINFINISH, RoomLayer::onLoginFinish);
+	//µ«¬ΩÕÍ≥…
+	string szText0;
+	if(strlen(g_GlobalUnits.getGolbalUserData()->szNickName)>0)
+	{
+		CCLOG("have nick name");
+		szText0 = g_GlobalUnits.getGolbalUserData()->szNickName;
+	}
+	else
+	{
+		CCLOG("not have nick name");
+		szText0 = EntityMgr::instance()->login()->getAccout();
+	}
+	long scoreNumber = g_GlobalUnits.getGolbalUserData()->lScore;
+	string szText1 = CCString::createWithFormat("%d",scoreNumber)->getCString();//addCommaToNumber(scoreNumber);
+	long telephonePointNumber = g_GlobalUnits.getGolbalUserData()->lGoldEggs;
+	string szText2 = CCString::createWithFormat("%d",telephonePointNumber)->getCString();//addCommaToNumber(telephonePointNumber);
+
+	CCLabelTTF* userNmae;
+	if(g_GlobalUnits.getGolbalUserData()->cbVisitor == 0)
+	{
+		userNmae = CCLabelTTF::create(szText0.c_str(),"",20);
+	}
+	else
+	{
+		userNmae = CCLabelTTF::create(CCString::createWithFormat("%s%s",ConfigMgr::instance()->text("t161"),szText0.c_str())->getCString(),"",20);
+	}
+
+	m_pUserScore = CCLabelTTF::create(szText1.c_str(),"",17);
+	m_pUserPhonePoint = CCLabelTTF::create(szText2.c_str(),"",17);
+	userNmae->setColor(ccc3(0,0,0));
+	m_pUserScore->setColor(ccc3(0,0,0));
+	m_pUserPhonePoint->setColor(ccc3(0,0,0));
+	userNmae->setPosition(ccp(winSize.width * 0.1f,winSize.height * 0.948f));
+	m_pUserScore->setPosition(ccp(winSize.width * 0.265f,winSize.height * 0.925f));
+	m_pUserPhonePoint->setPosition(ccp(winSize.width * 0.265f,winSize.height * 0.875f));
+	userNmae->setAnchorPoint(ccp(0.0f,0.0f));
+	m_pUserScore->setAnchorPoint(ccp(1.0f,0.5f));
+	m_pUserPhonePoint->setAnchorPoint(ccp(1.0f,0.5f));
+	addChild(userNmae);
+	addChild(m_pUserScore);
+	addChild(m_pUserPhonePoint,0,301);
+
+	CCSprite *pPlayerNormalSprite;
+	CCSprite *pPlayerSelectSprite;
+	if(g_GlobalUnits.getGolbalUserData()->cbGender == 1)
+	{
+		pPlayerNormalSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_10.png"));
+		pPlayerSelectSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_10.png"));
+	}
+	else
+	{
+		pPlayerNormalSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_8.png"));
+		pPlayerSelectSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_8.png"));
+	}
+
+	pPlayerMenuSprite->setNormalImage(pPlayerNormalSprite);
+	pPlayerMenuSprite->setSelectedImage(pPlayerSelectSprite);
+	showLoginAward();
 }
 
-void RoomLayer::onLoginFaild(Object* obj)
+void RoomLayer::onUpdateScoreAndGoldEgg(CCObject* obj)
 {
-    NotificationCenter::getInstance()->removeObserver(this, MSG_UI_ANS_LOGINFAIL);
-    CCLOG("login faied");
-    
-    PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeLoginFaild);
-   this->addChild(box,100);
+	long scoreNumber = g_GlobalUnits.getGolbalUserData()->lScore;
+	string szText1 = CCString::createWithFormat("%d",scoreNumber)->getCString();//addCommaToNumber(scoreNumber);
+	long telephonePointNumber = g_GlobalUnits.getGolbalUserData()->lGoldEggs;
+	string szText2 = CCString::createWithFormat("%d",telephonePointNumber)->getCString();//addCommaToNumber(telephonePointNumber);
+	m_pUserScore->setString(szText1.c_str());
+	m_pUserPhonePoint->setString(szText2.c_str());
+}
+
+void RoomLayer::onLoginFaild(CCObject* obj)
+{
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, MSG_UI_ANS_LOGINFAIL);
+	CCLOG("login faied");
+
+	PromptBox* box = PromptBox::PromptBoxWith(CCPointMake(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeLoginFaild);
+	addChild(box,100);
 }
 
 void RoomLayer::onEnter()
 {
-    if(!CocosDenshion::SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying())
-    {
-        playBGM("roomback.mp3");
-    }
-
+	if(!CocosDenshion::SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying())
+	{
+		playBGM("music/roomback.mp3");
+	}
 	BaseLayer::onEnter();
 }
 
@@ -207,500 +319,997 @@ void RoomLayer::onExit()
 
 bool RoomLayer::init()
 {
-    // 1. super init first
-    if ( !BaseLayer::init() )
-    {
-        return false;
+	// 1. super init first
+	if ( !BaseLayer::init() )
+	{
+		return false;
+	}
+	roomLevel = ROOM_LAYER_LEVEL_HOBBY;
+	mMenuCloseOrOpen = false;
+	isGoingRoomLayer =0;
+
+	//±≥æ∞
+	winSize = CCDirector::sharedDirector()->getWinSize();
+    
+    auto rootNode = CSLoader::createNode("PlazzScene_Src/Plazz_Layer.csb");
+	rootNode->setScale(winSize.width/ rootNode->getContentSize().width, winSize.height/ rootNode->getContentSize().height);
+    this->addChild(rootNode);
+
+	m_rootNode=rootNode;
+
+	//”√ªßÍ«≥∆
+    auto nicknode=reinterpret_cast<Node*>(rootNode->getChildByName("username"));
+    nicknode->removeFromParent();
+
+    //”√ªß∑÷ ˝
+    auto scorenode=reinterpret_cast<Node*>(rootNode->getChildByName("usercoincount"));
+    scorenode->removeFromParent();
+
+    Button *headBtn = static_cast<Button *>(rootNode->getChildByName("btn_heard"));
+    if(nullptr != headBtn)
+    {       
+        headBtn->addTouchEventListener(CC_CALLBACK_2(RoomLayer::buttonEventWithTouchUser, this));
     }
 
-	Widget* Root = static_cast<Widget*>(CSLoader::createNode("ScenePlaza.csb"));
+	//ÃÌº””Œœ∑¡–±Ì
+    addGameList(rootNode);
 
-	addChild(Root, 0, "box1");
+	setKeypadEnabled(true);
 
-	ScenePlazaRoot = dynamic_cast<Widget*>(Root->getChildByName("lobbyPanel"));
-
-	Size size = Director::getInstance()->getWinSize();
-	Root->setScale(size.width/ ScenePlazaRoot->getContentSize().width, size.height/ ScenePlazaRoot->getContentSize().height);
-
-	Sprite* bgBackLobby = Sprite::create("Share/LoginBackView.jpg");
-	Size size1 = Director::getInstance()->getWinSizeInPixels();
-	float fScaleX = size1.width / bgBackLobby->getContentSize().width;
-	float fScaleY = size1.height / bgBackLobby->getContentSize().height;
-	bgBackLobby->setScaleX(fScaleX);
-	bgBackLobby->setScaleY(fScaleY);
-	bgBackLobby->setPosition(size1.width / 2, size1.height / 2);
-	this->addChild(bgBackLobby, -10);
-
-	Node* pNode1 = Helper::seekWidgetByName(ScenePlazaRoot, "btn_mahjong_invite");
-	pNode1->setVisible(false);
-
-	const char *szBtnNameArr[] = { "btn_game_bjl" ,"btn_game_ddz","btn_game_by","btn_game_zzmj","btn_game_brnn","btn_game_ppc"};
-	int nNum = sizeof(szBtnNameArr) / sizeof(szBtnNameArr[0]);
-	for (int i = 0; i < nNum; i++)
-	{
-		Button* fksx = dynamic_cast<Button*>(Helper::seekWidgetByName(ScenePlazaRoot, szBtnNameArr[i]));
-		fksx->setTag(i);
-		fksx->addTouchEventListener(CC_CALLBACK_2(RoomLayer::btnCallBack,this,i));
-	}
-
-    mMenuCloseOrOpen = false;
-    isGoingRoomLayer =0;
-
-    winSize = Director::getInstance()->getWinSize();
-
-	pMsgDispatch->SendPacketWithGetSystemTime();
-	this->schedule(schedule_selector(RoomLayer::getSystemTime), 10);
-
-	static bool isFirstRun = true;
-
-	//ÊéßÂà∂Á®ãÂ∫èÂè™ËøêË°å‰∏ÄÊ¨°
-	if (isFirstRun) {
-		sendHttpRequest();
-		isFirstRun = false;
-	}
-
-    return  true;
+	return  true;
 }
 
-void RoomLayer::btnCallBack(Ref * pSender, cocos2d::ui::Widget::TouchEventType type, int tag)
+void RoomLayer::addGameList(Node * node)
 {
-	CCLOG("tag=%d\n",tag);
-	if (type == Widget::TouchEventType::BEGAN)//Âà§Êñ≠ÁÇπÂáªÁ±ªÂûãÔºåÊåâÈíÆÊåâ‰∏ãÁîüÊïà
-	{
-
-	}
-	else if (type == Widget::TouchEventType::ENDED)//ÊåâÈíÆÊùæÂºÄÊó∂ÁîüÊïà
-	{
-		if(tag==0)//ÁôæÂÆ∂‰πê
-		{
-			bool ret=pMsgDispatch->connectGameServer(KindId_BJL);
-			if (!ret)
-			{
-				PromptBox* box = PromptBox::PromptBoxWith(ccp(427,240),mPromptTypeServerShut);
-				this->addChild(box,20);
-				return;
-			}
-			pMsgDispatch->setBehaviorFlag(BEHAVIOR_LOGON_IMMEDIATELY|VIEW_MODE_PART);
-			pMsgDispatch->SendPacketWithEnterRoomPageCount(6);
-			pMsgDispatch->setBehaviorFlag(BEHAVIOR_LOGON_NORMAL);
-			pMsgDispatch->setStartType(true);	
-		} 
-		else if(tag==2)//2ÊçïÈ±º
-		{
-			bool ret=pMsgDispatch->connectGameServer(GameId_dzpk);
-			if (!ret)
-			{
-				PromptBox* box = PromptBox::PromptBoxWith(ccp(427,240),mPromptTypeServerShut);
-				this->addChild(box,20);
-				return;
-			}
-			pMsgDispatch->setBehaviorFlag(BEHAVIOR_LOGON_IMMEDIATELY|VIEW_MODE_PART);
-			pMsgDispatch->SendPacketWithEnterRoomPageCount(1);
-			pMsgDispatch->setBehaviorFlag(BEHAVIOR_LOGON_NORMAL);
-			pMsgDispatch->setStartType(true);
-			//Director::getInstance()->replaceScene(DZPKLayer::scene());
-		}
-		else{
-			MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(pConfigMgr->text("display_text.xml", "t900"), Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT / 4));
-			Director::getInstance()->getRunningScene()->addChild(layer,255);	
-		}
-	}
+    //”Œœ∑¡–±Ì
+    _list = ListView::create();
+    _list->setBounceEnabled(true);
+    _list->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+    _list->setContentSize(Size(1136, 376));
+    _list->setAnchorPoint(Vec2(.5, .5));
+    _list->setPosition(Vec2(568, 345));
+    _list->setItemsMargin(25.0f);
+    node->addChild(_list);
+    
+	int kindids[]={122,715};
+    int nGameCount = sizeof(kindids)/sizeof(kindids[0]);
+    for (int i = 0; i < nGameCount; ++i)
+    {
+        Button *list = (Button*)(this->initOneListByKind(kindids[i]));
+        
+        if (nullptr == list)
+        {
+            continue;
+        }
+        int eTag = (int)list->getTag();
+        
+        list->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
+                                    {
+                                        if (cocos2d::ui::Widget::TouchEventType::ENDED == type)
+                                        {
+                                            //≤ªºÏ≤È¡¨ª∑∂·±¶◊ ‘¥
+                                            if(eTag==715||eTag==122 && 1){
+                                                //º”‘ÿ”Œœ∑
+                                                this->loadingGame(eTag);
+                                                return;
+                                            }
+                                        }
+                                    });
+        _list->pushBackCustomItem(list);
+    }
+    
 }
 
-
-void RoomLayer::getSystemTime(float dt)
+Widget* RoomLayer::initOneListByKind(const int &nKind)
 {
-	pMsgDispatch->SendPacketWithGetSystemTime();
+    auto button = Button::create();
+    
+    std::string filename=__String::createWithFormat("PlazzScene_Src/gamelist/game_%d.png",nKind)->getCString();
+    
+    button->loadTextures(filename,filename);
+    button->setTag(nKind);
+    char buf[32] = "";
+    sprintf(buf, "game_kind_%d", nKind);
+    button->setName(buf);
+
+    return button;
+}
+
+//MARK::”Œœ∑»Îø⁄
+void RoomLayer::loadingGame(int game)
+{
+    EntityMgr::instance()->getDispatch()->m_dwKindID=game;
+	onQuickStart(nullptr);
+}
+
+//MARK::∞¥≈• ¬º˛
+void RoomLayer::buttonEventWithTouchUser(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+{
+    if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+    {
+
+    }
 }
 
 void RoomLayer::showLoginAward()
 {
-
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	if(pWarningLayer==NULL)
+	{
+		pWarningLayer = WarningLayer::create();
+		addChild(pWarningLayer,10);
+		pWarningLayer->setVisible(false);
+	}
+	pWarningLayer->setVisible(true);
 }
 void RoomLayer::closeLoginAward(){
 
 }
 
-void RoomLayer::showPlayerInformation(Object *obj){
-    playButtonSound();
-    Scene *scene = Scene::create();
-    //LotteryUserInfo *layer = LotteryUserInfo::create();
-    //scene->addChild(layer);
-    //Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
-}
-
-void RoomLayer::toRoom(Object* obj)
+void RoomLayer::showSelectHead(CCObject* obj)
 {
-  
+	CCLOG("select head");
 }
 
-void RoomLayer::toGamble(Object* obj)
+void RoomLayer::onStart(ROOM_TYPE index)
 {
-
-}
-
-void RoomLayer::toRecord(Object* obj)
-{
-
-}
-
-void RoomLayer::toGame(Object* obj)
-{	
-	resetSelect();
-	MenuItemSprite* temp = static_cast<MenuItemSprite*>(obj);
-	temp->selected();
-
-	std::string name = "game_kind_";
-	int count = 4;
-
-	static_cast<LotteryKindScrollView* >(pHelpView)->resetTable(name.c_str(), count, 0);
-}
-
-void RoomLayer::toLottery(Object* obj)
-{
-	resetSelect();
-	MenuItemSprite* temp = static_cast<MenuItemSprite*>(obj);
-	temp->selected();	
-
-	std::string name = "lottery_kind_";
-	int count = 12;
-	static_cast<LotteryKindScrollView* >(pHelpView)->resetTable(name.c_str(), count, 1);
-}
-
-void RoomLayer::toPhysic(Object* obj)
-{
-	MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(pConfigMgr->text("display_text.xml", "t900"), Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT / 4));
-	this->addChild(layer,20);
-
-	return;
-
-	resetSelect();
-	MenuItemSprite* temp = static_cast<MenuItemSprite*>(obj);
-	temp->selected();
-
-	std::string name = ""; //ÁõÆÂâçÂ∞öÊú™ÂºÄÊîæ
-	int count = 4;
-	static_cast<LotteryKindScrollView* >(pHelpView)->resetTable(name.c_str(), count, 2);
-}
-
-void RoomLayer::resetSelect()
-{
-	int count = selectMenu->getChildrenCount();
-	for(int i = 0;i < count;i ++)
+	//   
+	bool ret = EntityMgr::instance()->getDispatch()->connectGameServer((int)index);
+	if (!ret)
 	{
-		MenuItemSprite* temp = (MenuItemSprite *)selectMenu->getChildren().at(i);
-		if(temp != NULL)
-			temp->unselected();
+		PromptBox* box = PromptBox::PromptBoxWith(ccp(427,240),mPromptTypeServerShut);
+		addChild(box,20);
+		return;
+
+	}
+
+	EntityMgr::instance()->getDispatch()->SendPacketWithEnterRoomPageCount(6);
+	EntityMgr::instance()->getDispatch()->setStartType(false);
+}
+
+void RoomLayer::showPlayerInformation(CCObject *obj){
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	CCScene *pScene = CCScene::create();
+	PlayerInfoLayer *pPlayInfoLayer = PlayerInfoLayer::create();
+	pScene->addChild(pPlayInfoLayer);
+	CCDirector::sharedDirector()->replaceScene(pScene);
+}
+
+/**µ◊œ¬≤Àµ•∫Ø ˝*/
+void RoomLayer::toFriend(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	FriendSystemLayer *tabLayer = FriendSystemLayer::create();
+
+	CCScene *scene = CCScene::create();
+	scene->addChild(tabLayer);
+	CCDirector::sharedDirector()->replaceScene(scene);
+}
+
+void RoomLayer::toShop(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	ShopSystemLayer *tabLayer = ShopSystemLayer::create();
+
+	CCScene *scene = CCScene::create();
+	scene->addChild(tabLayer);
+	CCDirector::sharedDirector()->replaceScene(scene);
+}
+
+//øÏÀŸ”Œœ∑
+void RoomLayer::onQuickStart(CCObject *pSender)
+{
+	bool ret = EntityMgr::instance()->getDispatch()->connectGameServer();
+	if (!ret)
+	{
+		PromptBox* box = PromptBox::PromptBoxWith(ccp(427,240),mPromptTypeServerShut);
+		addChild(box,20);
+		return;
+
+	}
+	EntityMgr::instance()->getDispatch()->setBehaviorFlag(BEHAVIOR_LOGON_IMMEDIATELY|VIEW_MODE_PART);
+	EntityMgr::instance()->getDispatch()->SendPacketWithEnterRoomPageCount(6);
+	EntityMgr::instance()->getDispatch()->setBehaviorFlag(BEHAVIOR_LOGON_NORMAL);
+	EntityMgr::instance()->getDispatch()->setStartType(true);
+
+	Director::getInstance()->replaceScene(BJLSceneControl::sharedSceneControl()->getScene(SCENE_game,true));
+}
+
+void RoomLayer::mission(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	MissionLayer *missionLayer = MissionLayer::create();
+
+	CCScene *scene = CCScene::create();
+	scene->addChild(missionLayer);
+	CCDirector::sharedDirector()->replaceScene(scene);
+}
+
+void RoomLayer::toRank(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	RankSystemLayer *tabLayer = RankSystemLayer::create();
+
+	CCScene *scene = CCScene::create();
+	scene->addChild(tabLayer);
+	CCDirector::sharedDirector()->replaceScene(scene);
+}
+
+/**÷–º‰≤Àµ•*/
+void RoomLayer::toExchange(CCObject* obj)	
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	ExchangerLayer *missionLayer = ExchangerLayer::create();
+
+	CCScene *scene = CCScene::create();
+	scene->addChild(missionLayer);
+	CCDirector::sharedDirector()->replaceScene(scene);
+}	
+
+void RoomLayer::toLuckyDraw(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	LuckyDraw *layer = LuckyDraw::create();
+	addChild(layer,10);
+}
+
+void RoomLayer::toVIP(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	pWarningLayer = VIPSystemLayer::create();
+	addChild(pWarningLayer,10);
+}
+
+/**…œ√Ê≤Àµ•∫Ø ˝*/
+
+void RoomLayer::rechange(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	FreeCoins* freeCoins = FreeCoins::create();
+	CCScene* pScene = CCScene::create();
+	pScene->addChild(freeCoins);
+	CCDirector::sharedDirector()->replaceScene(pScene);
+}
+
+void RoomLayer::signIn(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	pWarningLayer = WarningLayer::create();
+	addChild(pWarningLayer,10);
+}
+
+void RoomLayer::setting(CCObject* obj)
+{
+	playButtonSound();
+	if (!mMenuCloseOrOpen)
+	{
+		mMenuLayer = MenuLayer::create();
+		addChild(mMenuLayer,2);
+		mMenuCloseOrOpen = true;
+	}else{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
 	}
 }
 
-void RoomLayer::refreshLayer()
+void RoomLayer::message(CCObject* obj)
 {
-	pMsgDispatch->SendPacketWithGetSystemTime();
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	CCUserDefault::sharedUserDefault()->setBoolForKey("MESSAGESCAN",true);
+	CCScene* scene = CCScene::create();
+	EmailLayer* layer = EmailLayer::create();
+	scene->addChild(layer);
+	CCDirector::sharedDirector()->replaceScene(scene);
 }
 
-void RoomLayer::toMyLottery(Object* obj)
+void RoomLayer::toHelp(CCObject* obj)
 {
-
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	CCScene *scene = CCScene::create();
+	HelpLayer *pHelplayer = HelpLayer::create();
+	scene->addChild(pHelplayer);
+	CCDirector::sharedDirector()->replaceScene(scene); 
 }
 
-void RoomLayer::sendHttpRequest()
-{	
-	//ÂÆèÂÆö‰πâÊâãÊú∫Âπ≥Âè∞
-	string url = pConfigMgr->text("display_text.xml", "t958"); 
+void RoomLayer::pressBack(CCObject* obj)
+{
+	if(roomLevel == ROOM_LAYER_LEVEL_HOBBY)
+	{
+		LoginLayer *layer = LoginLayer::create();
+		CCScene *scene = CCScene::create();
+		scene->addChild(layer);
+		CCDirector::sharedDirector()->replaceScene(scene);
+	}else if(roomLevel == ROOM_LAYER_LEVEL_GAMETYPE)
+	{
+		this->gameBackButton(NULL);
+	}else if(roomLevel == ROOM_LAYER_LEVEL_GAMEROOM)
+	{
+		this->matchBackButton(NULL);
+	}
+}
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	url = pConfigMgr->text("display_text.xml", "t957"); 
+void RoomLayer::toMenu(CCObject* obj)
+{
+	playButtonSound();
+	if (!mMenuCloseOrOpen)
+	{
+		mMenuLayer = MenuLayer::create();
+		addChild(mMenuLayer);
+		mMenuCloseOrOpen = true;
+	}else{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+	}
+}
+
+void RoomLayer::rechangeLittleButton(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	if(mMenuCloseOrOpen){
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+	}
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	//µÕµ»º∂ = 1 ÷–µ»º∂ = 2 ∏ﬂµ»º∂ = 3 ”–X = 1 √ªX = 2
+	if(g_GlobalUnits.getGolbalUserData()->lScore < ConfigMgr::instance()->m_Config.nServerEnter[(((1-1) % 3 ) << 1) + 1])
+	{
+		showAndroidRechageLayer(CCString::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString(),"1","5");
+	}
+	else if(g_GlobalUnits.getGolbalUserData()->lScore < ConfigMgr::instance()->m_Config.nServerEnter[(((2-1) % 3 ) << 1) + 1])
+	{
+		showAndroidRechageLayer(CCString::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString(),"2","5");
+	}
+	else
+	{
+		showAndroidRechageLayer(CCString::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString(),"3","5");
+	}
+
 #endif
-	CCLOG("%s completed", url.c_str());
-	network::HttpRequest* request = new network::HttpRequest();
-	request->setUrl(url.c_str());
-	request->setRequestType(network::HttpRequest::Type::GET); 
-	request->setResponseCallback(this, callfuncND_selector(RoomLayer::onHttpRequestCompleted));
-	request->setTag("GET test1");	
-	network::HttpClient::getInstance()->send(request); 
-	network::HttpClient::getInstance()->setTimeoutForConnect(10);
-	network::HttpClient::getInstance()->setTimeoutForRead(10);
-	request->release();
 }
 
-void RoomLayer::onHttpRequestCompleted(Node *sender, void *data)  
-{  
-	network::HttpResponse *response = (network::HttpResponse*)data;  
-
-	if (!response)  
-	{  
-		return;  
-	}  
-
-	if (0 != strlen(response->getHttpRequest()->getTag()))   
-	{  
-		CCLOG("%s completed", response->getHttpRequest()->getTag());  
-	}  
-
-	int statusCode = response->getResponseCode();  
-	char statusString[64] = {};  
-	std::sprintf(statusString, "HTTP Status Code: %d, tag = %s", statusCode, response->getHttpRequest()->getTag());  
-	CCLOG("response code: %d", statusCode);  
-
-	if (!response->isSucceed())   
-	{  
-		CCLOG("response failed");  
-		CCLOG("error buffer: %s", response->getErrorBuffer());
-		return;  
-	}  
-
-	// dump data  
-	std::vector<char> *buffer = response->getResponseData();
-	std::string temp(buffer->begin() + 3,buffer->end());
-    String* responseData=String::create(temp);	
-
-	Json::Reader reader;//jsonËß£Êûê  
-    Json::Value value;//Ë°®Á§∫‰∏Ä‰∏™jsonÊ†ºÂºèÁöÑÂØπË±°  
-	if(reader.parse(responseData->getCString(),value))//Ëß£ÊûêÂá∫jsonÊîæÂà∞json‰∏≠Âå∫  
-    {  		
-		string vercode = value["version"].asString();
-		string updateUrl = value["packageUrl"].asString();
-	
-		//Ëé∑ÂæóÂΩìÂâçÁâàÊú¨Âè∑ Áõ¥Êé•‰ªéxml‰∏≠ËØªÂèñÁâàÊú¨Âè∑
-		string currVercode = pConfigMgr->text("display_text.xml", "t959"); 
-		if (vercode.compare(currVercode) != 0)
-		{
-			string url = pConfigMgr->text("display_text.xml", "t956") + updateUrl;
-	
-	#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		TCHART w_url[100] = {0};
-		MyNSString::mbs2wc(url.c_str(), strlen(url.c_str()), w_url);
-		ShellExecute(NULL, L"open", w_url, NULL, NULL, SW_SHOWNORMAL);
-	#endif
-	#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		Application::getInstance()->openURL(url.c_str());
-	#endif
-	#if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		Application::getInstance()->openURL(url.c_str());
-		exit(0);
-	#endif
-		}	
-	}
-} 
-
-void RoomLayer::setting(Object* obj)
+void RoomLayer::huodong(cocos2d::CCObject *obj)
 {
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	if(mMenuCloseOrOpen){
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+	}
+	CCScene *scene = CCScene::create();
+	ActivityLayer * pActivityLayer = ActivityLayer::create();
+	scene->addChild(pActivityLayer);
+	CCDirector::sharedDirector()->replaceScene(scene);
+}
 
+void RoomLayer::geTCHARge(cocos2d::CCObject *obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	if(mMenuCloseOrOpen){
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+	}
+}
+
+void RoomLayer::DDZItemCallback( CCObject* pSender )
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	this->setRoomLayerLevel(ROOM_LAYER_LEVEL_GAMETYPE);
+}
+
+void RoomLayer::ShakeItemCallback( CCObject* pSender )
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+}
+
+void RoomLayer::Lucky28ItemCallback( CCObject* pSender )
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+}
+
+void RoomLayer::NiuniuItemCallback( CCObject* pSender )
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+}
+
+void RoomLayer::ZajinHuaItemCallback( CCObject* pSender )
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+}
+
+void RoomLayer::toNormalGame(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	m_nGameType = 0;
+	this->setRoomLayerLevel(ROOM_LAYER_LEVEL_GAMEROOM);
+}
+
+void RoomLayer::toOtherGame(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	m_nGameType = 1;
+	this->setRoomLayerLevel(ROOM_LAYER_LEVEL_GAMEROOM);
+}
+
+void RoomLayer::gameBackButton(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	this->setRoomLayerLevel(ROOM_LAYER_LEVEL_HOBBY);
+}
+
+void RoomLayer::matchBackButton(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	playButtonSound();
+	this->setRoomLayerLevel(ROOM_LAYER_LEVEL_GAMETYPE);
+}
+
+void RoomLayer::setRoomLayerLevel(ROOM_LAYER_LEVEL level)
+{
+	return;
+	if(level == ROOM_LAYER_LEVEL_HOBBY)
+	{
+		roomLevel = ROOM_LAYER_LEVEL_HOBBY;
+		m_pMiddleMenu->setVisible(false);
+		m_pMiddleMenu->setEnabled(false);
+
+		m_pMiddleMenu2->setVisible(false);
+		m_pMiddleMenu2->setEnabled(false);
+
+		m_pMiddleHobbyMenu->setTouchEnabled(true);
+		m_pMiddleHobbyMenu->setVisible(true);
+		m_pMiddleHobbyMenu->setEnabled(true);
+	}else if(level == ROOM_LAYER_LEVEL_GAMETYPE)
+	{
+		roomLevel = ROOM_LAYER_LEVEL_GAMETYPE;
+		m_pMiddleMenu2->setVisible(false);
+		m_pMiddleMenu2->setEnabled(false);
+		m_pMiddleMenu->setVisible(true);
+		m_pMiddleMenu->setEnabled(true);
+		m_pMiddleHobbyMenu->setTouchEnabled(false);
+		m_pMiddleHobbyMenu->setVisible(false);
+		m_pMiddleHobbyMenu->setEnabled(false);
+	}else if(level == ROOM_LAYER_LEVEL_GAMEROOM)
+	{
+		roomLevel = ROOM_LAYER_LEVEL_GAMEROOM;
+		m_pMiddleMenu2->setVisible(true);
+		m_pMiddleMenu2->setEnabled(true);
+		m_pMiddleMenu->setVisible(false);
+		m_pMiddleMenu->setEnabled(false);
+		m_pMiddleHobbyMenu->setTouchEnabled(false);
+		m_pMiddleHobbyMenu->setVisible(false);
+		m_pMiddleHobbyMenu->setEnabled(false);
+	}
+}
+
+void RoomLayer::toPrimaryGame(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	long lksdnb = ConfigMgr::instance()->m_Config.nServerEnter[3];
+	if(g_GlobalUnits.getGolbalUserData()->lScore < ConfigMgr::instance()->m_Config.nServerEnter[3])
+	{
+		PromptBox* box = PromptBox::PromptBoxWith(ccp(winSize.width * 0.5,winSize.height * 0.5),mPromptStartFaild);
+		box->setPromptText(ConfigMgr::instance()->text("t451"));
+		addChild(box,20);
+		return;
+	}
+	onStart(ROOM_TYPE_Primary);
+}
+
+void RoomLayer::toMiddleGame(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	long nefiugbv = ConfigMgr::instance()->m_Config.nServerEnter[2];
+	onStart(ROOM_TYPE_Middle);
+}
+
+void RoomLayer::toSeniyGame(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	if(g_GlobalUnits.getGolbalUserData()->lScore < ConfigMgr::instance()->m_Config.nServerEnter[1])
+	{
+		MovingLabelLayer* moveingLayer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t451"),ccp(427,240));
+		addChild(moveingLayer,20);
+		return;
+	}
+	onStart(ROOM_TYPE_Seniy);
+}
+
+void RoomLayer::toSuperGame(CCObject* obj)
+{
+	if (mMenuCloseOrOpen)
+	{
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+		return;
+	}
+	if(g_GlobalUnits.getGolbalUserData()->lScore < ConfigMgr::instance()->m_Config.nServerEnter[0])
+	{
+		MovingLabelLayer* moveingLayer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t451"),ccp(427,240));
+		addChild(moveingLayer,20);
+		return;
+	}
+	onStart(ROOM_TYPE_Super);
+}
+
+void RoomLayer::toPhoneKefu(CCObject* obj)
+{
+	playButtonSound();
+	isGoingRoomLayer++;
+	forbidButtonClick();
+	if(mMenuCloseOrOpen){
+		mMenuLayer->removeFromParentAndCleanup(true);
+		mMenuCloseOrOpen=false;
+	}
+	pCustomerService = CustomerServiceLayer::create();
+	addChild(pCustomerService,50);		
 }
 
 void RoomLayer::permitButtonClick()
 {
-	m_pPlayerMenu->setTouchEnabled(true);
-	m_pButtonMenu->setTouchEnabled(true);
-	pHelpView->setTouchEnabled(true);
-	pScrollAdd->setTouchEnabled(true);
-	this->setKeypadEnabled(true);
-	this->setTouchEnabled(true);
+	m_pPlayerMenu->setTouchEnabled(true);			
+	m_pButtonMenu->setTouchEnabled(true);			
+	m_pStartMenu->setTouchEnabled(true);			
+	m_pTopMenu->setTouchEnabled(true);				
+	m_pMiddleMenu->setTouchEnabled(true);
+	m_pMiddleMenu2->setTouchEnabled(true);
+	m_pOtherMenu->setTouchEnabled(true);
+	m_pMiddleHobbyMenu->setTouchEnabled(true);
 }
 
 void RoomLayer::forbidButtonClick()
 {
-	m_pPlayerMenu->setTouchEnabled(false);
-	m_pButtonMenu->setTouchEnabled(false);
-	pHelpView->setTouchEnabled(false);
-	pScrollAdd->setTouchEnabled(false);
-	this->setKeypadEnabled(false);
+	m_pPlayerMenu->setTouchEnabled(false);			
+	m_pButtonMenu->setTouchEnabled(false);			
+	m_pStartMenu->setTouchEnabled(false);			
+	m_pTopMenu->setTouchEnabled(false);				
+	m_pMiddleMenu->setTouchEnabled(false);
+	m_pMiddleMenu2->setTouchEnabled(false);
+	m_pOtherMenu->setTouchEnabled(false);
+	m_pMiddleHobbyMenu->setTouchEnabled(false);
 }
 
 string RoomLayer::createAccount()
 {
-    string szAccount;
-    int t = 0;
-    srand((unsigned)time(NULL));
-    for (int i = 0; i < 4; i++)
-    {
-        //t = rand() % 2 ? 65 : 97;
-        t = 97;
-        t += rand() % 26;
-        szAccount += (char)t;
-        
-    }
-    
-    for (int i = 0; i < 4; i++)
-    {
-        t = rand() % 10;
-        szAccount +=  ans::AnsString::int2String(t);
-        
-    }
-    return  szAccount;
+	string szAccount;
+	int t = 0;
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < 4; i++)
+	{
+		t = 97;
+		t += rand() % 26;
+		szAccount += (char)t;
+
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		t = rand() % 10;
+		szAccount +=  ans::AnsString::int2String(t);
+
+	}
+	return  szAccount;
 }
 
 string RoomLayer::createPassword()
 {
-    string szPassword;
-    int t = 0;
-    srand((unsigned)time(NULL));
-    
-    for (int i = 0; i < 6; i++)
-    {
-        t = rand() % 10;
-        szPassword +=  ans::AnsString::int2String(t);
-    }
-    return  szPassword;
-}
+	string szPassword;
+	int t = 0;
+	srand((unsigned)time(NULL));
 
-void RoomLayer::onRegistSucc(Object* obj)
-{
-    NotificationCenter::getInstance()->removeObserver(this,MSG_UI_ANS_REGSUCC);
-    showLoginAward();
-}
-
-void RoomLayer::onlandcardResult(Object* obj)
-{
-    String* str = (String*)obj;
-	MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(str->getCString(), Vec2(427, SCREEN_WIDTH/2));
-   this->addChild(layer,20);
-}
-
-void RoomLayer::onPhoneCardResult(Object* obj)
-{
-    String* str = (String*)obj;
-	MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(str->getCString(), Vec2(427, SCREEN_WIDTH/2));
-   this->addChild(layer,20);
-}
-
-void RoomLayer::onLinkResult(Object* obj)
-{
-    Integer* Interger = (Integer*)obj;
-    
-    switch (Interger->getValue())
-    {
-        case 0:
-            break;
-            
-        case 1:
-        {
-			DWORD m_dwKindID=pMsgDispatch->m_dwKindID;
-			if(m_dwKindID==KindId_BJL){
-				BJLSceneControl* pSceneControl = BJLSceneControl::sharedSceneControl();
-				Scene* pScene = pSceneControl->getScene(SCENE_game,true);
-				Director::getInstance()->replaceScene(pScene);
-			}
-			//else if (m_dwKindID == GameId_dzpk)
-			//{
-			//	Scene* pScene = DZPKLayer::scene();
-			//	Director::getInstance()->replaceScene(pScene);
-			//}
-        }
-            break;
-            
-        case 2:
-        {
-            PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeMakeSureModifyNickName);
-            box->setPromptText(pConfigMgr->text("t475"));
-           this->addChild(box,100);
-        }
-            break;
-        case 3:
-        {
-            gameToBankrupt(true);
-        }
-            
-        default:
-            break;
-    }
-}
-void RoomLayer::setGoingRoomLayer(){
-    isGoingRoomLayer++;
-}
-
-void RoomLayer::onKeyReleased(EventKeyboard::KeyCode keycode, Event *event)
-{
-	if (keycode == EventKeyboard::KeyCode::KEY_BACK)  //ËøîÂõû
+	for (int i = 0; i < 6; i++)
 	{
-		forbidButtonClick();
-		playButtonSound();
-		PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptexitSelect);
-		this->addChild(box,100,123);
+		t = rand() % 10;
+		szPassword +=  ans::AnsString::int2String(t);
+	}
+	return  szPassword;
+}
+
+void RoomLayer::onRegistSucc(CCObject* obj)
+{
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this,MSG_UI_ANS_REGSUCC);
+	string szText0;
+	if(strlen(g_GlobalUnits.getGolbalUserData()->szNickName)>0)
+	{
+		CCLOG("have nick name");
+		szText0 = g_GlobalUnits.getGolbalUserData()->szNickName;
+	}
+	else
+	{
+		CCLOG("not have nick name");
+		szText0 = EntityMgr::instance()->login()->getAccout();
+	}
+	long scoreNumber = g_GlobalUnits.getGolbalUserData()->lScore;
+	string szText1 = CCString::createWithFormat("%d",scoreNumber)->getCString();//addCommaToNumber(scoreNumber);
+	long telephonePointNumber = g_GlobalUnits.getGolbalUserData()->lGoldEggs;
+	string szText2 = CCString::createWithFormat("%d",telephonePointNumber)->getCString();//addCommaToNumber(telephonePointNumber);
+
+
+	CCLabelTTF* userNmae;
+	if(g_GlobalUnits.getGolbalUserData()->cbVisitor == 0)
+	{
+		userNmae = CCLabelTTF::create(szText0.c_str(),"",20);
+	}
+	else
+	{
+		userNmae = CCLabelTTF::create(CCString::createWithFormat("%s%s",ConfigMgr::instance()->text("t161"),szText0.c_str())->getCString(),"",20);
+	}
+	m_pUserScore = CCLabelTTF::create(szText1.c_str(),"",17);
+	m_pUserPhonePoint = CCLabelTTF::create(szText2.c_str(),"",17);
+	userNmae->setColor(ccc3(0,0,0));
+	m_pUserScore->setColor(ccc3(0,0,0));
+	m_pUserPhonePoint->setColor(ccc3(0,0,0));
+	userNmae->setPosition(ccp(winSize.width * 0.1f,winSize.height * 0.948f));
+	m_pUserScore->setPosition(ccp(winSize.width * 0.265f,winSize.height * 0.925f));
+	m_pUserPhonePoint->setPosition(ccp(winSize.width * 0.265f,winSize.height * 0.875f));
+	userNmae->setAnchorPoint(ccp(0.0f,0.0f));
+	m_pUserScore->setAnchorPoint(ccp(1.0f,0.5f));
+	m_pUserPhonePoint->setAnchorPoint(ccp(1.0f,0.5f));
+	addChild(userNmae);
+	addChild(m_pUserScore);
+	addChild(m_pUserPhonePoint,0,301);
+
+	CCSprite *pPlayerNormalSprite;
+	CCSprite *pPlayerSelectSprite;
+	if(g_GlobalUnits.getGolbalUserData()->cbGender == 1)
+	{
+		pPlayerNormalSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_10.png"));
+		pPlayerSelectSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_10.png"));
+	}
+	else
+	{
+		pPlayerNormalSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_8.png"));
+		pPlayerSelectSprite = CCSprite::createWithSpriteFrame(spriteFrame("dt_register_8.png"));
+	}
+
+	pPlayerMenuSprite->setNormalImage(pPlayerNormalSprite);
+	pPlayerMenuSprite->setSelectedImage(pPlayerSelectSprite);
+	showLoginAward();
+}
+
+void RoomLayer::onlandcardResult(CCObject* obj)
+{
+	CCString* str = (CCString*)obj;
+	MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(str->getCString(),ccp(427,240));
+	addChild(layer,20);
+}
+
+void RoomLayer::onPhoneCardResult(CCObject* obj)
+{
+	CCString* str = (CCString*)obj;
+	MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(str->getCString(),ccp(427,240));
+	addChild(layer,20);
+}
+
+void RoomLayer::onLinkResult(CCObject* obj)
+{
+	CCInteger* Interger = (CCInteger*)obj;
+
+	switch (Interger->getValue())
+	{
+	case 0:			// 0Œ™¡¨Ω” ß∞‹ 
+		break;
+
+	case 1:			// 1Œ™¡¨Ω”≥…π¶
+		{
+
+		}
+		break;
+
+	case 2:			// 2Œ™√ª”–∑˛ŒÒ∆˜
+		{
+			PromptBox* box = PromptBox::PromptBoxWith(ccp(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeMakeSureModifyNickName);
+			box->setPromptText(ConfigMgr::instance()->text("t475"));
+			addChild(box,100);
+		}
+		break;
+	case 3:
+		{
+			//∆∆≤˙µØøÚ
+			gameToBankrupt(true);
+		}
+
+	default:
+		break;
 	}
 }
+void RoomLayer::setGoingRoomLayer(){
+	isGoingRoomLayer++;
+}
 
-void RoomLayer::onRegisterFaild(Object* obj)
+void RoomLayer::onRegisterFaild(CCObject* obj)
 {
-    int nGender = 1;
-    int nFaceId = 0;
-    string szAccount = createAccount();
-    string szPassword = createPassword();
-    
-    bool bRet = pMsgDispatch->connectLoginServer();
-    EntityMgr::instance()->login()->setUserRegister(szAccount.c_str(),szPassword.c_str(),nFaceId,nGender,1);
+	//◊¢≤·’À∫≈ ß∞‹÷ÿ–¬◊¢≤·”ŒøÕ’À∫≈
+	int nGender = 1;
+	int nFaceId = 0;
+	string szAccount = createAccount();
+	string szPassword = createPassword();
+
+	bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
+	if (!bRet)
+	{
+
+	}
+	EntityMgr::instance()->login()->setUserRegister(szAccount.c_str(),szPassword.c_str(),nFaceId,nGender,1);
 }
 
 void RoomLayer::showMoveingLabelTips(const char* str)
 {
-    MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(str,Vec2(winSize.width * 0.5,winSize.height * 0.5));
-   this->addChild(layer,100);
+	MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(str,ccp(winSize.width * 0.5,winSize.height * 0.5));
+	addChild(layer,100);
 }
 
-void RoomLayer::onPesent(Object* obj)
+void RoomLayer::onPesent(CCObject* obj)
 {
-    tagScoreGifObj* obj1 = (tagScoreGifObj*)obj;
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
-    PromptBox * promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5, winSize.height * 0.5),mPromptTypePasswordFind);
-    this->addChild(promptBox,20);
-    promptBox->setPromptText((const char*)obj1->szErrorDescribe);
+	tagScoreGifObj* obj1 = (tagScoreGifObj*)obj;
+
+	//œ‘ æÃ· æøÚ
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	PromptBox * promptBox = PromptBox::PromptBoxWith(CCPointMake(winSize.width * 0.5, winSize.height * 0.5),mPromptTypePasswordFind);
+	addChild(promptBox,20);
+	promptBox->setPromptText((const char*)obj1->szErrorDescribe);
 }
 
-void RoomLayer::onChange(Object* obj)
+void RoomLayer::onRefshTotalNum(CCObject* obj)
 {
-    tagChargeObj* obj1 = (tagChargeObj*)obj;
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
-    PromptBox * promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5, winSize.height * 0.5),mPromptTypePasswordFind);
-    this->addChild(promptBox,20);
-    promptBox->setPromptText((const char*)obj1->szErrorDescribe);
+	return;
+	GroupSprite* m_pHappyNormalSprite = GroupSprite::GroupSpriteWith("dt_happygame.png",CCString::createWithFormat("%d",(int)((g_GlobalUnits.m_nOnlineCount + 5000)*1.8))->getCString(),GorupSpriteTypePhotoAndText0,5);
+	GroupSprite* m_pHappySelectSprite = GroupSprite::GroupSpriteWith("dt_happygame.png",CCString::createWithFormat("%d",(int)((g_GlobalUnits.m_nOnlineCount + 5000)*1.8))->getCString(),GorupSpriteTypePhotoAndText0,5);
+
+	//≥ıº∂≥°
+	GroupSprite * primaryNormalSprite = GroupSprite::GroupSpriteWith("dt_primarymatch.png",CCString::createWithFormat("%d",(int)(((g_GlobalUnits.m_nOnlineCount + 5000)*1.8)*0.44))->getCString(),GorupSpriteTypePhotoAndText1,1);
+	GroupSprite * primarySelectSprite = GroupSprite::GroupSpriteWith("dt_primarymatch.png",CCString::createWithFormat("%d",(int)(((g_GlobalUnits.m_nOnlineCount + 5000)*1.8)*0.44))->getCString(),GorupSpriteTypePhotoAndText1,1);
+
+	//÷–º∂≥°
+	GroupSprite * middleNormalSprite = GroupSprite::GroupSpriteWith("dt_middlematch.png",CCString::createWithFormat("%d",(int)(((g_GlobalUnits.m_nOnlineCount + 5000)*1.8)*0.3))->getCString(),GorupSpriteTypePhotoAndText1,2);
+	GroupSprite * middleSelectSprite = GroupSprite::GroupSpriteWith("dt_middlematch.png",CCString::createWithFormat("%d",(int)(((g_GlobalUnits.m_nOnlineCount + 5000)*1.8)*0.3))->getCString(),GorupSpriteTypePhotoAndText1,2);
+
+	//∏ﬂº∂≥°
+	GroupSprite * seniyNormalSprite = GroupSprite::GroupSpriteWith("dt_seniymatch.png",CCString::createWithFormat("%d",(int)(((g_GlobalUnits.m_nOnlineCount + 5000)*1.8)*0.26))->getCString(),GorupSpriteTypePhotoAndText1,3);
+	GroupSprite * seniySelectSprite = GroupSprite::GroupSpriteWith("dt_seniymatch.png",CCString::createWithFormat("%d",(int)(((g_GlobalUnits.m_nOnlineCount + 5000)*1.8)*0.26))->getCString(),GorupSpriteTypePhotoAndText1,3);
+
+	m_pPrimaryS->setNormalImage(primaryNormalSprite);
+	m_pPrimaryS->setNormalImage(primarySelectSprite);
+	m_pMiddleS->setNormalImage(middleNormalSprite);
+	m_pMiddleS->setNormalImage(middleSelectSprite);
+	m_pSeniyS->setNormalImage(seniyNormalSprite);
+	m_pSeniyS->setNormalImage(seniySelectSprite);
+}
+
+void RoomLayer::onChange(CCObject* obj)
+{
+	tagChargeObj* obj1 = (tagChargeObj*)obj;
+
+	//œ‘ æÃ· æøÚ
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	PromptBox * promptBox = PromptBox::PromptBoxWith(CCPointMake(winSize.width * 0.5, winSize.height * 0.5),mPromptTypePasswordFind);
+	addChild(promptBox,20);
+	promptBox->setPromptText((const char*)obj1->szErrorDescribe);
 }
 
 void RoomLayer::gameToBankrupt(bool isBankrupt)
 {
-    if(pConfigMgr->m_Config.m_isGameBankrupcy)
-    {
-        pConfigMgr->m_Config.m_isGameBankrupcy = false;
+	if(ConfigMgr::instance()->m_Config.m_isGameBankrupcy)
+	{
+		//–°”Œœ∑∆∆≤˙ µØ≥ˆ∆∆≤˙øÚ
+		ConfigMgr::instance()->m_Config.m_isGameBankrupcy = false;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        showAndroidRechageLayer(String::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString(),"1","4");
+		showAndroidRechageLayer(CCString::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString(),"1","4");
 #endif
-        return;
-    }
+		return;
+	}
 
-    if(isBankrupt)
-    {
+	//◊‘º∫µØ≥ˆ∆∆≤˙øÚ
+	if(isBankrupt)
+	{
+		//œ‘ æ∆∆≤˙øÚ
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        showAndroidRechageLayer(String::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString(),"1","4");
+		showAndroidRechageLayer(CCString::createWithFormat("%d",g_GlobalUnits.getGolbalUserData()->dwUserID)->getCString(),"1","4");
 #endif
-    }
+	}
 }
 
-void RoomLayer::showDailyGetCoins(Object* obj)
+void RoomLayer::showDailyGetCoins(CCObject* obj)
 {
-    if(g_GlobalUnits.getGolbalUserData()->nRelieveCount > 0)
-    {
-        bool ret = pMsgDispatch->connectLoginServer();
-        if (!ret)
-        {
-			PromptBox* box = PromptBox::PromptBoxWith(Vec2(427, SCREEN_WIDTH/2), mPromptTypeServerShut);
-            this->addChild(box,20);
-            return;
-        }
-        pMsgDispatch->getRelieve(g_GlobalUnits.getGolbalUserData()->dwUserID);
-    }
-    else
-    {
-        Scene* scene = Scene::create();
-        FreeLayer* layer = FreeLayer::create();
-        scene->addChild(layer);
-        Director::getInstance()->replaceScene(scene);
-    }
+	if(g_GlobalUnits.getGolbalUserData()->nRelieveCount > 0)
+	{
+		bool ret = EntityMgr::instance()->getDispatch()->connectLoginServer();
+		if (!ret)
+		{
+			PromptBox* box = PromptBox::PromptBoxWith(ccp(427,240),mPromptTypeServerShut);
+			this->addChild(box,20);
+			return;
+		}
+		EntityMgr::instance()->getDispatch()->getRelieve(g_GlobalUnits.getGolbalUserData()->dwUserID);
+	}
+	else
+	{
+		CCScene* scene = CCScene::create();
+		FreeLayer* layer = FreeLayer::create();
+		scene->addChild(layer);
+		CCDirector::sharedDirector()->replaceScene(scene);
+	}
 }
 
-void RoomLayer::showDailyGetCoinsResult(Object* obj)
+void RoomLayer::showDailyGetCoinsResult(CCObject* obj)
 {
-    Integer* inter = (Integer*)obj;
-    PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeLackCoins);
-    box->setPromptText(String::createWithFormat("%s%d%s%d%s",pConfigMgr->text("t476"),inter->getValue(),pConfigMgr->text("t477"),g_GlobalUnits.getGolbalUserData()->nRelieveCount,pConfigMgr->text("t478"))->getCString());
-    this->addChild(box,50);
+	CCInteger* inter = (CCInteger*)obj;
+	PromptBox* box = PromptBox::PromptBoxWith(ccp(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeLackCoins);
+	box->setPromptText(CCString::createWithFormat("%s%d%s%d%s",ConfigMgr::instance()->text("t476"),inter->getValue(),ConfigMgr::instance()->text("t477"),g_GlobalUnits.getGolbalUserData()->nRelieveCount,ConfigMgr::instance()->text("t478"))->getCString());
+	addChild(box,50);
 }
