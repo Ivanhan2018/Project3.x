@@ -44,7 +44,7 @@ bool MenuLayer::init()
 	do 
 	{
 		float posY = 368;
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		Sprite *menuBk = Sprite::createWithSpriteFrame(spriteFrame("Sprite_SettingBk.png"));
 		menuBk->setAnchorPoint(Vec2(0,0.5));
 		menuBk->setPosition(Vec2(355,posY+2));

@@ -70,7 +70,7 @@ bool LoginLayer::init(bool bLogin)
 		return false;
 	}
 	EntityMgr::instance();
-	winSize = CCDirector::sharedDirector()->getWinSize();
+	winSize = WINSIZE;
 	m_bLogin = true;
 	m_from = false;
 
@@ -180,6 +180,24 @@ void LoginLayer::buttonEventWithUserLogin(Ref* target,cocos2d::ui::Widget::Touch
     if(type==Widget::TouchEventType::ENDED){
         
         {
+			//Ð´ËÀÕÊºÅÃÜÂëµÇÂ¼
+#if 1
+         std::string straccount = "hxh001";
+         std::string strpassword = "a123456";
+		 bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
+		 if (!bRet)
+		 {
+			 MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t26"),ccp(winSize.width * 0.5,winSize.height * 0.5));
+			 addChild(layer);
+			 return;
+		 }
+		 else
+		 {
+			 EntityMgr::instance()->login()->setUserLogin(straccount, strpassword);
+		 }    
+    return;
+#endif
+
             auto layout = Layout::create();
             layout->setContentSize(winSize);
             layout->setTag(TAG_USERLOGIN_LAYER);

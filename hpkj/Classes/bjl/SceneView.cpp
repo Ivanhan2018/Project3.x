@@ -99,11 +99,11 @@ void SceneView::ToLandscape()
 
 bool SceneView::init()
 {
-	cocos2d::Size size = Director::getInstance()->getWinSize();
+	cocos2d::Size size = WINSIZE;
 	bool ret =false;
 	do 
 	{
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 		
 		// 加载游戏场景资源到内存
 		LoadRes();

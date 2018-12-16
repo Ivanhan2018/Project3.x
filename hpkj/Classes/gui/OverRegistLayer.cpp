@@ -25,7 +25,7 @@ bool OverRegistLayer::init()
 	bool bRet = false;
 	do 
 	{
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 		Sprite *pRegistBJLeft = Sprite::createWithSpriteFrame(spriteFrame("dt_register_12.jpg"));
 		Sprite *pRegistBJRight = Sprite::createWithSpriteFrame(spriteFrame("dt_register_12.jpg"));
 		pRegistBJRight->setRotationY(180);
@@ -337,7 +337,7 @@ void OverRegistLayer::onOverRes(Object* obj)
 
 void OverRegistLayer::showPlayerXieYi(Object *obj){
 	playButtonSound();
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	string szAccount  = m_pUserNameKuang->getText();
 	string szPassword = m_pPassWordKuang->getText();
 	string szSPassword = m_pPassWordKuangOK->getText();

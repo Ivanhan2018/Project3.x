@@ -55,7 +55,7 @@ bool PromptBox::initPromptBox(Vec2 pos , mPromptType type)
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	m_nTypes = type;
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	LayerColor* colorLayer = LayerColor::create(ccc4(166, 166, 166, 100), winSize.width, winSize.height);
 	this->addChild(colorLayer);
 	if(m_nTypes == mPromptpasswordUsed)
@@ -288,7 +288,8 @@ void PromptBox::setLevelAndX(int nLevel,int nXXX,bool isLack)
 	else
 	{
 		m_pAlartWord->setString(pConfigMgr->text("t450"));
-	}cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	}
+	cocos2d::Size winSize = WINSIZE;
 	m_pAlartWord->setPosition(Vec2(winSize.width*0.5, winSize.height * 0.49));
 }
 void PromptBox::close(Object *obj)

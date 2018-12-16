@@ -34,7 +34,7 @@ LuckyDraw::~LuckyDraw()
 bool LuckyDraw::init()
 {
 	canDraw = true;
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	LayerColor *base = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), SCREEN_HEIGHT, SCREEN_WIDTH);
 	this->addChild(base);
 	//����
@@ -142,10 +142,10 @@ void LuckyDraw::pinMove(int tag)
 
 void LuckyDraw::pinMoveEnd(Node *obj)
 {
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = WINSIZE;
     PromptBox *promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeGetError);
     promptBox->setPromptText(pConfigMgr->text(String::createWithFormat("t%d",1011+lastLuckyNum)->getCString()));
-   this->addChild(promptBox,1);
+    this->addChild(promptBox,1);
 	canDraw = true;
 }
 

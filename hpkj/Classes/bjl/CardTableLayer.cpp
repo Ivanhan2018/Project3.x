@@ -37,7 +37,7 @@ CardTableLayer::~CardTableLayer()
 
 bool CardTableLayer::init()
 {
-	size = Director::getInstance()->getWinSize();
+	size = WINSIZE;
 	//±³¾°Í¼Æ¬
 	if(!Node::init())
 	{
@@ -309,41 +309,6 @@ void CardTableLayer::onExit()
 {
 	Node::onExit();
 	SoundControl::sharedSoundControl()->coloseBackGroundMusic();
-}
-
-String CardTableLayer::getDateNow()
-{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	timeval now;
-	gettimeofday(&now, NULL);
-	struct tm *tm;
-	time_t tp = now.tv_sec;
-	tm = localtime(&tp);
-	int year = (int)tm->tm_year+1900;
-	int mon = (int)tm->tm_mon+1;
-	int day = (int)tm->tm_mday;
-	int min = (int)tm->tm_min;
-	int hour = (int)tm->tm_hour;
-	int sec = (int)tm->tm_sec;
-	String str;
-	str.initWithFormat("%02d:%02d",hour,min);
-	return str;
-#endif
-#if ( CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 )
-	struct tm * tm;
-	time_t timep;
-	time(&timep);
-	tm = localtime(&timep);
-	int year = (int)tm->tm_year+1900;
-	int mon = (int)tm->tm_mon+1;
-	int day = (int)tm->tm_mday;
-	int min = (int)tm->tm_min;
-	int hour = (int)tm->tm_hour;
-	int sec = (int)tm->tm_sec;
-	String str;
-	str.initWithFormat("%02d:%02d",hour,min);
-	return str;
-#endif
 }
 
 void CardTableLayer::setNickName(const char * nikeName )

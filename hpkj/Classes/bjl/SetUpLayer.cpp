@@ -18,7 +18,7 @@ SetUpLayer::~SetUpLayer()
 
 bool SetUpLayer::init()
 {
-	cocos2d::Size size = Director::getInstance()->getWinSize();
+	cocos2d::Size size = WINSIZE;
 	m_bgPoint = ccp(size.width/2,size.height/2);
 	if (!Layer::init())
 	{

@@ -35,7 +35,7 @@ bool RegistLayer::init()
 		CC_BREAK_IF(! Layer::init());
 		ccColor3B whiteColor = ccc3(255,255,255);
 		ccColor3B blackColor = ccc3(0,0,0);
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 
 		LayerColor* layer = LayerColor::create(ccc4(255, 255, 255, 255), SCREEN_WIDTH, SCREEN_HEIGHT);
 		layer->ignoreAnchorPointForPosition(false);
@@ -277,7 +277,7 @@ void RegistLayer::onRegisterFaild(Object* obj)
 
 void RegistLayer::showAgreePlayerXieYi(Object *obj){
 	playButtonSound();
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	string szAccount  = m_pUserNameKuang->getText();
 	string szPassword = m_pPassWordKuang->getText();
 	string szSPassword = m_pPassWordKuangOK->getText();

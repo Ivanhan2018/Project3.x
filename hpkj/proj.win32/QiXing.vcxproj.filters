@@ -414,6 +414,9 @@
     <ClCompile Include="..\Classes\lobby\SceneBackDialogLayer.cpp">
       <Filter>Classes\lobby</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\md5.c">
+      <Filter>Classes\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -874,6 +877,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\SceneBackDialogLayer.h">
       <Filter>Classes\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\md5.h">
+      <Filter>Classes\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

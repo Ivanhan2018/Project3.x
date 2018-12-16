@@ -45,7 +45,7 @@ bool HelpScrollView::init()
 		listener->onTouchMoved = CC_CALLBACK_2(HelpScrollView::onTouchMoved, this);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 
 		/*Sprite *pPlayerInfoBJLeft1 = Sprite::createWithSpriteFrame(spriteFrame("dt_email8.jpg"));
 		Sprite *pPlayerInfoBJRight1 = Sprite::createWithSpriteFrame(spriteFrame("dt_email8.jpg"));

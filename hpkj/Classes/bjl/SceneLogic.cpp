@@ -28,7 +28,7 @@ bool SceneLogic::init()
 	bool ret=false;
 	do 
 	{
-		size = Director::getInstance()->getWinSize();
+		size = WINSIZE;
 
 		//-- ÷≈∆
 		for(int i=0 ;i<GAME_PLAYER;i++)

@@ -41,7 +41,7 @@ bool CustomerServiceLayer::init()
 	bool bRet = false;
 	do 
 	{
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), 854.0f, SCREEN_WIDTH);
 		layer->ignoreAnchorPointForPosition(false);
 		layer->setPosition(Vec2(winSize.width*0.5,winSize.height*0.5));

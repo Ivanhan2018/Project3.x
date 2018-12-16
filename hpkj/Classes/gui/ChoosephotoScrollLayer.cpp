@@ -2,6 +2,7 @@
 #include "CocosUnits.h"
 #include "CusTomTableViewCell.h"
 #include "ChoosePhotoCell.h"
+#include "Define.h"
 
 ChoosePhotoScrollLayer::ChoosePhotoScrollLayer(void)
 
@@ -35,7 +36,7 @@ bool ChoosePhotoScrollLayer::intPhotoScrollLayerWith(int type,int num)
 	m_nType = type;
 	m_nMessageNum = num;
 
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	/**设置滑动操作可视区域的大小**/
 	TableView* tableView = TableView::create(this, cocos2d::Size(723.0f, 156.0f));
 	tableView->setDirection(TableView::Direction::HORIZONTAL);

@@ -39,7 +39,7 @@ bool GuessCoinSide::init()
 	bool bRet = false;
 	do 
 	{
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		/**ªÊ÷∆∞ÎÕ∏√˜√…∞Â**/
 		LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), 854.0f, SCREEN_WIDTH);
 		//layer->ignoreAnchorPointForPosition(false);
@@ -65,7 +65,7 @@ void GuessCoinSide::updateMoney(float dt)
 
 void GuessCoinSide::initView()
 {
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	/**ªÊ÷∆±≥æ∞Õº∆¨**/
 	Sprite * pBJ = Sprite::create("Bk_LoadView.png");
 	pBJ->setPosition(Vec2(winSize.width*0.5,winSize.height*0.5));
@@ -264,7 +264,7 @@ void GuessCoinSide::pressChip(Object *obj)
         return;
     }
     
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	int chipValue[8] = {0,1,5,10,50,100,500,1000};
 	int tag = ((MenuItemSprite *)obj)->getTag();
 	if(betScore+chipValue[tag]*10000>score){
@@ -379,7 +379,7 @@ void GuessCoinSide::toZero()
 
 void GuessCoinSide::coinRotateEnd(Node *obj)
 {
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = WINSIZE;
 	canRotate = true;
     score+=scoreEarned;
     this->refreshScoreLabel();

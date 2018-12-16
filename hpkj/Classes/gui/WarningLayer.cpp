@@ -81,7 +81,7 @@ bool WarningLayer::init()
 	bool bRet = false;
 	do 
 	{
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 		signInDays = 0;
 		/**���ư�͸���ɰ�**/
 		LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), 854.0f, SCREEN_WIDTH);
@@ -318,7 +318,7 @@ void WarningLayer::onSignInCompleted(Node *sender, void *data)
 	signInMenu->setVisible(false);
 	if(result == '3'){
 		if(promptBox == NULL){
-			cocos2d::Size winSize = Director::getInstance()->getWinSize();
+			cocos2d::Size winSize = WINSIZE;
 			promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeGetError);
 			promptBox->setPromptText(pConfigMgr->text("t575"));
 			this->addChild(promptBox,1);
@@ -333,7 +333,7 @@ void WarningLayer::onSignInCompleted(Node *sender, void *data)
 		DBHandler::sharedDBHandler()->execute(message);
 	}else{
 		if(promptBox == NULL){
-			cocos2d::Size winSize = Director::getInstance()->getWinSize();
+			cocos2d::Size winSize = WINSIZE;
 			promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeGetError);
 			promptBox->setPromptText(pConfigMgr->text("t576"));
 			this->addChild(promptBox,1);

@@ -80,7 +80,7 @@ MissionLayer *MissionLayer::createWithTabItems(Array *itemNormalName, Array *ite
 }
 //void MissionLayer::initView()
 //{
-//	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+//	cocos2d::Size winSize = WINSIZE;
 //	/**���ư�͸���ɰ�**/
 //	LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255*0.5f), 854.0f, SCREEN_WIDTH);
 //	layer->ignoreAnchorPointForPosition(false);
@@ -130,7 +130,7 @@ void MissionLayer::initView()
 	beMissionNum = 4;
 	float gapX = 11;
 	float gapY = 10;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	winSize.width -= gapX*2;
 
 	Sprite *tempSprite;
@@ -392,7 +392,7 @@ MissionTableHelper::MissionTableHelper(MissionLayer *fath, int num, MissionLayer
 	float gapX = 11;
 	float gapY = 10;
 	father = fath;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	winSize.width -= gapX*2;
 	Sprite *tempSprite = Sprite::createWithSpriteFrame(spriteFrame("Sprite_Friend1.png"));
 	tableItemSize.height = tempSprite->getContentSize().height;

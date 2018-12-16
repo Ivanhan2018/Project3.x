@@ -52,7 +52,7 @@ bool ModifyPassWord::init(bool bLogin)
     {
         return false;
     }
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = WINSIZE;
 
 	//����
 //	Sprite* spriteBack0 = Sprite::createWithSpriteFrame(spriteFrame("dt_register_12.jpg"));

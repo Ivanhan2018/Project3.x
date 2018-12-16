@@ -2,6 +2,7 @@
 #include "CocosUnits.h"
 #include "CusTomTableViewCell.h"
 #include "EmailCell.h"
+#include "Define.h"
 
 EmailScorllLayer::EmailScorllLayer(void)
 {
@@ -34,7 +35,7 @@ bool EmailScorllLayer::intEmailScorllLayerWith(int type,int num)
 	m_nType = type;
 	m_nMessageNum = num;
 
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 
 	TableView* tableView = TableView::create(this, cocos2d::Size(774, 355));
 	tableView->setDirection(ScrollView::Direction::VERTICAL);

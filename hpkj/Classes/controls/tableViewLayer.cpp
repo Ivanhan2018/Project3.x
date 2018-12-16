@@ -2,6 +2,7 @@
 #include "CCTouchSprite.h"
 #include "CocosUnits.h"
 #include "GBEventIDs.h"
+#include "Define.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 
@@ -33,7 +34,7 @@ bool TableViewLayer::init()
 	{
 		CC_BREAK_IF(!Layer::init());
 
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		TableView* pTableView = TableView::create(this, cocos2d::Size(123 * 4 + 175, 114*2 + 20));
 		pTableView->setDirection(TableView::Direction::HORIZONTAL);
 		//pTableView->setViewLine();

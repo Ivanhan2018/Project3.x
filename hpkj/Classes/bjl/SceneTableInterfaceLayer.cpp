@@ -37,7 +37,7 @@ bool SceneTableInterfaceLayer::init()
 	{
 		return false;
 	}
-	cocos2d::Size WinSize = Director::getInstance()->getWinSize();
+	cocos2d::Size WinSize = WINSIZE;
 
 	this->setKeypadEnabled(true);
 	LayerColor* colorLayer = LayerColor::create(ccc4(166, 166, 166, 100), WinSize.width, WinSize.height);

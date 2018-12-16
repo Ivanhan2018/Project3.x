@@ -46,7 +46,7 @@ bool CardManager::initCardManager()
 	bool bRet = false;
 	do 
 	{
-		Winsize = Director::getInstance()->getWinSize();
+		Winsize = WINSIZE;
 
 		MyConfig& myConfig=MyConfig::Instance();
 

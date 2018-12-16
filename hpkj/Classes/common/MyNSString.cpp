@@ -557,3 +557,205 @@ int MyNSString::mbs2wc(const char *mbs,unsigned int mbs_size,TCHART *wc)
 #endif
 	
 } 
+
+int UTF8_To_UCS4( const BYTE* pbUTF8, DWORD& dwUCS4 )
+{
+    INT i, iLen;
+    BYTE b;
+    if( pbUTF8 == NULL )
+    { // 参数错误
+        return 0;
+    }
+    b = *pbUTF8++;
+    if( b < 0x80 )
+    {
+        dwUCS4 = b;
+        return 1;
+    }
+    if( b < 0xC0 || b > 0xFD )
+    { // 非法UTF8
+        return 0;
+    }
+    if( b < 0xE0 )
+    {
+        dwUCS4 = b & 0x1F;
+        iLen = 2;
+    }
+    else if( b < 0xF0 )
+    {
+        dwUCS4 = b & 0x0F;
+        iLen = 3;
+    }
+    else if( b < 0xF8 )
+    {
+        dwUCS4 = b & 7;
+        iLen = 4;
+    }
+    else if( b < 0xFC )
+    {
+        dwUCS4 = b & 3;
+        iLen = 5;
+    }
+    else
+    {
+        dwUCS4 = b & 1;
+        iLen = 6;
+    }
+    for( i = 1; i < iLen; i++ )
+    {
+        b = *pbUTF8++;
+        if( b < 0x80 || b > 0xBF )
+        { // 非法UTF8
+            break;
+        }
+        dwUCS4 = (dwUCS4 << 6) + (b & 0x3F);
+    }
+    if( i < iLen )
+    { // 非法UTF8
+        return 0;
+    }
+    else
+    {
+        return iLen;
+    }
+}
+
+// 转换UCS4编码到UCS2编码
+INT UCS4_To_UTF16( DWORD dwUCS4, WORD* pwUTF16 )
+{
+    if( dwUCS4 <= 0xFFFF )
+    {
+        if( pwUTF16 != NULL )
+        {
+            *pwUTF16 = static_cast<WORD>(dwUCS4);
+        }
+        return 1;
+    }
+    else if( dwUCS4 <= 0xEFFFF )
+    {
+        if( pwUTF16 != NULL )
+        {
+            pwUTF16[0] = static_cast<WORD>( 0xD800 + (dwUCS4 >> 10) - 0x40 ); // 高10位
+            pwUTF16[1] = static_cast<WORD>( 0xDC00 + (dwUCS4 & 0x03FF) ); // 低10位
+        }
+        return 2;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// 转换UTF8字符串到UTF16字符串
+void MyNSString::UTF8Str_To_UTF16Str( const std::string &str, WORD* pwszUTF16Str )
+{
+    std::u16string ptest;
+    StringUtils::UTF8ToUTF16(str, ptest);
+    memcpy(pwszUTF16Str, ptest.c_str(), ptest.length()*2);
+}
+
+int MyNSString::UTF8Str_To_UTF16Str_BYTE( const BYTE* pbszUTF8Str, WORD* pwszUTF16Str )
+{
+    INT iNum, iLen;
+    DWORD dwUCS4;
+    if( pbszUTF8Str == NULL )
+    { // 参数错误
+        return 0;
+    }
+    iNum = 0; // 统计有效字符个数
+    while( *pbszUTF8Str )
+    { // UTF8编码转换为UCS4编码
+        iLen = UTF8_To_UCS4( pbszUTF8Str, dwUCS4 );
+        if( iLen == 0 )
+        { // 非法的UTF8编码
+            return 0;
+        }
+        pbszUTF8Str += iLen;
+        // UCS4编码转换为UTF16编码
+        iLen = UCS4_To_UTF16( dwUCS4, pwszUTF16Str );
+        if( iLen == 0 )
+        {
+            return 0;
+        }
+        if( pwszUTF16Str != NULL )
+        {
+            pwszUTF16Str += iLen;
+        }
+        iNum += iLen;
+    }
+    if( pwszUTF16Str != NULL )
+    {
+        *pwszUTF16Str = 0; // 写入字符串结束标记
+    }
+    
+    return iNum;
+}
+
+//单字符:utf8 -> unicode 返回转换长度
+int WHConverUtf8ToUnicode(WORD *destUnicode, const char *srcUtf8)
+{
+    int i=0;
+    if( (0x80&srcUtf8[0]) == 0 )         //一个字节的UTF-8
+    {
+        destUnicode[0] = srcUtf8[i++];
+    }
+    if( (0xE0&srcUtf8[0]) == 0xC0 )      //两字节的UTF-8
+    {
+        int a = ( 0x1F & srcUtf8[i++] ) << 6;
+        int b = ( 0x3F & srcUtf8[i++] );
+        destUnicode[0] = a + b;
+    }
+    if( (0xF0&srcUtf8[0]) == 0xE0 )      //三字节的UTF-8
+    {
+        int a = ( 0x1F & srcUtf8[i++] ) << 12;
+        int b = ( 0x3F & srcUtf8[i++] ) << 6;
+        int c = ( 0x3F & srcUtf8[i++] );
+        
+        destUnicode[0] = a + b + c;
+    }
+    
+    return i;
+}
+
+//单字符:unicode -> utf8 返回转换长度
+int WHConverUnicodeToUtf8(char* destUtf8, WORD srcUnicode)
+{
+    int i=0;
+    if( 0x80 > srcUnicode )
+    {
+        destUtf8[i++]=(char)srcUnicode;
+    }
+    else if(0x80 <= srcUnicode && srcUnicode <= 0x07FF)
+    {
+        destUtf8[i++] = (char)((srcUnicode>>6)|0xC0);
+        destUtf8[i++] = (char)((srcUnicode&0x3F)|0x80);
+    }
+    else
+    {
+        destUtf8[i++] = (char)(0xE0|(srcUnicode>>12));
+        destUtf8[i++] = (char)(0x80|((srcUnicode>>6)&0x3F));
+        destUtf8[i++] = (char)(0x80|(srcUnicode&0x3F));
+    }
+    return i;
+    
+}
+
+//数组:unicode -> utf8
+std::string MyNSString::WHConverUnicodeToUtf8WithArray( WORD srcUnicode[])
+{
+    WORD wIndex=0;
+    for (int i=0; ; i++){
+        if(srcUnicode[i])
+        {
+            wIndex += 1;
+        }
+        else
+            break;
+    }
+    std::u16string ptest((const char16_t *)srcUnicode, wIndex);
+    std::string str;
+    StringUtils::UTF16ToUTF8(ptest, str);
+    
+    return str;
+}
+

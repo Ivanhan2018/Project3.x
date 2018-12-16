@@ -10,7 +10,7 @@ ViewMenuLayer::~ViewMenuLayer()
 }
 bool ViewMenuLayer::init()
 {
-	cocos2d::Size size = Director::getInstance()->getWinSize();
+	cocos2d::Size size = WINSIZE;
 	m_isVisibleStart = false;
 	m_menuPositionY = 200.0f;		//°´Å¥×ø±êYÎ»ÖÃ
 	if(!Layer::init())
@@ -65,7 +65,7 @@ void ViewMenuLayer::setTimer(int userId,Game_State gameState,int t,bool visible,
 		m_timer->setVisible(false);
 		return;
 	}
-	cocos2d::Size size = Director::getInstance()->getWinSize();
+	cocos2d::Size size = WINSIZE;
 	m_timer->unscheduleAllSelectors();
 	if (!m_timer->isVisible())
 	{

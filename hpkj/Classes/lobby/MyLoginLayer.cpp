@@ -50,7 +50,7 @@ bool MyLoginLayer::init()
 
 	MyLoginLayerRoot = static_cast<Widget*>(Root->getChildByName("ditu"));
 
-	Size size = Director::getInstance()->getWinSize();
+	Size size = WINSIZE;
 	Root->setScale(size.width / MyLoginLayerRoot->getContentSize().width, size.height / MyLoginLayerRoot->getContentSize().height);
 	
 	CCSprite* GonggaoLayer = static_cast<CCSprite*>(MyLoginLayerRoot->getChildByName("gonggao"));

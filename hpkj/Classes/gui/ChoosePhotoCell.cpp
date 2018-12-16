@@ -27,7 +27,7 @@ ChoosePhotoCell* ChoosePhotoCell::PhotoCellWith(int type){
 }
 bool ChoosePhotoCell::initPhotoCellWith(int type){
 	    m_nType = type;
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 
 		Sprite *pNormalPlayerBG = Sprite::createWithSpriteFrame(spriteFrame("dt_player_bj.png"));
 		/*Sprite *pSelectPlayerBG = Sprite::createWithSpriteFrame(spriteFrame("dt_player_bj.png"));

@@ -59,7 +59,7 @@ bool FreeCell::initFreeCellWith(int type,bool isGet){
 				this, callfuncO_selector(FreeCell::setPesent), MSG_UI_ANS_THREETOONE, NULL);
 		}
 
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		Sprite *pBGLeft = Sprite::createWithSpriteFrame(spriteFrame("dt_free_4.png"));
 		pBGLeft->setPosition(Vec2(211.5f,45.0f));
 		this->addChild(pBGLeft,0);

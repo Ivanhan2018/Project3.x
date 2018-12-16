@@ -66,7 +66,7 @@ void EmailLayer::initView()
 {
 	float gapX = 11;
 	float gapY = 10;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	winSize.width -= gapX*2;
 
 	cocos2d::Size tableViewSize;
@@ -167,7 +167,7 @@ EmailTableHelper::EmailTableHelper(EmailLayer *fath, int num, EmailTableTag tag)
 	float gapX = 11;
 	float gapY = 10;
 	father = fath;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	winSize.width -= gapX*2;
 	Sprite *tempSprite = Sprite::createWithSpriteFrame(spriteFrame("Sprite_Board6.png"));
 	tableItemSize.height = tempSprite->getContentSize().height;

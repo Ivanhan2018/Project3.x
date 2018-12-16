@@ -61,7 +61,7 @@ void ShopSystemLayer::initView()
 {
 	score = 0;
 	bankScore = 0;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	Sprite *tempSprite = Sprite::createWithSpriteFrame(spriteFrame("Sprite_ShopCoinTableBk1.png"));
 	tableItemSize = tempSprite->getContentSize();
 	tableGapX = (winSize.width-tableItemSize.width*3)/4;
@@ -776,7 +776,7 @@ void ShopSystemLayer::scrollViewDidZoom(ScrollView* view)
 ArticleTableHelper::ArticleTableHelper(Object *fath)
 {
 	father = fath;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	Sprite *tempSprite = Sprite::createWithSpriteFrame(spriteFrame("Sprite_ShopCoinTableBk1.png"));
 	tableItemSize = tempSprite->getContentSize();
 	tableGapX = (winSize.width-tableItemSize.width*3)/4;

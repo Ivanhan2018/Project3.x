@@ -41,7 +41,7 @@ bool ChongCoinsLayer::initChongCoinsLayer(Vec2 pos)
 	listener->onTouchMoved = CC_CALLBACK_2(ChongCoinsLayer::onTouchMoved, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = WINSIZE;
 	LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), 854.0f, SCREEN_WIDTH);
 	layer->ignoreAnchorPointForPosition(false);
 	layer->setPosition(Vec2(winSize.width*0.5,winSize.height*0.5));

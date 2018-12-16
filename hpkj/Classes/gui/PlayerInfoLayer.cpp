@@ -127,7 +127,7 @@ bool PlayerInfoLayer::init()
 	bool bRet = false;
 	do 
 	{
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		photoNum = 2;
 
 
@@ -795,7 +795,7 @@ MedalTableHelper::MedalTableHelper(Object *fath, int tag)
 {
 	father = fath;
 	tableTag = tag;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	if(tag == 0){
 		Sprite *tempSprite = Sprite::createWithSpriteFrame(spriteFrame(String::createWithFormat("%s0.png", SPRITE_MEDAL_L)->getCString()));
 		tableItemSize = tempSprite->getContentSize();

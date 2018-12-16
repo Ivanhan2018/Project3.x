@@ -8,6 +8,7 @@
 
 #include "RuningBar.h"
 #include "ConfigMgr.h"
+#include "Define.h"
 
 RuningBar::RuningBar()
 {
@@ -25,7 +26,7 @@ bool RuningBar::init()
     {
         return false;
     }
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = WINSIZE;
 	this->setContentSize(cocos2d::Size(winSize.width * 0.53,20));
 	this->setPosition(Vec2(winSize.width * 0.24,winSize.height * 0.77 - 3));
 	labelRunHole = LabelTTF::create(pConfigMgr->text("t404"),"",15);
@@ -41,7 +42,7 @@ bool RuningBar::init()
 
 void RuningBar::reSertRunHolePosition(Node* node)
 {
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	labelRunHole->setPosition(Vec2(winSize.width * 1.4,10));
 }
 

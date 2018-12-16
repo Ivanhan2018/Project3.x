@@ -86,7 +86,7 @@ bool OperaLayer::initOperaLayer()
 		IsXIazhuNumber = false;
 		stasteat = 0;
 		nodeScale = 1;
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 
 		auto listener = EventListenerTouchOneByOne::create();
 

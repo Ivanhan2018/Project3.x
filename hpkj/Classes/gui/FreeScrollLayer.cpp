@@ -36,7 +36,7 @@ bool FreeScrollLayer::intFreeScrollLayerWith(int num,SDownloadGamePrize_Returnn*
 	m_nMessageNum = num;
 	m_Data = data;
 
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	/**设置滑动操作可视区域的大小**/
 	TableView* tableView = TableView::create(this, cocos2d::Size(808.0f, 384.0f));
 	/**列表设置是横屏TableView::Direction::HORIZONTAL滑动还是竖屏ScrollView::Direction::VERTICAL滑动**/

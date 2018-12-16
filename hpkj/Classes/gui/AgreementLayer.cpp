@@ -39,7 +39,7 @@ bool AgreementLayer::init()
 	do 
 	{
 		
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 
 		Sprite *pPlayerInfoBJLeft = Sprite::createWithSpriteFrame(spriteFrame("dt_register_12.jpg"));
 		Sprite *pPlayerInfoBJRight =Sprite::createWithSpriteFrame(spriteFrame("dt_register_12.jpg"));

@@ -57,7 +57,7 @@ FriendSystemLayer *FriendSystemLayer::createWithTabItems(Array *itemNormalName, 
 void FriendSystemLayer::initView()
 {
     currentIndex = 0;
-	winSize = Director::getInstance()->getWinSize();
+	winSize = WINSIZE;
 	//��ȡ�ҵĺ�������
 	this->getMyFriendData();
 	Sprite *tempSprite = Sprite::createWithSpriteFrame(spriteFrame("Sprite_Friend1.png"));
@@ -604,7 +604,7 @@ TableViewCell *FriendSystemLayer::tableCellAtIndex(TableView *table,ssize_t inde
 	static const char * cellIdentifier = "cell-identifier";
 	TableViewCell *cell = new TableViewCell();  
 	cell->autorelease(); 
-	cocos2d::Size screenSize = Director::getInstance()->getWinSize();
+	cocos2d::Size screenSize = WINSIZE;
 	Vec2 pos = cell->getPosition();
 	Sprite *bk;
 	bk = Sprite::createWithSpriteFrame(spriteFrame("Sprite_Friend3.png"));

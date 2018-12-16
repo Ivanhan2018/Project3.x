@@ -7,6 +7,9 @@
 using namespace std;
 using namespace cocos2d;
 
+#define WINSIZE Director::getInstance()->getWinSize()
+#define VISIBLESIZE Director::getInstance()->getVisibleSize()
+
 //定义一个标清屏
 #define     SCREEN_WIDTH    720
 #define     SCREEN_HEIGHT   1280
@@ -30,6 +33,19 @@ const int SeverID_CSMJ      = 0;
 const int SeverID_PDK       = 1;
 const int SeverID_PHZ       = 2;
 const int SeverID_SDH       = 3;
+
+//游戏编号
+typedef enum
+{
+    kind_default = -1,               //默认类型
+    kind_niuniu = 101,               //牛牛类型
+    kind_baijiale = 122,            //百家乐类型
+    kind_lkpy = 510,                //李逵劈鱼
+    kind_brnn = 104,                //百人牛牛
+    kind_zjh = 106,                   //诈金花
+    kind_tbnn = 136,                 //通比牛牛
+    kind_lhdb=219
+}LIST_Kind;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 typedef wchar_t		TCHART;
@@ -81,6 +97,12 @@ typedef double          DOUBLE;
 #define ATOI64(x) atoll(x)
 #define SNPRINTF(charArray,format,...) snprintf(charArray,sizeof(charArray),format,##__VA_ARGS__)
 #endif
+
+//兼容PC函数
+#define ASSERT(e)                       assert(e)
+#define CopyMemory(des,src,size_t)      memcpy(des,src,size_t)
+#define ZeroMemory(des,size)            memset(des,0,size)
+#define VERIFY(e)                       assert(e)
 
 /////////////////////////////////////////////////////////////////////
 //端口定义

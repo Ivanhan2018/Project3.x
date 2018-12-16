@@ -49,7 +49,7 @@ Scene* BJLSceneControl::getScene(int index,bool bEffect,float t)
 			pConfigMgr->m_Config.m_isGameRun=true;
 			if (!ret)
 			{
-				//cocos2d::Size winSize=Director::getInstance()->getWinSize();
+				//cocos2d::Size winSize=WINSIZE;
 				//PromptBox* box = PromptBox::PromptBoxWith(ccp(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeMakeSureModifyNickName);
 				//box->setPromptText(pConfigMgr->text("t475"));
 				//s->addChild(box,100);

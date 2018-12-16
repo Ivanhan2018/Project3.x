@@ -38,7 +38,7 @@ bool RechargeLayer::init()
 	do 
 	{
 
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 
 		LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), SCREEN_HEIGHT, SCREEN_WIDTH);
 		layer->ignoreAnchorPointForPosition(false);

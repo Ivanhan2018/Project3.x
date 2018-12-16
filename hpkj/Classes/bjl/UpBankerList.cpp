@@ -46,7 +46,7 @@ bool UpBankerList::init()
 
 		MyConfig& myConfig=MyConfig::Instance();
 
-		cocos2d::Size size=Director::getInstance()->getWinSize();
+		cocos2d::Size size=WINSIZE;
 		m_taskBk=Sprite::createWithSpriteFrame(spriteFrame(texture_name::s_bankerlist));
 		m_taskBk->setAnchorPoint(ccp(0.5,0.5f));
 		m_taskBk->setPosition(ccp(size.width*0.5,size.height*0.5));
@@ -98,7 +98,7 @@ void UpBankerList::onTouchCancelled(Touch *pTouch,Event *pEvent)
 
 void UpBankerList::runOutOrIn(bool isVisible)
 {
-	cocos2d::Size size=Director::getInstance()->getWinSize();
+	cocos2d::Size size=WINSIZE;
 	m_isOut=!m_isOut; 
 	m_tableView->reloadData();
 	this->stopAllActions();

@@ -37,7 +37,7 @@ bool VIPSystemLayer::init()
 	bool bRet = false;
 	do 
 	{
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		/**���ư�͸���ɰ�**/
 		LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), 854.0f, SCREEN_WIDTH);
 		layer->ignoreAnchorPointForPosition(false);

@@ -22,6 +22,9 @@ private:
 public:
 	//生成密文
 	static void EncryptData(unsigned char * pszSrcData, char szMD5Result[33]);
+
+	//字符串MD5加密
+	static std::string MD5Encrypt(const std::string &str);
 };
 
 //////////////////////////////////////////////////////////////////////////

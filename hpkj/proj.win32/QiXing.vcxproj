@@ -174,6 +174,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\common\DBHandler.cpp" />
     <ClCompile Include="..\Classes\common\Encrypt.cpp" />
     <ClCompile Include="..\Classes\common\JsonHelper.cpp" />
+    <ClCompile Include="..\Classes\common\md5.c" />
     <ClCompile Include="..\Classes\common\MyNSString.cpp" />
     <ClCompile Include="..\Classes\common\sqlite3.c" />
     <ClCompile Include="..\Classes\configMgr\ConfigMgr.cpp" />
@@ -313,6 +314,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\common\GlobalFrame.h" />
     <ClInclude Include="..\Classes\common\IDataArchive.h" />
     <ClInclude Include="..\Classes\common\JsonHelper.h" />
+    <ClInclude Include="..\Classes\common\md5.h" />
     <ClInclude Include="..\Classes\common\MyNSString.h" />
     <ClInclude Include="..\Classes\common\packet.h" />
     <ClInclude Include="..\Classes\common\platform.h" />

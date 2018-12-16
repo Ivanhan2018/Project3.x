@@ -5,8 +5,9 @@
 #include "ui/UIButton.h"
 #include "ui/UIWidget.h"
 #include "cocostudio/CCArmature.h"
-#include"SimpleAudioEngine.h"
+#include "SimpleAudioEngine.h"
 #include "ui/UIImageView.h"
+#include "Define.h"
 
 using namespace CocosDenshion;
 using namespace cocos2d::ui;
@@ -65,7 +66,7 @@ bool MyRoomLayer::init()
 	MyRoomLayerRoot = static_cast<Widget*>(Root->getChildByName("ditu"));
 	OnGuiXiMaJiang();
 
-	Size size = Director::getInstance()->getWinSize();
+	Size size = WINSIZE;
 	Root->setScale(size.width/ MyRoomLayerRoot->getContentSize().width, size.height/ MyRoomLayerRoot->getContentSize().height);
 
 	CCSprite* sy_jsk_20_0_0 = static_cast<CCSprite*>(MyRoomLayerRoot->getChildByName("sy_jsk_20_0_0"));

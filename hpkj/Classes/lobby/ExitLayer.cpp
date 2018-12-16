@@ -11,7 +11,7 @@ bool ExitLayer::init()
     {
         return false;
     }
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = WINSIZE;
     LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255*0.5f), winSize.width, winSize.height);
     this->addChild(layer,-1);
 

@@ -66,7 +66,7 @@ bool ChipManager::initTotalChipValue()
 	do 
 	{
 		// WinSize是设计分辨率的大小
-		WinSize = Director::getInstance()->getWinSize();
+		WinSize = WINSIZE;
 		MyConfig& myConfig=MyConfig::Instance();
 		for (int i = 0;i<8;i++)
 		{
@@ -139,7 +139,7 @@ void ChipManager::showGetChipManager( BYTE cbBetArea,LONGLONG lBetScore )
 
 void ChipManager::showChipManagerSprite( BYTE cbBetArea, LONGLONG lBetScore )
 {
-	cocos2d::Size	 WinthSize = Director::getInstance()->getWinSize();
+	cocos2d::Size WinthSize = WINSIZE;
 	char Stringing[150];
 	LONGLONG m_lBetScore = 0;
 	m_lBetScore =lBetScore;

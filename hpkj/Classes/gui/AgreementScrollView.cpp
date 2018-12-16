@@ -35,7 +35,7 @@ bool AgreementScrollView::init()
 	bool bRet = false;
 	do 
 	{
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 
 		Sprite *pPlayerInfoBJLeft1 = Sprite::createWithSpriteFrame(spriteFrame("dt_email8.jpg"));
 		Sprite *pPlayerInfoBJRight1 =Sprite::createWithSpriteFrame(spriteFrame("dt_email8.jpg"));

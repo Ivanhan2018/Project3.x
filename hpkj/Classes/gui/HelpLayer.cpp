@@ -39,7 +39,7 @@ bool HelpLayer::init()
 	do 
 	{	
 		
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		srand(unsigned(time(NULL)));
 		
 		LayerColor *m_layer = LayerColor::create(ccc4(0, 0, 0, 255*0.5f), 813.0f, 400.0f);

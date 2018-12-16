@@ -298,6 +298,20 @@ void CMD5Encrypt::EncryptData(unsigned char * pszSrcData, char szMD5Result[33])
 	return;
 }
 
+std::string CMD5Encrypt::MD5Encrypt(const std::string &str)
+{
+    char md5p[33];
+    EncryptData((unsigned char *)str.c_str(), md5p);
+    std::string test;
+    test.append(md5p);
+    /*for (int index=0; index<test.size(); ++index) {
+        if (test[index] >='a' && test[index] <= 'z') {
+            test[index] -= 32;
+        }
+    }*/
+    return test;
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 //Éú³ÉÃÜÎÄ

@@ -371,7 +371,7 @@ void RoomLayer::addGameList(Node * node)
     _list->setItemsMargin(25.0f);
     node->addChild(_list);
     
-	int kindids[]={122,715};
+	int kindids[]={122,715,101,104,136,106};
     int nGameCount = sizeof(kindids)/sizeof(kindids[0]);
     for (int i = 0; i < nGameCount; ++i)
     {
@@ -388,7 +388,7 @@ void RoomLayer::addGameList(Node * node)
                                         if (cocos2d::ui::Widget::TouchEventType::ENDED == type)
                                         {
                                             //不检查连环夺宝资源
-                                            if(eTag==715||eTag==122 && 1){
+                                            if(eTag==104||eTag==122 && 1){
                                                 //加载游戏
                                                 this->loadingGame(eTag);
                                                 return;

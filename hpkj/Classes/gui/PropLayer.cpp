@@ -42,7 +42,7 @@ bool PropLayer::init()
 	do 
 	{
 		
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 
 		LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), 854.0f, SCREEN_WIDTH);
 		layer->ignoreAnchorPointForPosition(false);
@@ -128,7 +128,7 @@ void PropLayer::dismiss(Object *obj)
 	 if (strlen(szAccount1) < 1)
 	 {
 		 //用户名有误
-		 cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		 cocos2d::Size winSize = WINSIZE;
 		 /*		 PromptBox * promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5, winSize.height * 0.5),mPromptTypeLenFaild);
 		this->addChild(promptBox,20)*/;
 		 return;
@@ -138,7 +138,7 @@ void PropLayer::dismiss(Object *obj)
 	 if (strcmp(szAccount1, szAccount2))
 	 {
 		 ////两次输入玩家名不一致，赠送失败
-		 //cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		 //cocos2d::Size winSize = WINSIZE;
 		 //PromptBox * promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5, winSize.height * 0.5),mPromptTypePesetFail);
 		 //this->addChild(promptBox,20);
 		 return;
@@ -148,7 +148,7 @@ void PropLayer::dismiss(Object *obj)
 	 bool bRet = pMsgDispatch->connectLoginServer();
 	 if (!bRet)
 	 {
-		 //cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		 //cocos2d::Size winSize = WINSIZE;
 		 //PromptBox * promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5, winSize.height * 0.5),mPromptTypeLoginConnectFaild);
 		 //this->addChild(promptBox);
 		 return;

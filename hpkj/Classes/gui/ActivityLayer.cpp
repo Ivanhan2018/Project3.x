@@ -47,7 +47,7 @@ bool ActivityLayer::init()
 	bool bRet = false;
 	do 
 	{
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 		Sprite *pPlayerInfoBJLeft = Sprite::createWithSpriteFrame(spriteFrame("dt_register_12.jpg"));
 		Sprite *pPlayerInfoBJRight = Sprite::createWithSpriteFrame(spriteFrame("dt_register_12.jpg"));
 		pPlayerInfoBJRight->setRotationY(180);

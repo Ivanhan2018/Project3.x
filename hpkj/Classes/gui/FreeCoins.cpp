@@ -55,7 +55,7 @@ bool FreeCoins::init()
 	{
 		return false;
 	}
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	//����
 	Sprite *background = Sprite::create("bg2.png");
 	background->setPosition(Vec2(winSize.width/2, winSize.height/2));
@@ -213,7 +213,7 @@ void FreeCoins::onKeyReleased(EventKeyboard::KeyCode keycode, Event *event)
 
 void FreeCoins::onCheckVersion(Object* obj)
 {
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptVersionNew);
 	this->addChild(box,50);
 }
@@ -283,7 +283,7 @@ void FreeCoins::myRecommender( Object* obj)
 
 void FreeCoins::pressGetCoins( Object* obj)
 {
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	char str[33];
 	std::sprintf(str, "%lu", pMsgDispatch->m_dwUserID);
 	string userId = string(str);
@@ -384,7 +384,7 @@ void FreeCoins::onHttpRequestCompleted(Node *sender, void *data)
 	Json::Value noticeValue = value[index];
 	string noticeStr = noticeValue["mess"].asString();
 	if(promptBox == NULL){
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeGetError);
 		promptBox->setPromptText(noticeStr.c_str());
 		this->addChild(promptBox,1);

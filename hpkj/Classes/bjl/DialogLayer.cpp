@@ -135,7 +135,7 @@ void DialogLayer::onExit()
 
 void DialogLayer::initTable( char* Name,int type)
 {
-	cocos2d::Size size = Director::getInstance()->getWinSize();
+	cocos2d::Size size = WINSIZE;
 	LayerColor * colorLayer = LayerColor::create(ccc4(0,0,0,120));
 	Sprite * bj = Sprite::createWithSpriteFrameName(texture_name::s_setup_bg);
 	bj->setPosition(ccp(size.width/2,size.height/2));

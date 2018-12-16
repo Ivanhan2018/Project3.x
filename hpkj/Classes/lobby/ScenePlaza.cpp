@@ -7,6 +7,7 @@
 #include "cocostudio/CCArmature.h"
 #include"SimpleAudioEngine.h"
 #include "ui/UIImageView.h"
+#include "Define.h"
 
 using namespace CocosDenshion;
 using namespace cocos2d::ui;
@@ -53,7 +54,7 @@ bool ScenePlaza::init()
 
 	ScenePlazaRoot = static_cast<Widget*>(Root->getChildByName("lobbyPanel"));
 
-	Size size = Director::getInstance()->getWinSize();
+	Size size = WINSIZE;
 	Root->setScale(size.width/ ScenePlazaRoot->getContentSize().width, size.height/ ScenePlazaRoot->getContentSize().height);
 
 	Sprite* bgBackLobby = Sprite::create("Share/LoginBackView.jpg");

@@ -1,5 +1,5 @@
 #include "MovingLabelLayer.h"
-
+#include "Define.h"
 
 MovingLabelLayer * MovingLabelLayer::MovingLabelLayerWith(const char* str,Vec2 pos)
 {
@@ -29,7 +29,7 @@ bool MovingLabelLayer::initMovingLabelLayer(const char* str,Vec2 pos)
     {
         return false;
     }
-    cocos2d::Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = WINSIZE;
 
 	Sprite* spriteBack0 = Sprite::createWithSpriteFrame(spriteFrame("moving_label_001.png"));
 	Sprite* spriteBack1 = Sprite::createWithSpriteFrame(spriteFrame("moving_label_001.png"));

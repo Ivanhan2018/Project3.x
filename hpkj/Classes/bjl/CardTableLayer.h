@@ -79,8 +79,6 @@ private:
 	SpriteBatchNode * m_pWinLostRecordBatch;	// 输赢记录批结点
 	SpriteBatchNode * m_cardTableBatchNode;		//牌桌batchnode
 	SpriteBatchNode * m_pdNode;						//排队动画
-	String getDateNow();						//获得系统当前时间
-
 	Sprite *SpriteGameRecord;             //游戏记录
 
 	// 庄家UI对象改为私有成员变量

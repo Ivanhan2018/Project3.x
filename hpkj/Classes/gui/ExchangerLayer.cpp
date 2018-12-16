@@ -30,7 +30,7 @@ bool ExchangerLayer::init()
 	bool bRet = false;
 	do 
 	{
-		winSize = Director::getInstance()->getWinSize();
+		winSize = WINSIZE;
 		ccColor3B whiteColor = ccc3(255,255,255);
 		ccColor3B blackColor = ccc3(0,0,0);
 		LayerColor* layer = LayerColor::create(ccc4(0, 0, 0, 255 * 0.5f), 854.0f, SCREEN_WIDTH);
@@ -358,7 +358,7 @@ void ExchangerLayer::scrollViewDidZoom(ScrollView* view)
 //兑换
 void ExchangerLayer::pressExchange(int id)
 {
-	cocos2d::Size winSize = Director::getInstance()->getWinSize();
+	cocos2d::Size winSize = WINSIZE;
 	char str[33];
 	std::sprintf(str, "%lu", pMsgDispatch->m_dwUserID);
 	string userId = string(str);
@@ -435,7 +435,7 @@ void ExchangerLayer::onHttpRequestCompleted(Node *sender, void *data)
 	}
 	
 	if(promptBox == NULL){
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 		promptBox = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeGetError);
 		promptBox->setPromptText(dataBuffer);
 		this->addChild(promptBox,3);

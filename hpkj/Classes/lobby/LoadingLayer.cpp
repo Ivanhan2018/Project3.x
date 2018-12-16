@@ -45,7 +45,7 @@ bool LoadingLayer::init()
 	bool bRet = false;
 	do 
 	{
-		cocos2d::Size winSize = Director::getInstance()->getWinSize();
+		cocos2d::Size winSize = WINSIZE;
 
 
 		UserDefault::getInstance()->getBoolForKey("ZJD_SOUNDSTATE",true);
@@ -98,7 +98,7 @@ void LoadingLayer::update(float dt)
 		}
 		else
 		{
-			cocos2d::Size winSize = Director::getInstance()->getWinSize();
+			cocos2d::Size winSize = WINSIZE;
 			PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeServerShut);
 			this->addChild(box,100);
 		}

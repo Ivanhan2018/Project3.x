@@ -77,7 +77,7 @@ void User::setUserIcon( int gender )
 		m_UserSptKey=2;
 		m_userIcon = Sprite::createWithSpriteFrameName(texture_name::s_womanIcon);
 	}
-	if (m_pos.x>Director::getInstance()->getWinSize().width*0.5)
+	if (m_pos.x>WINSIZE.width*0.5)
 		m_userIcon->setRotationY(180.0f);
 	m_userIcon->setScale(0.8f);
 	m_userIcon->setPosition(m_pos);
@@ -86,7 +86,7 @@ void User::setUserIcon( int gender )
 
 	setIsOnline(m_isOnline);
 	m_isOut=true;
-	cocos2d::Size size=Director::getInstance()->getWinSize();
+	cocos2d::Size size=WINSIZE;
 	Vec2 pt=m_pos;
 	Vec2 posPt=m_pos;
 	if (m_pos.x>size.width*0.5)
@@ -154,7 +154,7 @@ void User::setLordIcon( bool blord )
 	m_userIcon->runAction(Sequence::create(Animate::create(animation),CCCallFuncO::create(this,callfuncO_selector(User::eyeCallUp),NULL),NULL));
 	m_userIcon->setPosition(m_pos);
 	this->addChild(m_userIcon);
-	if (m_pos.x>Director::getInstance()->getWinSize().width*0.5)
+	if (m_pos.x>WINSIZE.width*0.5)
 		m_userIcon->setRotationY(180.0f);
 
 	setIsOnline(m_isOnline);
@@ -189,7 +189,7 @@ void User::userIconCallBack( Object* obj )
 {
 	m_isOut=!m_isOut;
 
-	cocos2d::Size size=Director::getInstance()->getWinSize();
+	cocos2d::Size size=WINSIZE;
 	Vec2 pt=m_pos;
 	Vec2 posPt=m_pos;
 	if (m_pos.x>size.width*0.5)

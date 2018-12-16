@@ -1,5 +1,5 @@
 #include "CShaderSprite.h"
-
+#include "Define.h"
 
 CCShaderSprite::CCShaderSprite(void)
 {
@@ -31,7 +31,7 @@ bool CCShaderSprite::initWithFile( const char *pszFilename )
 	bool ret=false;
 	do 
 	{
-			cocos2d::Size winSize=Director::getInstance()->getWinSize();
+			cocos2d::Size winSize=WINSIZE;
 			m_haiouSpt=Sprite::create(pszFilename);
 			m_haiouSpt->setAnchorPoint(Vec2(0,0.5f));
 			m_haiouSpt->setPosition(Vec2(0, winSize.height * 0.5f));
@@ -99,7 +99,7 @@ void CCShaderSprite::update( float delta )
 
 void CCShaderSprite::setTouchPos( float x,float y )
 {
-	cocos2d::Size size= Director::getInstance()->getWinSize();
+	cocos2d::Size size=WINSIZE;
 
 	m_Pos.x=x;
 	m_Pos.y=y;
@@ -107,7 +107,7 @@ void CCShaderSprite::setTouchPos( float x,float y )
 
 void CCShaderSprite::upHaiou(float ft)
 {
-	cocos2d::Size winSize=Director::getInstance()->getWinSize();
+	cocos2d::Size winSize=WINSIZE;
 	SpriteFrame * frame=NULL;
 	Animation* animation = Animation::create();
 	String* buf=String::createWithFormat("haiou%d.png",rand()%2);

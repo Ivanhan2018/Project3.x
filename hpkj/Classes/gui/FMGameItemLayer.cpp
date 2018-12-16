@@ -1,6 +1,8 @@
 #include "FMGameItemLayer.h"
+#include "Define.h"
 #include <math.h>
 #define PI acos(-1)
+
 bool GameItemLayer::init()
 {
 	if (!Layer::init())
@@ -20,7 +22,7 @@ bool GameItemLayer::init()
 	animationDuration = 0.3f;
 	this->ignoreAnchorPointForPosition(false);
 	_selectedItem = NULL;
-	cocos2d::Size WinSize =Director::getInstance()->getWinSize(); 
+	cocos2d::Size WinSize = WINSIZE; 
 	this->setContentSize(WinSize/3*2);
 	this->setAnchorPoint(Vec2(0.5f, 0.5f));
 
