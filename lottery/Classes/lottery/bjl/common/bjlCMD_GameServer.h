@@ -1,0 +1,5 @@
+#ifndef _BJLCMD_GAMESERVER_H_
+#define _BJLCMD_GAMESERVER_H_
+
+
+#endif  //_BJLCMD_GAMESERVER_H_

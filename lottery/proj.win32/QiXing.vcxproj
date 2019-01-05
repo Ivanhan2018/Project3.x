@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{76A39BB2-9B84-4C65-98A5-654D86B86F2A}</ProjectGuid>
+    <RootNamespace>test_win32</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2dx.props" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2dx.props" />
+    <Import Project="..\cocos2d\cocos\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration).win32\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration).win32\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;D:\Visual Leak Detector\lib\Win32;D:\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)\external\win32-specific\icon\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(_COCOS_HEADER_WIN32_BEGIN);$(ProjectDir)..\cocos2d;$(_COCOS_HEADER_WIN32_END);$(ProjectDir)..\Classes\Json;$(ProjectDir)..\Classes\C2DXShareSDK;$(ProjectDir)..\Classes\ans;$(ProjectDir)..\Classes\common;$(ProjectDir)..\Classes\configMgr;$(ProjectDir)..\Classes\controls;$(ProjectDir)..\Classes\entity;$(ProjectDir)..\Classes\event;$(ProjectDir)..\Classes\globalUnits;$(ProjectDir)..\Classes\gui;$(ProjectDir)..\Classes\msgDispatch;$(ProjectDir)..\Classes\net;$(ProjectDir)..\Classes\serializers;$(ProjectDir)..\Classes\xy28;$(ProjectDir)..\Classes\lottery;$(ProjectDir)..\Classes\lottery\ChongQing;$(ProjectDir)..\Classes\lottery\GuangDong11Xuan5;$(ProjectDir)..\Classes\lottery\FC3DPL3;$(ProjectDir)..\Classes\lottery\bjpk10;$(ProjectDir)..\Classes\lzma;$(ProjectDir)..\Classes\lottery\bjk8;$(ProjectDir)..\Classes\lottery\bjl\serializers;$(ProjectDir)..\Classes\lottery\bjl\globalUnits;$(ProjectDir)..\Classes\lottery\bjl\common;$(ProjectDir)..\Classes\lottery\bjl;$(ProjectDir)..\Classes\lottery\dzpk;$(ProjectDir)..\Classes\lottery\LiuHe;$(ProjectDir)..\Classes\lottery\XingYun28;$(ProjectDir)..\Classes\lottery\OtherLotterys;$(ProjectDir)..\Classes\lottery\ddz;$(ProjectDir)..\Classes\lottery\fishbeat;$(ProjectDir)..\Classes\lottery\fishbeat\GameWidget;$(ProjectDir)..\Classes\lottery\fishbeat\GameData;$(ProjectDir)..\Classes\lottery\ppc;$(ProjectDir)..\Classes\BaseGame;$(ProjectDir)..\Classes\lottery\ppc\common;$(ProjectDir)..\Classes\lottery\fishbeat\lrbyLayer;$(ProjectDir)..\Classes\lottery\BRNN\common;$(ProjectDir)..\Classes\lottery\BRNN;$(ProjectDir)..\Classes\lottery\SGLY\common;$(ProjectDir)..\Classes\lottery\SGLY;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
+xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
+      </Command>
+      <Outputs>$(TargetName).cab</Outputs>
+      <Inputs>$(TargetFileName)</Inputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libcurl_imp.lib;websockets.lib;%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Classes\ans\AnsIO.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsLog.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsNew.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsPath.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsString.cpp" />
+    <ClCompile Include="..\Classes\ans\AnsThread.cpp" />
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\BaseGame\BaseDialog.cpp" />
+    <ClCompile Include="..\Classes\BaseGame\BaseGameLayer.cpp" />
+    <ClCompile Include="..\Classes\BaseGame\Card.cpp" />
+    <ClCompile Include="..\Classes\BaseGame\ToolKit.cpp" />
+    <ClCompile Include="..\Classes\C2DXShareSDK\C2DXShareSDK.cpp" />
+    <ClCompile Include="..\Classes\common\DBHandler.cpp" />
+    <ClCompile Include="..\Classes\common\Encrypt.cpp" />
+    <ClCompile Include="..\Classes\common\JsonHelper.cpp" />
+    <ClCompile Include="..\Classes\common\MyNSString.cpp" />
+    <ClCompile Include="..\Classes\common\sqlite3.c" />
+    <ClCompile Include="..\Classes\common\XDate.cpp" />
+    <ClCompile Include="..\Classes\configMgr\ConfigMgr.cpp" />
+    <ClCompile Include="..\Classes\controls\CCTouchSprite.cpp" />
+    <ClCompile Include="..\Classes\controls\SoundControl.cpp" />
+    <ClCompile Include="..\Classes\controls\tableViewLayer.cpp" />
+    <ClCompile Include="..\Classes\entity\EntityMgr.cpp" />
+    <ClCompile Include="..\Classes\entity\Login.cpp" />
+    <ClCompile Include="..\Classes\entity\RoomFrame.cpp" />
+    <ClCompile Include="..\Classes\entity\UserItem.cpp" />
+    <ClCompile Include="..\Classes\event\GBEvent.cpp" />
+    <ClCompile Include="..\Classes\globalUnits\GlobalUnits.cpp" />
+    <ClCompile Include="..\Classes\gui\ActivityLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ActivitySprite.cpp" />
+    <ClCompile Include="..\Classes\gui\AgreementLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\AgreementScrollView.cpp" />
+    <ClCompile Include="..\Classes\gui\BaseLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ChongCoinsLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ChoosePhotoCell.cpp" />
+    <ClCompile Include="..\Classes\gui\ChoosephotoScrollLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ChoosePlayerPhotoLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\CShaderSprite.cpp" />
+    <ClCompile Include="..\Classes\gui\CustomerServiceLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\CusTomTableViewCell.cpp" />
+    <ClCompile Include="..\Classes\gui\EmailCell.cpp" />
+    <ClCompile Include="..\Classes\gui\EmailLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\EmailScorllLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ExchangerLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FMGameItemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeCell.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeCoins.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FreeScrollLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\FriendSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\GetCharge.cpp" />
+    <ClCompile Include="..\Classes\gui\GroupSprite.cpp" />
+    <ClCompile Include="..\Classes\gui\GuessCoinSide.cpp" />
+    <ClCompile Include="..\Classes\gui\HelpLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\HelpScrollView.cpp" />
+    <ClCompile Include="..\Classes\gui\LuckyDraw.cpp" />
+    <ClCompile Include="..\Classes\gui\MenuLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\MissionLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\ModifyPassWord.cpp" />
+    <ClCompile Include="..\Classes\gui\OverRegistLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\PlayerInfoLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\PropLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RankSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RechargeLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RegistLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\RoomOption.cpp" />
+    <ClCompile Include="..\Classes\gui\RuningBar.cpp" />
+    <ClCompile Include="..\Classes\gui\ShopSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\TabLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\TaskInfo.cpp" />
+    <ClCompile Include="..\Classes\gui\VIPSystemLayer.cpp" />
+    <ClCompile Include="..\Classes\gui\WarningLayer.cpp" />
+    <ClCompile Include="..\Classes\HotUpdateLayer.cpp" />
+    <ClCompile Include="..\Classes\Json\lib_json\json_reader.cpp" />
+    <ClCompile Include="..\Classes\Json\lib_json\json_value.cpp" />
+    <ClCompile Include="..\Classes\Json\lib_json\json_writer.cpp" />
+    <ClCompile Include="..\Classes\lottery\BetLimit.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjk8\BJK8BetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjk8\BJK8Cart.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjk8\BJK8CartScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjk8\BJK8ChaseNumBerLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjk8\BJK8GambleLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjk8\BJK8Kind.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjk8\BJK8WuFen.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\BJLSceneControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\CardManager.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\CardSprite.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\CardTableLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\ChipManager.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\DialogLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\GameTaskCommon.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\JniControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\MyTimer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\MyTools.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\OperalayerBJL.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\SceneData.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\SceneLogic.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\SceneTableInterfaceLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\SceneView.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\serializers\MyConfig.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\Settlement.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\SetUpLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\Tools.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\User.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\ViewCardEffect.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\ViewHandCard.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\ViewMenuLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\ViewTask.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjl\VoiceAndFace.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjpk10\bjpk10BetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjpk10\bjpk10Cart.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjpk10\bjpk10ChaseNumBetLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjpk10\bjpk10KindScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjpk10\bjpk10Layer.cpp" />
+    <ClCompile Include="..\Classes\lottery\bjpk10\bjpk10WuFen.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNBetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNClock.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNDialogQuit.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNGameLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNGameLogic.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNGameMessage.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNGameScene.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNInfoBar.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNManageAudio.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNPokerCard.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNPopupApplyList.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNPopupSetting.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNPopupTravel.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\BRNNSettlement.cpp" />
+    <ClCompile Include="..\Classes\lottery\BRNN\common\BRNNTool.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingBetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingCart.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingCartScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingChaseNumBerLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingGambleLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingGroupSingle.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingKindScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingWuFen.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZCardTableLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZDDZLogic.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZDialogLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZGameTaskCommon.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZJniControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZMyTools.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSceneControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSceneData.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSceneLogic.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSceneTableInterfaceLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSceneView.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSettlement.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSetUpLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZSoundControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZTimeCheckControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZTimer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZUser.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZUserInfoManager.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZViewCardEffect.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZViewHandCard.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZViewMenuLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZViewTask.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZVoiceAndFace.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKCard.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKChip.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKChipPot.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKDialog.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKGameLogic.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKOperaLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKPlayerChip.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKRaiseSlider.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\DZPKTools.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\MatchError.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\NumberSprite.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\RoomLight.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\RoyalFlush.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\trusteeship.cpp" />
+    <ClCompile Include="..\Classes\lottery\dzpk\UserDZPK.cpp" />
+    <ClCompile Include="..\Classes\lottery\ExitLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\FC3DPL3\FC3DPL3BetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\FC3DPL3\FC3DPL3Cart.cpp" />
+    <ClCompile Include="..\Classes\lottery\FC3DPL3\FC3DPL3ChaseNumBetLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\FC3DPL3\FC3DPL3KindScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\FC3DPL3\FC3DPL3Layer.cpp" />
+    <ClCompile Include="..\Classes\lottery\FC3DPL3\FC3DPL3WuFen.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameData\FishSceneData.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameData\TableData.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameData\TableFrame.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameScene.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\CCCollectionView\CCCollectionView.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\CCCollectionView\CCCollectionViewCell.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\ChatBoard.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\CMessageBox.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\ComResult.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\ExchangeLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\FastDrawMoney.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\FishKindScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\FriendLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\GameUserMessage.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\PopupLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\QR_Encode.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\Result.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\RolMenu.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\ServerLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\SystemLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\UserInfoLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\UserList.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\WaitAction.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\GameWidget\WaitDistribute.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\AccountLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\AwardLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\BulletSprite.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\CannonSprite.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\CharityLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\CharityLeaveLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\DataThread.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\FishManager.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\FishSettingLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\FishSprite.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\IntroduceLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\LockFishManager.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\LockLineLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\LrbyClientEngine.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\LrbyClientView.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\LrbyGameConfig.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\math_aide.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\ByMenuLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\NetPool.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\NetSprite.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\scene_fish_trace.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\lrbyLayer\ShakeScreen.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\Sound.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\UINotificationCenter.cpp" />
+    <ClCompile Include="..\Classes\lottery\fishbeat\VisibleRect.cpp" />
+    <ClCompile Include="..\Classes\lottery\GameRule.cpp" />
+    <ClCompile Include="..\Classes\lottery\Global.cpp" />
+    <ClCompile Include="..\Classes\lottery\GuangDong11Xuan5\ChaseNumBerLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5BetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5Cart.cpp" />
+    <ClCompile Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5KindScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5Layer.cpp" />
+    <ClCompile Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5WuFen.cpp" />
+    <ClCompile Include="..\Classes\lottery\LiuHe\LiuHeBetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\LiuHe\LiuHeGambleLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\LiuHe\LiuHeKind.cpp" />
+    <ClCompile Include="..\Classes\lottery\LiuHe\LiuHeWuFen.cpp" />
+    <ClCompile Include="..\Classes\lottery\LoadingLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\LoginLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryAbout.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryActiveCenter.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryActiveCenterEx.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryAddSub.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryBasicUserInfo.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryBetData.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryCardBinding.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryCover.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryFeedback.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryGameResult.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryGameResultDetail.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryGlobal.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryHappyHouse.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryHelpView.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryKindScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryMailBox.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryMemberShip.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryMemberShipManagement.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryMessageCenter.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryModifyPassWord.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryMyLot.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryMyLotRecordInfo.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryNewerBack.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryPE.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecharge.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRechargeDetail.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecord.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordGame.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordProfit.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordProfitStatics.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordRecharge.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubGamble.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubGambleStatics.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubGame.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubGameProfit.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubMember.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubProfit.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubProfitStatics.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubRecharge.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordSubWithdraw.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRecordWithdraw.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryRetBack.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotterySceneControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotterySettingView.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotterySign.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotterySubExchange.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryTransferMoney.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryUpdate.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryUserInfo.cpp" />
+    <ClCompile Include="..\Classes\lottery\LotteryWithdraw.cpp" />
+    <ClCompile Include="..\Classes\lottery\MovingLabelLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\OtherLotterys\LotteryBetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\OtherLotterys\LotteryCart.cpp" />
+    <ClCompile Include="..\Classes\lottery\OtherLotterys\LotteryCartScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\OtherLotterys\LotteryChaseNumBerLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\OtherLotterys\LotteryGambleLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\OtherLotterys\LotteryKind.cpp" />
+    <ClCompile Include="..\Classes\lottery\OtherLotterys\LotteryWuFen.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\common\PPCTool.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCAniOnDrive.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCCarLogo.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCClock.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCDialogQuit.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCEnding.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCGameLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCGameMessage.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCGameScene.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCInfoBar.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCPopupApplyList.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCSetDialog.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCSound.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCTableArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\ppc\PPCTravel.cpp" />
+    <ClCompile Include="..\Classes\lottery\PromptBox.cpp" />
+    <ClCompile Include="..\Classes\lottery\RoomLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\RoomListLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\RoomListScrollView.cpp" />
+    <ClCompile Include="..\Classes\lottery\SceneControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\ScrollAdd.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\common\SGLYTool.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYAniLottery.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYClock.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYGameLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYGameScene.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYHistory.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYInfoCenter.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYManageAudio.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYMessageCenter.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYPopupApplyList.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYPopupQuit.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYPopupSetting.cpp" />
+    <ClCompile Include="..\Classes\lottery\SGLY\SGLYPopupSupplyChip.cpp" />
+    <ClCompile Include="..\Classes\lottery\ValidateLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\XingYun28\XingYunBetArea.cpp" />
+    <ClCompile Include="..\Classes\lottery\XingYun28\XingYunGambleLayer.cpp" />
+    <ClCompile Include="..\Classes\lottery\XingYun28\XingYunWuFen.cpp" />
+    <ClCompile Include="..\Classes\lzma\Alloc.c" />
+    <ClCompile Include="..\Classes\lzma\HDLzma.cpp" />
+    <ClCompile Include="..\Classes\lzma\LzFind.c" />
+    <ClCompile Include="..\Classes\lzma\LzmaDec.c" />
+    <ClCompile Include="..\Classes\lzma\LzmaEnc.c" />
+    <ClCompile Include="..\Classes\lzma\LzmaLib.c" />
+    <ClCompile Include="..\Classes\main.cpp" />
+    <ClCompile Include="..\Classes\msgDispatch\MsgDispatch.cpp" />
+    <ClCompile Include="..\Classes\net\common.cpp" />
+    <ClCompile Include="..\Classes\net\GC_Socket.cpp" />
+    <ClCompile Include="..\Classes\net\TcpNetwork.cpp" />
+    <ClCompile Include="..\Classes\PublicComponents\TableComponents\FrameOneDesk.cpp" />
+    <ClCompile Include="..\Classes\PublicComponents\TableComponents\FrameOneRoom.cpp" />
+    <ClCompile Include="..\Classes\PublicComponents\TableComponents\FrameScrollView.cpp" />
+    <ClCompile Include="..\Classes\serializers\geometry.cpp" />
+    <ClCompile Include="..\Classes\serializers\TinyXmlReader.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Classes\ans\AnsDebug.h" />
+    <ClInclude Include="..\Classes\ans\AnsEvent.h" />
+    <ClInclude Include="..\Classes\ans\AnsGeomethry.h" />
+    <ClInclude Include="..\Classes\ans\AnsIO.h" />
+    <ClInclude Include="..\Classes\ans\AnsLog.h" />
+    <ClInclude Include="..\Classes\ans\AnsMacros.h" />
+    <ClInclude Include="..\Classes\ans\AnsNew.h" />
+    <ClInclude Include="..\Classes\ans\AnsPath.h" />
+    <ClInclude Include="..\Classes\ans\AnsSingleton.h" />
+    <ClInclude Include="..\Classes\ans\AnsString.h" />
+    <ClInclude Include="..\Classes\ans\AnsTaskPool.h" />
+    <ClInclude Include="..\Classes\ans\AnsThread.h" />
+    <ClInclude Include="..\Classes\ans\BaseObject.h" />
+    <ClInclude Include="..\Classes\ans\utf-8.h" />
+    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\AppMacros.h" />
+    <ClInclude Include="..\Classes\BaseGame\BaseDialog.h" />
+    <ClInclude Include="..\Classes\BaseGame\BaseGameLayer.h" />
+    <ClInclude Include="..\Classes\BaseGame\Card.h" />
+    <ClInclude Include="..\Classes\BaseGame\ToolKit.h" />
+    <ClInclude Include="..\Classes\C2DXShareSDK\C2DXShareSDK.h" />
+    <ClInclude Include="..\Classes\C2DXShareSDK\C2DXShareSDKTypeDef.h" />
+    <ClInclude Include="..\Classes\common\CMD_Commom.h" />
+    <ClInclude Include="..\Classes\common\CMD_Game.h" />
+    <ClInclude Include="..\Classes\common\CMD_GameServer.h" />
+    <ClInclude Include="..\Classes\common\CMD_LogonServer.h" />
+    <ClInclude Include="..\Classes\common\CMD_Plaza.h" />
+    <ClInclude Include="..\Classes\common\CocosUnits.h" />
+    <ClInclude Include="..\Classes\common\comm.h" />
+    <ClInclude Include="..\Classes\common\DBHandler.h" />
+    <ClInclude Include="..\Classes\common\Define.h" />
+    <ClInclude Include="..\Classes\common\Encrypt.h" />
+    <ClInclude Include="..\Classes\common\GlobalDef.h" />
+    <ClInclude Include="..\Classes\common\GlobalField.h" />
+    <ClInclude Include="..\Classes\common\GlobalFrame.h" />
+    <ClInclude Include="..\Classes\common\IDataArchive.h" />
+    <ClInclude Include="..\Classes\common\JsonHelper.h" />
+    <ClInclude Include="..\Classes\common\MacPlatformDef.h" />
+    <ClInclude Include="..\Classes\common\MyNSString.h" />
+    <ClInclude Include="..\Classes\common\packet.h" />
+    <ClInclude Include="..\Classes\common\platform.h" />
+    <ClInclude Include="..\Classes\common\private.h" />
+    <ClInclude Include="..\Classes\common\protocol.h" />
+    <ClInclude Include="..\Classes\common\sqlite3.h" />
+    <ClInclude Include="..\Classes\common\sqlite3ext.h" />
+    <ClInclude Include="..\Classes\common\struct.h" />
+    <ClInclude Include="..\Classes\common\VersionControl.h" />
+    <ClInclude Include="..\Classes\common\XDate.h" />
+    <ClInclude Include="..\Classes\configMgr\ConfigMgr.h" />
+    <ClInclude Include="..\Classes\controls\CCTouchSprite.h" />
+    <ClInclude Include="..\Classes\controls\SoundControl.h" />
+    <ClInclude Include="..\Classes\controls\tableViewLayer.h" />
+    <ClInclude Include="..\Classes\entity\EntityMgr.h" />
+    <ClInclude Include="..\Classes\entity\IUserItem.h" />
+    <ClInclude Include="..\Classes\entity\Login.h" />
+    <ClInclude Include="..\Classes\entity\RoomFrame.h" />
+    <ClInclude Include="..\Classes\entity\UserItem.h" />
+    <ClInclude Include="..\Classes\event\GBEvent.h" />
+    <ClInclude Include="..\Classes\event\GBEventIDs.h" />
+    <ClInclude Include="..\Classes\globalUnits\GlobalUnits.h" />
+    <ClInclude Include="..\Classes\gui\ActivityLayer.h" />
+    <ClInclude Include="..\Classes\gui\ActivitySprite.h" />
+    <ClInclude Include="..\Classes\gui\AgreementLayer.h" />
+    <ClInclude Include="..\Classes\gui\AgreementScrollView.h" />
+    <ClInclude Include="..\Classes\gui\BaseLayer.h" />
+    <ClInclude Include="..\Classes\gui\ChongCoinsLayer.h" />
+    <ClInclude Include="..\Classes\gui\ChoosePhotoCell.h" />
+    <ClInclude Include="..\Classes\gui\ChoosePhotoScrollLayer.h" />
+    <ClInclude Include="..\Classes\gui\ChoosePlayerPhotoLayer.h" />
+    <ClInclude Include="..\Classes\gui\CShaderSprite.h" />
+    <ClInclude Include="..\Classes\gui\CustomerServiceLayer.h" />
+    <ClInclude Include="..\Classes\gui\CusTomTableViewCell.h" />
+    <ClInclude Include="..\Classes\gui\EmailCell.h" />
+    <ClInclude Include="..\Classes\gui\EmailLayer.h" />
+    <ClInclude Include="..\Classes\gui\EmailScorllLayer.h" />
+    <ClInclude Include="..\Classes\gui\ExchangerLayer.h" />
+    <ClInclude Include="..\Classes\gui\FMGameItemLayer.h" />
+    <ClInclude Include="..\Classes\gui\FreeCell.h" />
+    <ClInclude Include="..\Classes\gui\FreeCoins.h" />
+    <ClInclude Include="..\Classes\gui\FreeLayer.h" />
+    <ClInclude Include="..\Classes\gui\FreeScrollLayer.h" />
+    <ClInclude Include="..\Classes\gui\FriendSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\GetCharge.h" />
+    <ClInclude Include="..\Classes\gui\GroupSprite.h" />
+    <ClInclude Include="..\Classes\gui\GuessCoinSide.h" />
+    <ClInclude Include="..\Classes\gui\HelpLayer.h" />
+    <ClInclude Include="..\Classes\gui\HelpScrollView.h" />
+    <ClInclude Include="..\Classes\gui\LuckyDraw.h" />
+    <ClInclude Include="..\Classes\gui\MenuLayer.h" />
+    <ClInclude Include="..\Classes\gui\MissionLayer.h" />
+    <ClInclude Include="..\Classes\gui\ModifyPassWord.h" />
+    <ClInclude Include="..\Classes\gui\OverRegistLayer.h" />
+    <ClInclude Include="..\Classes\gui\PlayerInfoLayer.h" />
+    <ClInclude Include="..\Classes\gui\PropLayer.h" />
+    <ClInclude Include="..\Classes\gui\RankSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\RechargeLayer.h" />
+    <ClInclude Include="..\Classes\gui\RegistLayer.h" />
+    <ClInclude Include="..\Classes\gui\RoomOption.h" />
+    <ClInclude Include="..\Classes\gui\RuningBar.h" />
+    <ClInclude Include="..\Classes\gui\ShopSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\TabLayer.h" />
+    <ClInclude Include="..\Classes\gui\TaskInfo.h" />
+    <ClInclude Include="..\Classes\gui\VIPSystemLayer.h" />
+    <ClInclude Include="..\Classes\gui\WarningLayer.h" />
+    <ClInclude Include="..\Classes\HotUpdateLayer.h" />
+    <ClInclude Include="..\Classes\JniHelper.h" />
+    <ClInclude Include="..\Classes\Json\autolink.h" />
+    <ClInclude Include="..\Classes\Json\config.h" />
+    <ClInclude Include="..\Classes\Json\features.h" />
+    <ClInclude Include="..\Classes\Json\forwards.h" />
+    <ClInclude Include="..\Classes\Json\json.h" />
+    <ClInclude Include="..\Classes\Json\lib_json\json_batchallocator.h" />
+    <ClInclude Include="..\Classes\Json\reader.h" />
+    <ClInclude Include="..\Classes\Json\value.h" />
+    <ClInclude Include="..\Classes\Json\writer.h" />
+    <ClInclude Include="..\Classes\lottery\BetLimit.h" />
+    <ClInclude Include="..\Classes\lottery\bjk8\BJK8BetArea.h" />
+    <ClInclude Include="..\Classes\lottery\bjk8\BJK8Cart.h" />
+    <ClInclude Include="..\Classes\lottery\bjk8\BJK8CartScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\bjk8\BJK8ChaseNumBerLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjk8\BJK8GambleLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjk8\BJK8Kind.h" />
+    <ClInclude Include="..\Classes\lottery\bjk8\BJK8WuFen.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\BJLSceneControl.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\CardManager.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\CardSprite.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\CardTableLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\ChipManager.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\CMD_DDZ.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\CMD_DDZClient.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\DDZRes.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\DialogLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\GameTaskCommon.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\globalUnits\bjlGlobalDef.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\globalUnits\CCInteger64.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\JniControl.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\MyTimer.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\MyTools.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\OperalayerBJL.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\SceneData.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\SceneLogic.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\SceneTableInterfaceLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\SceneView.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\serializers\MyConfig.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\Settlement.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\SetUpLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\Tools.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\User.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\ViewCardEffect.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\ViewHandCard.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\ViewMenuLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\ViewTask.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\VoiceAndFace.h" />
+    <ClInclude Include="..\Classes\lottery\bjpk10\bjpk10BetArea.h" />
+    <ClInclude Include="..\Classes\lottery\bjpk10\bjpk10Cart.h" />
+    <ClInclude Include="..\Classes\lottery\bjpk10\bjpk10ChaseNumBetLayer.h" />
+    <ClInclude Include="..\Classes\lottery\bjpk10\bjpk10KindScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\bjpk10\bjpk10Layer.h" />
+    <ClInclude Include="..\Classes\lottery\bjpk10\bjpk10WuFen.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNBetArea.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNClock.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNDialogQuit.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNGameLayer.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNGameLogic.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNGameMessage.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNGameScene.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNInfoBar.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNManageAudio.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNPokerCard.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNPopupApplyList.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNPopupSetting.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNPopupTravel.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\BRNNSettlement.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\common\BRNNDefine.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\common\BRNNProtocol.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\common\BRNNRes.h" />
+    <ClInclude Include="..\Classes\lottery\BRNN\common\BRNNTool.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingBetArea.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingCart.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingCartScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingChaseNumBerLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingGambleLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingGroupSingle.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingKindScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingWuFen.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZCardTableLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZCMD_DDZ.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZCMD_DDZClient.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZDDZLogic.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZDDZRes.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZDialogLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZGameTaskCommon.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZJniControl.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZMyTools.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSceneControl.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSceneData.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSceneLogic.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSceneTableInterfaceLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSceneView.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSettlement.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSetUpLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZSoundControl.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZTimeCheckControl.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZTimer.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZUser.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZUserInfoManager.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZViewCardEffect.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZViewHandCard.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZViewMenuLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZViewTask.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZVoiceAndFace.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\CMD_DZPK.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKCard.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKChip.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKChipPot.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKDialog.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKGameLogic.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKLayer.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKOperaLayer.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKPlayerChip.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKRaiseSlider.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\DZPKTools.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\GMFashionConfig.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\MatchError.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\NumberSprite.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\RoomLight.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\RoyalFlush.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\trusteeship.h" />
+    <ClInclude Include="..\Classes\lottery\dzpk\UserDZPK.h" />
+    <ClInclude Include="..\Classes\lottery\ExitLayer.h" />
+    <ClInclude Include="..\Classes\lottery\FC3DPL3\FC3DPL3BetArea.h" />
+    <ClInclude Include="..\Classes\lottery\FC3DPL3\FC3DPL3Cart.h" />
+    <ClInclude Include="..\Classes\lottery\FC3DPL3\FC3DPL3ChaseNumBetLayer.h" />
+    <ClInclude Include="..\Classes\lottery\FC3DPL3\FC3DPL3KindScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\FC3DPL3\FC3DPL3Layer.h" />
+    <ClInclude Include="..\Classes\lottery\FC3DPL3\FC3DPL3WuFen.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameData\FishSceneData.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameData\TableData.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameData\TableFrame.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameMessageDefine.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameScene.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\CCCollectionView\CCCollectionView.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\CCCollectionView\CCCollectionViewCell.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\CCCollectionView\CCCollectionViewDataSource.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\CCCollectionView\CCCollectionViewDelegate.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\ChatBoard.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\CMessageBox.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\ComResult.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\ExchangeLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\FastDrawMoney.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\FishKindScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\FriendLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\GameUserMessage.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\PopupLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\QR_Encode.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\Result.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\RolMenu.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\ServerLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\SystemLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\UserInfoLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\UserList.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\WaitAction.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\GameWidget\WaitDistribute.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\AccountLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\AwardLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\BulletSprite.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\CannonSprite.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\CharityLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\CharityLeaveLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\CMD_Fish.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\DataThread.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\FishManager.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\FishSettingLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\FishSprite.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\IntroduceLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\LockFishManager.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\LockLineLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\LrbyClientEngine.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\LrbyClientView.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\LrbyGameConfig.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\math_aide.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\ByMenuLayer.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\NetPool.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\NetSprite.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\scene_fish_trace.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\lrbyLayer\ShakeScreen.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\Sound.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\UINotificationCenter.h" />
+    <ClInclude Include="..\Classes\lottery\fishbeat\VisibleRect.h" />
+    <ClInclude Include="..\Classes\lottery\GameRule.h" />
+    <ClInclude Include="..\Classes\lottery\GuangDong11Xuan5\ChaseNumBerLayer.h" />
+    <ClInclude Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5BetArea.h" />
+    <ClInclude Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5Cart.h" />
+    <ClInclude Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5KindScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5Layer.h" />
+    <ClInclude Include="..\Classes\lottery\GuangDong11Xuan5\GuangDong11Xuan5WuFen.h" />
+    <ClInclude Include="..\Classes\lottery\LiuHe\LiuHeBetArea.h" />
+    <ClInclude Include="..\Classes\lottery\LiuHe\LiuHeGambleLayer.h" />
+    <ClInclude Include="..\Classes\lottery\LiuHe\LiuHeKind.h" />
+    <ClInclude Include="..\Classes\lottery\LiuHe\LiuHeWuFen.h" />
+    <ClInclude Include="..\Classes\lottery\LoadingLayer.h" />
+    <ClInclude Include="..\Classes\lottery\LoginLayer.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryAbout.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryActiveCenter.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryAddSub.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryBasicUserInfo.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryBetData.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryCardBinding.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryCover.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryFeedback.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryGameResult.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryGameResultDetail.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryGlobal.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryHappyHouse.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryHelpView.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryKindScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryMailBox.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryMemberShip.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryMemberShipManagement.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryMessageCenter.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryModifyPassWord.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryMyLot.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryMyLotRecordInfo.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryNewerBack.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryPE.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecharge.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRechargeDetail.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecord.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordGame.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordProfit.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordProfitStatics.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordRecharge.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubGamble.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubGambleStatics.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubGame.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubGameProfit.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubMember.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubProfit.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubProfitStatics.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubRecharge.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordSubWithdraw.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRecordWithdraw.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryRetBack.h" />
+    <ClInclude Include="..\Classes\lottery\LotterySceneControl.h" />
+    <ClInclude Include="..\Classes\lottery\LotterySettingView.h" />
+    <ClInclude Include="..\Classes\lottery\LotterySign.h" />
+    <ClInclude Include="..\Classes\lottery\LotterySubExchange.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryTransferMoney.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryUpdate.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryUserInfo.h" />
+    <ClInclude Include="..\Classes\lottery\LotteryWithdraw.h" />
+    <ClInclude Include="..\Classes\lottery\MovingLabelLayer.h" />
+    <ClInclude Include="..\Classes\lottery\OtherLotterys\LotteryBetArea.h" />
+    <ClInclude Include="..\Classes\lottery\OtherLotterys\LotteryCart.h" />
+    <ClInclude Include="..\Classes\lottery\OtherLotterys\LotteryCartScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\OtherLotterys\LotteryChaseNumBerLayer.h" />
+    <ClInclude Include="..\Classes\lottery\OtherLotterys\LotteryGambleLayer.h" />
+    <ClInclude Include="..\Classes\lottery\OtherLotterys\LotteryKind.h" />
+    <ClInclude Include="..\Classes\lottery\OtherLotterys\LotteryWuFen.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\common\PPCEnum.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\common\PPCProtocol.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\common\PPCRes.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\common\PPCTool.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCAniOnDrive.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCCarLogo.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCClock.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCControl.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCDialogQuit.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCEnding.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCGameLayer.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCGameMessage.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCGameScene.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCInfoBar.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCPopupApplyList.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCSetDialog.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCSound.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCTableArea.h" />
+    <ClInclude Include="..\Classes\lottery\ppc\PPCTravel.h" />
+    <ClInclude Include="..\Classes\lottery\PromptBox.h" />
+    <ClInclude Include="..\Classes\lottery\RoomLayer.h" />
+    <ClInclude Include="..\Classes\lottery\RoomListLayer.h" />
+    <ClInclude Include="..\Classes\lottery\RoomListScrollView.h" />
+    <ClInclude Include="..\Classes\lottery\SceneControl.h" />
+    <ClInclude Include="..\Classes\lottery\ScrollAdd.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\common\SGLYDefine.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\common\SGLYProtocol.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\common\SGLYRes.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\common\SGLYTool.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYAniLottery.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYClock.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYGameLayer.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYGameScene.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYHistory.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYInfoCenter.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYManageAudio.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYMessageCenter.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYPopupApplyList.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYPopupQuit.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYPopupSetting.h" />
+    <ClInclude Include="..\Classes\lottery\SGLY\SGLYPopupSupplyChip.h" />
+    <ClInclude Include="..\Classes\lottery\ValidateLayer.h" />
+    <ClInclude Include="..\Classes\lottery\XingYun28\XingYunBetArea.h" />
+    <ClInclude Include="..\Classes\lottery\XingYun28\XingYunGambleLayer.h" />
+    <ClInclude Include="..\Classes\lottery\XingYun28\XingYunWuFen.h" />
+    <ClInclude Include="..\Classes\lzma\Alloc.h" />
+    <ClInclude Include="..\Classes\lzma\HDLzma.h" />
+    <ClInclude Include="..\Classes\lzma\LzFind.h" />
+    <ClInclude Include="..\Classes\lzma\LzHash.h" />
+    <ClInclude Include="..\Classes\lzma\LzmaDec.h" />
+    <ClInclude Include="..\Classes\lzma\LzmaEnc.h" />
+    <ClInclude Include="..\Classes\lzma\LzmaLib.h" />
+    <ClInclude Include="..\Classes\lzma\Types.h" />
+    <ClInclude Include="..\Classes\main.h" />
+    <ClInclude Include="..\Classes\msgDispatch\MsgDispatch.h" />
+    <ClInclude Include="..\Classes\net\common.h" />
+    <ClInclude Include="..\Classes\net\GC_Socket.h" />
+    <ClInclude Include="..\Classes\net\TcpNetwork.h" />
+    <ClInclude Include="..\Classes\PublicComponents\TableComponents\FrameOneDesk.h" />
+    <ClInclude Include="..\Classes\PublicComponents\TableComponents\FrameOneRoom.h" />
+    <ClInclude Include="..\Classes\PublicComponents\TableComponents\FrameScrollView.h" />
+    <ClInclude Include="..\Classes\serializers\geometry.h" />
+    <ClInclude Include="..\Classes\serializers\TinyXmlReader.h" />
+    <ClInclude Include="main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
+      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
+      <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\cocos2d\external\Box2D\proj.win32\libbox2d.vcxproj">
+      <Project>{929480e7-23c0-4df6-8456-096d71547116}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\Json\lib_json\json_internalarray.inl" />
+    <None Include="..\Classes\Json\lib_json\json_internalmap.inl" />
+    <None Include="..\Classes\Json\lib_json\json_valueiterator.inl" />
+    <None Include="..\Classes\lottery\Reachability.m" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
