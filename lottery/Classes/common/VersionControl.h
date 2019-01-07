@@ -22,7 +22,7 @@ using namespace cocos2d;
 #define USE_SGLY	//	水果乐园
 
 //资源热更新
-#define USE_HOT_UPDATE
+//#define USE_HOT_UPDATE
 //支持选房间
 #define USE_ROOM_LIST
 

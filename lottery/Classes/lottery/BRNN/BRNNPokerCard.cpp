@@ -2,7 +2,6 @@
 #include "BRNNRes.h"
 #include "ToolKit.h"
 
-
 /****************************BRNNPokerCard	begin********************************************/
 
 BRNNPokerCard::BRNNPokerCard()
@@ -142,7 +141,7 @@ void BRNNHandsCard::showCardType(E_BRNN_CardType eCardType)
 		m_pCardType->initWithSpriteFrameName(BRNNTextureName::s_brnn_card_type_niuniu);
 		break;
 	case E_BRNN_CardType_SilverNiu:
-		m_pCardType->initWithSpriteFrameName(BRNNTextureName::s_brnn_card_type_silverniu);
+		m_pCardType->initWithSpriteFrameName(BRNNTextureName::s_brnn_card_type_niuniu);
 		break;
 	case E_BRNN_CardType_GoldNiu:
 		m_pCardType->initWithSpriteFrameName(BRNNTextureName::s_brnn_card_type_goldniu);

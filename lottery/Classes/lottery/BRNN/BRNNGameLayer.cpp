@@ -6,6 +6,7 @@
 #include "BRNNTool.h"
 #include "BRNNGameLogic.h"
 #include "ToolKit.h"
+#include "BRNNManageAudio.h"
 
 BRNNGameLayer::BRNNGameLayer():
 	m_eCurrChipType(E_BRNNChip_NULL),
@@ -111,6 +112,8 @@ float BRNNGameLayer::doAniSendCard(const int nIdx, const BYTE sCardData[][5])
 					m_pHandCard[j]->showCardMarkedness();
 				}
 				m_pHandCard[j]->showCardType(eCardType);
+				E_BRNNAudio ret=getCardTypeAudio(eCardType);
+				BRNNManageAudio::getInstance()->playSoundEffect(ret);
 			});
 			auto pSeq = Sequence::create(pDelayShowType, pShowCardType, nullptr);
 			m_pHandCard[j]->runAction(pSeq);

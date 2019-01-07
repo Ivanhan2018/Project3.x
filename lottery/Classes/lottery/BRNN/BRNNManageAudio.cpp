@@ -36,6 +36,22 @@ void BRNNManageAudio::preLoadAudio()
 	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_Bet]);
 	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_Lose]);
 	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_Win]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_0]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_1]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_2]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_3]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_4]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_5]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_6]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_7]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_8]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_9]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_10]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_11]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_12]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_13]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_14]);
+	SimpleAudioEngine::getInstance()->preloadEffect(m_sAudioFile[E_BRNNAudio_NN_15]);
 }
 
 //	Çå³ý»º´æ
@@ -105,6 +121,22 @@ bool BRNNManageAudio::init()
 	m_sAudioFile[E_BRNNAudio_Bet] = "brnn_bet.wav";
 	m_sAudioFile[E_BRNNAudio_Lose] = "brnn_lose.wav";
 	m_sAudioFile[E_BRNNAudio_Win] = "brnn_win.wav";
+	m_sAudioFile[E_BRNNAudio_NN_0] = "OX_0_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_1] = "OX_1_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_2] = "OX_2_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_3] = "OX_3_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_4] = "OX_4_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_5] = "OX_5_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_6] = "OX_6_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_7] = "OX_7_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_8] = "OX_8_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_9] = "OX_9_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_10] = "OX_10_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_11] = "OX_10_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_12] = "OX_10_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_13] = "OX_10_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_14] = "OX_14_BANKER_SOUND.mp3";
+	m_sAudioFile[E_BRNNAudio_NN_15] = "OX_15_BANKER_SOUND.mp3";
 
 	bool bBanBGM = UserDefault::getInstance()->getBoolForKey(BRNN_DATA_KEY_AUDIO_ON_BGM, true);
 	bool bBanSoundEffect = UserDefault::getInstance()->getBoolForKey(BRNN_DATA_KEY_AUDIO_ON_SOUND_EFFECT, true);

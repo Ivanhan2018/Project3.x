@@ -318,11 +318,19 @@ void RoomLayer::toUpdateDownload(Object* obj)
 	{
 		int idx=((Integer *)arr->getObjectAtIndex(0))->getValue();
 		int serverId=((Integer *)arr->getObjectAtIndex(1))->getValue();
+#ifdef USE_HOT_UPDATE
 		HotUpdateLayer *layer=HotUpdateLayer::create(idx,serverId);
 		layer->ignoreAnchorPointForPosition(false);
 		layer->setOpacity(125);
 		layer->setPosition(Vec2(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2));
 		addChild(layer,255);
+#else
+#ifdef USE_ROOM_LIST
+		NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_TOCONNECTGAMEROOMSERVER,arr);
+#else
+		NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_TOCONNECTGAMEROOMSERVER,Integer::create(idx));
+#endif
+#endif
 	}
 }
 

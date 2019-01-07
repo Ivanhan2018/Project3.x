@@ -143,10 +143,56 @@ enum E_BRNNAudio
 	E_BRNNAudio_Bet,			//	音效——下注
 	E_BRNNAudio_Lose,			//	音效——输
 	E_BRNNAudio_Win,			//	音效——赢
+    E_BRNNAudio_NN_0,	
+    E_BRNNAudio_NN_1,
+    E_BRNNAudio_NN_2,
+    E_BRNNAudio_NN_3,	
+    E_BRNNAudio_NN_4,
+    E_BRNNAudio_NN_5,
+    E_BRNNAudio_NN_6,	
+    E_BRNNAudio_NN_7,
+    E_BRNNAudio_NN_8,
+    E_BRNNAudio_NN_9,	
+    E_BRNNAudio_NN_10,
+    E_BRNNAudio_NN_11,
+    E_BRNNAudio_NN_12,
+    E_BRNNAudio_NN_13,
+    E_BRNNAudio_NN_14,
+    E_BRNNAudio_NN_15,
 	E_BRNNAudio_Null			//	无
 };
 
+// 获取牌型音效
+inline E_BRNNAudio getCardTypeAudio(E_BRNN_CardType eCardType)
+{
+	static E_BRNNAudio retArr[]={ \
+		E_BRNNAudio_NN_0, \
+		E_BRNNAudio_NN_1, \
+		E_BRNNAudio_NN_2, \
+		E_BRNNAudio_NN_3, \
+		E_BRNNAudio_NN_4, \
+		E_BRNNAudio_NN_5, \
+		E_BRNNAudio_NN_6, \
+		E_BRNNAudio_NN_7, \
+		E_BRNNAudio_NN_8, \
+		E_BRNNAudio_NN_9, \
+		E_BRNNAudio_NN_10, \
+		E_BRNNAudio_NN_11, \
+		E_BRNNAudio_NN_12, \
+		E_BRNNAudio_NN_13, \
+		E_BRNNAudio_NN_14, \
+		E_BRNNAudio_NN_15 \
+	};
+	static int iCount=sizeof(retArr)/sizeof(retArr[0]);
+	int idx=eCardType-E_BRNN_CardType_Point;
 
+	if (idx>=0 && idx<iCount)
+	{
+		E_BRNNAudio ret=retArr[idx];
+		return ret;
+	}
+	return E_BRNNAudio_NN_0;
+}
 
 /***********************百人牛牛枚举	end*************************************************/
 
