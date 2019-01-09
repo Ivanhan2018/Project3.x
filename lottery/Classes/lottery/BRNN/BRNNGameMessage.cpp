@@ -591,7 +591,13 @@ bool BRNNGameMessage::OnSubChangeBanker(const void *pBuffer, WORD wDataSize)
 	//	刷新庄家信息
 	if (pMessageData->wBankerUser == INVALID_CHAIR)
 	{
-		pScene->m_pInfoBar->updateBankerInfo(INVALID_CHAIR,(TCHART*)"***",1,0,0, 0);
+		//pScene->m_pInfoBar->updateBankerInfo(INVALID_CHAIR,(TCHART*)"***",1,0,0, 0);
+		pScene->m_pInfoBar->updateBankerInfo(
+			pMessageData->wBankerUser,
+			pMessageData->szBankerNickName,
+			pMessageData->cbBankerGender,
+			pMessageData->lBankerScore,
+			0, 0);
 	}
 	else
 	{

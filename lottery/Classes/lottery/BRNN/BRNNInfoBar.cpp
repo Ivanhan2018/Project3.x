@@ -23,14 +23,14 @@ void BRNNInfoBar::updateBankerInfo(WORD wBankerUser, TCHART szBankerNickName[], 
 {	
 	string sBankerName = "";
 	string sBankerFace;
-	if (wBankerUser == INVALID_CHAIR)
-	{
-		sBankerName = m_sNoneBankerName;
-		lBankerScore = 1000000;
-		lBankerWinScore = 0;
-		sBankerFace = BRNNTextureName::s_brnn_face_null;
-	}
-	else
+	//if (wBankerUser == INVALID_CHAIR)
+	//{
+	//	sBankerName = m_sNoneBankerName;
+	//	lBankerScore = 1000000;
+	//	lBankerWinScore = 0;
+	//	sBankerFace = BRNNTextureName::s_brnn_face_null;
+	//}
+	//else
 	{
 		char cNikeName[256]={0};
 		MyNSString::wc2mbs(szBankerNickName, 32, cNikeName);
