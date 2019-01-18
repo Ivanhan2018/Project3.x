@@ -7,12 +7,12 @@
  
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#include "F:/cocos2d-x-2.2.5\cocos2dx\platform\third_party\win32\iconv\iconv.h"
+#include "iconv.h"//F:/cocos2d-x-2.2.5\cocos2dx\platform\third_party\win32\iconv\
 #pragma comment(lib,"libiconv.lib")
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "F:/cocos2d-x-2.2.5/iconv/include/iconv.h"
+#include "iconv.h"//F:/cocos2d-x-2.2.5/iconv/include/
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

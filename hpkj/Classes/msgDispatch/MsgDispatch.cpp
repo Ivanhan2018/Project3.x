@@ -2123,7 +2123,7 @@ void MsgDispatch::setUserLogin(string account,string password,bool bAnonymous)
 	CMD_GP_LogonAccounts *pLogonByAccounts = (CMD_GP_LogonAccounts *)cbBuffer;
 	memset(pLogonByAccounts,0,sizeof(CMD_GP_LogonAccounts));
 
-	pLogonByAccounts->dwPlazaVersion = VERSION_MOBILE;
+	pLogonByAccounts->dwPlazaVersion = PROCESS_VERSION(29,0,16);//VERSION_MOBILE;
 
 	memset(pLogonByAccounts->szAccounts, 0, sizeof(TCHART)*NAME_LEN);
 	memset(pLogonByAccounts->szPassword, 0, sizeof(TCHART)*PASS_LEN);

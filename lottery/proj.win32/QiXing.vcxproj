@@ -74,7 +74,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)\external\win32-specific\icon\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(_COCOS_HEADER_WIN32_BEGIN);$(ProjectDir)..\cocos2d;$(_COCOS_HEADER_WIN32_END);$(ProjectDir)..\Classes\Json;$(ProjectDir)..\Classes\C2DXShareSDK;$(ProjectDir)..\Classes\ans;$(ProjectDir)..\Classes\common;$(ProjectDir)..\Classes\configMgr;$(ProjectDir)..\Classes\controls;$(ProjectDir)..\Classes\entity;$(ProjectDir)..\Classes\event;$(ProjectDir)..\Classes\globalUnits;$(ProjectDir)..\Classes\gui;$(ProjectDir)..\Classes\msgDispatch;$(ProjectDir)..\Classes\net;$(ProjectDir)..\Classes\serializers;$(ProjectDir)..\Classes\xy28;$(ProjectDir)..\Classes\lottery;$(ProjectDir)..\Classes\lottery\ChongQing;$(ProjectDir)..\Classes\lottery\GuangDong11Xuan5;$(ProjectDir)..\Classes\lottery\FC3DPL3;$(ProjectDir)..\Classes\lottery\bjpk10;$(ProjectDir)..\Classes\lzma;$(ProjectDir)..\Classes\lottery\bjk8;$(ProjectDir)..\Classes\lottery\bjl\serializers;$(ProjectDir)..\Classes\lottery\bjl\globalUnits;$(ProjectDir)..\Classes\lottery\bjl\common;$(ProjectDir)..\Classes\lottery\bjl;$(ProjectDir)..\Classes\lottery\dzpk;$(ProjectDir)..\Classes\lottery\LiuHe;$(ProjectDir)..\Classes\lottery\XingYun28;$(ProjectDir)..\Classes\lottery\OtherLotterys;$(ProjectDir)..\Classes\lottery\ddz;$(ProjectDir)..\Classes\lottery\fishbeat;$(ProjectDir)..\Classes\lottery\fishbeat\GameWidget;$(ProjectDir)..\Classes\lottery\fishbeat\GameData;$(ProjectDir)..\Classes\lottery\ppc;$(ProjectDir)..\Classes\BaseGame;$(ProjectDir)..\Classes\lottery\ppc\common;$(ProjectDir)..\Classes\lottery\fishbeat\lrbyLayer;$(ProjectDir)..\Classes\lottery\BRNN\common;$(ProjectDir)..\Classes\lottery\BRNN;$(ProjectDir)..\Classes\lottery\SGLY\common;$(ProjectDir)..\Classes\lottery\SGLY;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;kGameLogEnabled;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -496,7 +496,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\lzma\LzmaDec.c" />
     <ClCompile Include="..\Classes\lzma\LzmaEnc.c" />
     <ClCompile Include="..\Classes\lzma\LzmaLib.c" />
-    <ClCompile Include="..\Classes\main.cpp" />
     <ClCompile Include="..\Classes\msgDispatch\MsgDispatch.cpp" />
     <ClCompile Include="..\Classes\net\common.cpp" />
     <ClCompile Include="..\Classes\net\GC_Socket.cpp" />
@@ -639,7 +638,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\lottery\bjl\ChipManager.h" />
     <ClInclude Include="..\Classes\lottery\bjl\CMD_DDZ.h" />
     <ClInclude Include="..\Classes\lottery\bjl\CMD_DDZClient.h" />
-    <ClInclude Include="..\Classes\lottery\bjl\DDZRes.h" />
     <ClInclude Include="..\Classes\lottery\bjl\DialogLayer.h" />
     <ClInclude Include="..\Classes\lottery\bjl\GameTaskCommon.h" />
     <ClInclude Include="..\Classes\lottery\bjl\globalUnits\bjlGlobalDef.h" />
@@ -921,7 +919,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\lzma\LzmaEnc.h" />
     <ClInclude Include="..\Classes\lzma\LzmaLib.h" />
     <ClInclude Include="..\Classes\lzma\Types.h" />
-    <ClInclude Include="..\Classes\main.h" />
     <ClInclude Include="..\Classes\msgDispatch\MsgDispatch.h" />
     <ClInclude Include="..\Classes\net\common.h" />
     <ClInclude Include="..\Classes\net\GC_Socket.h" />

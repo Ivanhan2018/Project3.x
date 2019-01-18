@@ -25,13 +25,13 @@ void SGLYInfoCenter::reset()
 void SGLYInfoCenter::updateBankerInfo(WORD wBankerUser, TCHART szBankerNickName[], LONGLONG lBankerChip, LONGLONG lBankerWinScore, WORD cbBankerTime, bool bSystemBanker)
 {
 	string sBankerName = "";
-	if (wBankerUser == INVALID_CHAIR)
-	{
-		sBankerName = m_sNoneBankerName;
-		lBankerChip = 10000;
-		lBankerWinScore = 0;
-	}
-	else
+	//if (wBankerUser == INVALID_CHAIR)
+	//{
+	//	sBankerName = m_sNoneBankerName;
+	//	lBankerChip = 10000;
+	//	lBankerWinScore = 0;
+	//}
+	//else
 	{
 		char cNikeName[256] = {0};
 		MyNSString::wc2mbs(szBankerNickName, 32, cNikeName);
