@@ -20,6 +20,8 @@ using namespace cocos2d;
 #define     FRAME_WIDTH    480
 #define     FRAME_HEIGHT   800
 
+#define VER_369
+
 const int GameId_DDZ		= 1;
 const int GameId_PHZ		= 2;
 const int GameId_CSMJ		= 3;

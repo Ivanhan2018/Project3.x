@@ -180,13 +180,17 @@ void ClientSock::sendData(WORD wMainCmdID,WORD wSubCmdID)
 	pHead->CommandInfo.wMainCmdID=wMainCmdID;
 	pHead->CommandInfo.wSubCmdID=wSubCmdID;
     
-    //加密数据
+#ifndef VER_369
+	//加密数据
 	WORD wSendSize=sizeof(CMD_Head);
 	if (!Common_MappedBuffer(cbDataBuffer, sizeof(CMD_Head)))
 	{
 		CCLOG("==================Common_MappedBuffer FAILED===============");
 		return ;
 	}
+#else
+	WORD wSendSize=encryptBuffer(cbDataBuffer,sizeof(CMD_Head),sizeof(cbDataBuffer));
+#endif
 
 	//连续超过3条false则为断线	
 	if(loseConnectTimes > 100) loseConnectTimes = 100;
@@ -275,6 +279,7 @@ void ClientSock::sendData(WORD wMainCmdID,WORD wSubCmdID,void* pData,DWORD wData
 		memcpy(pHead+1,pData,wDataSize);
 	}
 
+#ifndef VER_369
 	//加密数据
 	WORD wSendSize = sizeof(CMD_Head) + wDataSize;
 	if (!Common_MappedBuffer(cbDataBuffer, sizeof(CMD_Head) + wDataSize))
@@ -282,6 +287,10 @@ void ClientSock::sendData(WORD wMainCmdID,WORD wSubCmdID,void* pData,DWORD wData
 		CCLOG("==================Common_MappedBuffer FAILED===============");
 		return ;
 	}
+#else
+	////加密数据
+	WORD wSendSize=encryptBuffer(cbDataBuffer,sizeof(CMD_Head) + wDataSize,sizeof(cbDataBuffer));
+#endif
 	
 	//WORD wSendSize=encryptBuffer(cbDataBuffer,sizeof(CMD_Head) + wDataSize,sizeof(cbDataBuffer));
     CCLOG("send %d_%d,send data size = %d",wMainCmdID,wSubCmdID,wSendSize);

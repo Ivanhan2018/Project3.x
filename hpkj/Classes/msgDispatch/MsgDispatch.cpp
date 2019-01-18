@@ -175,15 +175,23 @@ void MsgDispatch::onEventSocketRecv(GBEventConstArg& arg)
 		WORD wRealySize = wPacketSize;
 		if (m_loginState == enLogin_Server)
 		{
+#ifdef VER_369
+			wRealySize=m_pClientLoginSock->crevasseBuffer(cbDataBuffer,wPacketSize);
+#else
 			if(!Common_unMappedBuffer(cbDataBuffer,wPacketSize)){
 				CCLOG("Common_unMappedBuffer FAILED");
 			}
+#endif
 		}
 		else
 		{
+#ifdef VER_369
+			wRealySize=m_pClientGameSock->crevasseBuffer(cbDataBuffer,wPacketSize);
+#else
 			if(!Common_unMappedBuffer(cbDataBuffer,wPacketSize)){
 				CCLOG("Common_unMappedBuffer FAILED");
 			}
+#endif
 		}
 
 		WORD wDataSize=wRealySize-sizeof(CMD_Head);
