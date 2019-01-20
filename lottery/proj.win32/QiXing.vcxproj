@@ -395,7 +395,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\lottery\LoginLayer.cpp" />
     <ClCompile Include="..\Classes\lottery\LotteryAbout.cpp" />
     <ClCompile Include="..\Classes\lottery\LotteryActiveCenter.cpp" />
-    <ClCompile Include="..\Classes\lottery\LotteryActiveCenterEx.cpp" />
     <ClCompile Include="..\Classes\lottery\LotteryAddSub.cpp" />
     <ClCompile Include="..\Classes\lottery\LotteryBasicUserInfo.cpp" />
     <ClCompile Include="..\Classes\lottery\LotteryBetData.cpp" />

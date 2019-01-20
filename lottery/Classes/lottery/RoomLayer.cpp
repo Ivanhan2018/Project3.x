@@ -54,7 +54,6 @@
 #include "LotteryMemberShipManagement.h"
 #include "LotteryKindScrollView.h"
 #include "LotteryActiveCenter.h"
-#include "LotteryActiveCenterEx.h"
 
 #include "LotteryUpdate.h"
 #include "HotUpdateLayer.h"//by hxh
@@ -113,7 +112,7 @@
 using namespace cocos2d;
 
 //static静态变量
-int	RoomLayer::m_nowIndex=1;
+int	RoomLayer::m_nowIndex=0;
 
 Scene* RoomLayer::scene()
 {
@@ -138,7 +137,6 @@ RoomLayer::RoomLayer()
     pWarningLayer=NULL;
     isGoingRoomLayer = 0;
 	m_iRankCount = 0;
-	m_nowIndex = 1;
 
 	m_bIsShowExitDialog = false;
 
@@ -737,8 +735,18 @@ this->addChild(ltfRank1, 2);
 	lotteryItem->selected();
 	std::string name = "lottery_kind_";
 	int count = LOTTERY_COUNT;
+	if(m_nowIndex == 0)
+	{
+		name = "game_kind_";
+		count = MAX_GAME;				
+	}
+	else
+	{
+		name = "lottery_kind_";
+		count = LOTTERY_COUNT;
+	}
 	count = MyBetNumber::getInstance()->getCaiZhongCount();
-	static_cast<LotteryKindScrollView* >(pHelpView)->resetTable(name.c_str(), count, 1);
+	static_cast<LotteryKindScrollView* >(pHelpView)->resetTable(name.c_str(), count, m_nowIndex);
 
 	//添加点击事件
 	auto funMute = [=](Ref *obj){
@@ -1022,19 +1030,11 @@ void RoomLayer::toMyLottery(Object* obj)
 void RoomLayer::toActive(Object* obj)
 {
 	playButtonSound();
-	//EntityMgr::instance()->getDispatch()->SendPacketWithGetUserInfo();
-	//LotteryActiveCenter *layer = LotteryActiveCenter::create();
+	LotteryActiveCenter *layer = LotteryActiveCenter::create();
 
-	//Scene *scene = Scene::create();
-	//scene->addChild(layer);
-	//Director::getInstance()->pushScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
-	//Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
-
-	//Scene *scene = Scene::create();
-	//LotteryActiveCenterEx *layer = LotteryActiveCenterEx::create();
-	//scene->addChild(layer);
-	Scene *scene = LotteryActiveCenterEx::scene();
-	Director::getInstance()->pushScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
+	Scene *scene = Scene::create();
+	scene->addChild(layer);
+	Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
 }
 
 void RoomLayer::sendHttpRequest()

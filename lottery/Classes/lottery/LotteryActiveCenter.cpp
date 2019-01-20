@@ -140,10 +140,10 @@ void LotteryActiveCenter::onKeyReleased(EventKeyboard::KeyCode keycode, Event *e
 void LotteryActiveCenter::back(Object *obj)
 {
 	playButtonSound();
-	/*Scene *scene = Scene::create();
+	Scene *scene = Scene::create();
 	RoomLayer *layer = RoomLayer::create();
 	scene->addChild(layer);
-	Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));*/
+	Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
 //	Director::getInstance()->popScene();		//2018.10.29
 }
 
@@ -255,10 +255,10 @@ void LotteryActiveCenter::tableCellTouched(TableView *table, TableViewCell *cell
 	case 1: //1 是签到 2 是 欢乐送 3佣金大回馈 4充值送
         {
 			playButtonSound();
-			//Scene *scene = LotteryBasicUserInfo::scene();
-            //Director::getInstance()->pushScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
-			EntityMgr::instance()->getDispatch()->SendPacketWithGetUserInfo();
-			//clear();
+			Scene *scene = LotterySign::scene();
+            Director::getInstance()->pushScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
+
+			clear();
 			break;
 		}
 	case 2: //1 是签到 2 是 欢乐送 3佣金大回馈 4充值送
