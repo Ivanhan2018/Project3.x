@@ -89,6 +89,8 @@ bool LoginLayer::init(bool bLogin)
 		pLogo->setAnchorPoint(Vec2(0, 1));
 		pLogo->setPosition(Vec2(winSize.width*0.5 - pLogo->getContentSize().width / 2, winSize.height-100 - delta));
 		this->addChild(pLogo, 0);
+		auto fun0=RepeatForever::create(Sequence::create(ScaleTo::create(0.5f,1.05f),ScaleTo::create(0.5f,0.95f),NULL));
+		pLogo->runAction(fun0);
 	}
 	
 	float fontSize = 45;
@@ -212,6 +214,9 @@ bool LoginLayer::init(bool bLogin)
 		denglNormalSprite->getContentSize().height/2-delta3));
 	this->addChild(m_pLoginMenu);
 
+	auto fun=RepeatForever::create(Sequence::create(ScaleTo::create(0.5f,1.05f),ScaleTo::create(0.5f,0.95f),NULL));
+	m_pDengluItemSprite->runAction(fun);
+
 	//
 	Sprite * registNormalSprite = Sprite::createWithSpriteFrame(spriteFrame("home_04.png"));
 	Sprite * registSelectSprite = Sprite::createWithSpriteFrame(spriteFrame("home_04_2.png"));
@@ -259,6 +264,17 @@ bool LoginLayer::init(bool bLogin)
     //this->schedule(schedule_selector(LoginLayer::checkIfAutoLogin), 1, true, 0.5);
 	this->setKeypadEnabled(true);
 
+	//下雨效果
+	ParticleSystem* ps1 = ParticleRain::create();
+	ps1->setTexture(Director::getInstance()->getTextureCache()->addImage("ball.png"));
+	ps1->setPosition(Point(SCREEN_WIDTH/2,SCREEN_HEIGHT));
+	this->addChild(ps1,10);
+
+	ParticleSystem* ps = ParticleRain::create();
+	ps->setTexture(Director::getInstance()->getTextureCache()->addImage("ball.png"));
+	ps->setPosition(Point(SCREEN_WIDTH/2,0));
+	ps->setRotation(180.0f);
+	this->addChild(ps,10);
 
 	return true;
 }
