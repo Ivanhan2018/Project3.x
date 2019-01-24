@@ -184,7 +184,7 @@ void LoginLayer::buttonEventWithUserLogin(Ref* target,cocos2d::ui::Widget::Touch
 #if 1
          //std::string straccount = "hxh001";
          //std::string strpassword = "a123456";
-         std::string straccount = "test2233";
+         std::string straccount = "test3344";
          std::string strpassword = "a88888888";
 		 bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
 		 if (!bRet)

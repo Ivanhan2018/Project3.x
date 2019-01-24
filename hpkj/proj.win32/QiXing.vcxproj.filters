@@ -467,12 +467,6 @@
     <ClInclude Include="..\Classes\ans\utf-8.h">
       <Filter>Classes\ans</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\common\CMD_GameServer.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CMD_LogonServer.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\common\CocosUnits.h">
       <Filter>Classes\common</Filter>
     </ClInclude>
@@ -482,19 +476,7 @@
     <ClInclude Include="..\Classes\common\DBHandler.h">
       <Filter>Classes\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\common\Define.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\common\Encrypt.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\GlobalDef.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\GlobalField.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\GlobalFrame.h">
       <Filter>Classes\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\IDataArchive.h">
@@ -504,9 +486,6 @@
       <Filter>Classes\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\MyNSString.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\packet.h">
       <Filter>Classes\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\platform.h">
@@ -522,9 +501,6 @@
       <Filter>Classes\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\sqlite3ext.h">
-      <Filter>Classes\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\struct.h">
       <Filter>Classes\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\controls\CCTouchSprite.h">
@@ -880,6 +856,36 @@
     </ClInclude>
     <ClInclude Include="..\Classes\common\md5.h">
       <Filter>Classes\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\CMD_GameServer.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\CMD_LogonServer.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\CMD_Plaza.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\Define.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\GlobalDef.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\GlobalField.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\GlobalFrame.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\packet.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\struct.h">
+      <Filter>Classes\msgDispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\msgDispatch\VersionControl.h">
+      <Filter>Classes\msgDispatch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

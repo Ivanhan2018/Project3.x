@@ -120,7 +120,7 @@ void ClientSock::update()
 		{				
 			//CCLOG("this is fuck drop line %d, %d",m_pISocketStrem->GetLastError(), m_pISocketStrem->IsAlive());
 				
-			NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_NETWORKSHUTDZPK); //dzpk-jhy
+			NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_NETWORKSHUT);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 				//判断当前是不是没网
 

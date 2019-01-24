@@ -404,6 +404,7 @@ bool SceneLogic::OnSubGameFree( const void *pBuffer, WORD wDataSize )
 bool SceneLogic::OnGameSceneFree(const void *pBuffer, WORD wDataSize)
 {
 	CCLOG("wDataSize = %d,sizeof(CMD_S_StatusFree) = %d",wDataSize,sizeof(CMD_S_StatusFree));
+	//wDataSize = 176,sizeof(CMD_S_StatusFree) = 176
 	//效验大小 
 	assert(wDataSize==sizeof(CMD_S_StatusFree));
 	if (wDataSize!=sizeof(CMD_S_StatusFree)) return false;

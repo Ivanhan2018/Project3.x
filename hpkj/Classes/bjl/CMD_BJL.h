@@ -155,6 +155,7 @@ struct CMD_S_StatusFree
 
 	//庄家信息
 	WORD							wBankerUser;						//当前庄家
+	TCHART							szBankerNickName[32];				//	庄家昵称
 	LONGLONG						lBankerScore;						//庄家分数
 	LONGLONG						lBankerWinScore;					//庄家赢分
 	WORD							wBankerTime;						//庄家局数
@@ -193,6 +194,7 @@ struct CMD_S_StatusPlay
 
 	//庄家信息
 	WORD							wBankerUser;						//当前庄家
+	TCHART							szBankerNickName[32];				//	庄家昵称
 	LONGLONG						lBankerScore;						//庄家分数
 	LONGLONG						lBankerWinScore;					//庄家赢分
 	WORD							wBankerTime;						//庄家局数
@@ -250,6 +252,7 @@ struct CMD_S_CancelBanker
 struct CMD_S_ChangeBanker
 {
 	WORD							wBankerUser;						//当庄玩家
+	TCHART							szBankerNickName[32];				//	庄家昵称
 	LONGLONG						lBankerScore;						//庄家分数
 	WORD							wFaceID;
 };

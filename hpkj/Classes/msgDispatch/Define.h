@@ -29,7 +29,7 @@ const int GameId_ZJH		= 4;
 const int GameId_SDK		= 5;
 const int GameId_PDK		= 6;
 const int KindId_BJL	    = 122;
-const int GameId_dzpk		= 308;
+const int KindId_DZPK		= 308;
 
 const int SeverID_CSMJ      = 0;
 const int SeverID_PDK       = 1;

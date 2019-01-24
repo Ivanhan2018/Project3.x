@@ -278,6 +278,14 @@ bool RoomFrame::OnSocketSubGRLogonFinish(void *buffer, WORD size)
 		CCLOG("断线重连");
 		return true;
 	}
+	if (EntityMgr::instance()->getDispatch()->m_dwKindID == KindId_BJL 
+		&& (m_cbStatus == US_FREE || m_cbStatus == US_PLAYING || m_cbStatus == US_READY))//百家了恢复对局时，玩家为站立状态
+	{
+		EntityMgr::instance()->getDispatch()->SendPacketWithGameOption();
+		m_bStartType = false;
+		CCLOG("断线重连 SendPacketWithGameOption KindId_BJL");
+		return true;
+	}
 	return true;
 }
 
@@ -525,7 +533,6 @@ bool RoomFrame::OnSocketGameSystem(CMD_Command* pCommand, void * pBuffer, WORD w
 	if (pMessage->wMessageType & SMT_GLOBAL)
 	{
 		NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_MATCH);
-		NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_MATCHDZPK);
 	}
 
 	return true;
@@ -957,23 +964,23 @@ bool RoomFrame::OnSocketSubModifyNickName(CMD_Command* pCommand, void * pBuffer,
 
 bool RoomFrame::OnSocketGameOrder(void * pBuffer, WORD wDataSize)
 {
-	assert(wDataSize==sizeof(CMD_GP_ScoreGiftResult));
-	if(wDataSize!=sizeof(CMD_GP_ScoreGiftResult)) return false;
-	CMD_GP_ScoreGiftResult *pGiftResult = (CMD_GP_ScoreGiftResult *)pBuffer;
-	CCLOG("ordwe ID = %d, errCode = %d",pGiftResult->lScore,pGiftResult->lErrCode);
-	if(pGiftResult->lErrCode == 0)
-	{
-		int orderID = pGiftResult->lScore;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		toSendAndroidOrder(orderID);
-#endif
-	}
-	else
-	{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		toSendAndroidOrder(0);
-#endif
-	}
+//	assert(wDataSize==sizeof(CMD_GP_ScoreGiftResult));
+//	if(wDataSize!=sizeof(CMD_GP_ScoreGiftResult)) return false;
+//	CMD_GP_ScoreGiftResult *pGiftResult = (CMD_GP_ScoreGiftResult *)pBuffer;
+//	CCLOG("ordwe ID = %d, errCode = %d",pGiftResult->lScore,pGiftResult->lErrCode);
+//	if(pGiftResult->lErrCode == 0)
+//	{
+//		int orderID = pGiftResult->lScore;
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//		toSendAndroidOrder(orderID);
+//#endif
+//	}
+//	else
+//	{
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//		toSendAndroidOrder(0);
+//#endif
+//	}
 	return true;
 }
 
@@ -1049,7 +1056,6 @@ bool RoomFrame::OnFrameMessage(WORD wSubCmdID, const void* pBuffer, WORD wDataSi
 			tag->cbState = m_cbGameStatus;
 			memcpy(tag->dateBuffer, pBuffer,wDataSize);
 			NotificationCenter::getInstance()->postNotification(GBEVENT_UI_SCENEMESSAGE, tag);
-			NotificationCenter::getInstance()->postNotification(GBEVENT_UI_SCENEMESSAGEDZPK, tag);  //dzpk-jhy
 			if(gameIsStart == false){
 				
 			}
@@ -1097,7 +1103,6 @@ bool RoomFrame::OnGameMessage(WORD wSubCmdID, const void * pBuffer, WORD wDataSi
 	tag->wSubCmdID = wSubCmdID;
 	memcpy(tag->dateBuffer, pBuffer,wDataSize);
 	NotificationCenter::getInstance()->postNotification(GBEVENT_UI_GAMEMESSAGE, tag);
-	NotificationCenter::getInstance()->postNotification(GBEVENT_UI_GAMEMESSAGEDZPK, tag); //dzpk-jhy
 
 	return true;
 }

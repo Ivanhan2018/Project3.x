@@ -533,8 +533,8 @@ private:
 	int m_wTouZhuSign;
 private:
 	CServerListMgr m_ServerListMgr;
-	typedef std::vector<CMD_GP_UserLevelResult> UserLevel;
-	UserLevel m_UserLevelList;
+	//typedef std::vector<CMD_GP_UserLevelResult> UserLevel;
+	//UserLevel m_UserLevelList;
 	WORD userServiceSubCmd;
 public:
 	string m_szAccount;

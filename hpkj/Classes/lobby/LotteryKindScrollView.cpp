@@ -92,7 +92,7 @@ void LotteryKindScrollView::pressKindButton(int tag)
 		pMsgDispatch->setStartType(true);	
 	} else if(tag - GAME_KIND_SPRITE_TAG == 4) //4 捕鱼
 	{
-		bool ret=pMsgDispatch->connectGameServer(GameId_dzpk);
+		bool ret=pMsgDispatch->connectGameServer(KindId_DZPK);
 		if (!ret)
 		{
 			PromptBox* box = PromptBox::PromptBoxWith(ccp(427,240),mPromptTypeServerShut);

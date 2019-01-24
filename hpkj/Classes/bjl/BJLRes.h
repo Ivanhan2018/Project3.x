@@ -1,6 +1,6 @@
 #ifndef		__BJL_RES__
 #define		__BJL_RES__
-#include "common/Define.h"
+#include "Define.h"
 //--Notification message
 #define MESSAGE_JNICONTROL				"message_jnicontrol"
 #define MESSAGE_TOVIEW						"message_toview"

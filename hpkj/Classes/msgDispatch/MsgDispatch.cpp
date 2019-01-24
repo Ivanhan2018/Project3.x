@@ -37,6 +37,7 @@
 
 //#define CountArray(Array) (sizeof(Array)/sizeof(Array[0]))
 
+
 time_t SystemTimeToTime_t( const SYSTEMTIME& st )
 {
 	tm temptm = {st.wSecond, 
@@ -68,7 +69,7 @@ MsgDispatch::MsgDispatch()
 	m_wTouZhuSign = 1;
 	memset(m_lUserLevel, 0, sizeof(m_lUserLevel));
 	m_eDataType = CMD_Logon;
-	m_dwKindID = 200;
+	m_dwKindID = 122;
 	m_bStartType = false;
 	m_wBehaviorFlags = 0;
 
@@ -318,9 +319,9 @@ bool MsgDispatch::OnSocketSubGPLogonSuccess(void *buffer, WORD size)
 	CMD_GP_LogonSuccess *logonSuccess = (CMD_GP_LogonSuccess *)cbBuffer;
 	memcpy(logonSuccess, buffer, sizeof(CMD_GP_LogonSuccess));
 
-	char nicknameArray[128]={0};
-	MyNSString::wc2mbs(logonSuccess->szNickName, sizeof(logonSuccess->szNickName), nicknameArray);
-	m_pNickname = string(nicknameArray);
+	//char nicknameArray[128]={0};
+	//MyNSString::wc2mbs(logonSuccess->szNickName, sizeof(logonSuccess->szNickName), nicknameArray);
+	//m_pNickname = string(nicknameArray);
 
 	m_cbGender = logonSuccess->cbGender;
 	m_wFaceID = logonSuccess->wFaceID;
@@ -335,7 +336,7 @@ bool MsgDispatch::OnSocketSubGPLogonSuccess(void *buffer, WORD size)
 
 	tagGlobalUserData* pUserData = new tagGlobalUserData;
 	memset(pUserData, 0, sizeof(tagGlobalUserData));
-	memcpy(pUserData->szNickName, nicknameArray, sizeof(pUserData->szNickName));
+	//memcpy(pUserData->szNickName, nicknameArray, sizeof(pUserData->szNickName));
 
 	pUserData->cbGender=logonSuccess->cbGender;
 	pUserData->wFaceID=logonSuccess->wFaceID;
@@ -2743,14 +2744,14 @@ int MsgDispatch::getLevelbyScore(LONG lScore)
 
 int MsgDispatch::getBaseCell(int type,int nLevel)   //获取倍率
 {
-	UserLevel::iterator iter = m_UserLevelList.begin();
-	for (; iter != m_UserLevelList.end(); iter++)
-	{
-		if ((*iter).lInfoType == type)
-		{
-			return  (*iter).tagUserLeve[nLevel].lUserLevel;
-		}
-	}
+	//UserLevel::iterator iter = m_UserLevelList.begin();
+	//for (; iter != m_UserLevelList.end(); iter++)
+	//{
+	//	if ((*iter).lInfoType == type)
+	//	{
+	//		return  (*iter).tagUserLeve[nLevel].lUserLevel;
+	//	}
+	//}
 	return 0;
 }
 
@@ -3543,7 +3544,7 @@ void MsgDispatch::SendPacketWithGetQiPaiYingkuiCount(DWORD userID, int nTypeID, 
 	BYTE cbBuffer[sizeof(CMD_GP_GetQiPaiYingkuiCount)];
 	memset(cbBuffer, 0 , sizeof(CMD_GP_GetQiPaiYingkuiCount));
 	CMD_GP_GetQiPaiYingkuiCount *info = (CMD_GP_GetQiPaiYingkuiCount *)cbBuffer;
-	info->dwUserID = userID;
+	//info->dwUserID = userID;
 	info->nTypeID = nTypeID;
 	info->nByTime = nByTime;
 	MyNSString::mbs2wc(szTimeStart, strlen(szTimeStart), info->szTimeStart);
@@ -3558,7 +3559,7 @@ void MsgDispatch::SendPacketWithGetQiPaiYingkui(DWORD userID, int nPage, int nSi
 	BYTE cbBuffer[sizeof(CMD_GP_GetQiPaiYingkui)];
 	memset(cbBuffer, 0 , sizeof(CMD_GP_GetQiPaiYingkui));
 	CMD_GP_GetQiPaiYingkui *info = (CMD_GP_GetQiPaiYingkui *)cbBuffer;
-	info->dwUserID = userID;
+	//info->dwUserID = userID;
 	info->nPage = nPage;
 	info->nSize = nSize;
 	info->bByTime = bTime;
@@ -3657,7 +3658,7 @@ void MsgDispatch::SendPacketWithGetQiPaiYingkuiLogCount(int nTypeID, int nByTime
 	BYTE cbBuffer[sizeof(CMD_GP_GetQiPaiYingkuiCount)];
 	memset(cbBuffer, 0 , sizeof(CMD_GP_GetQiPaiYingkuiCount));
 	CMD_GP_GetQiPaiYingkuiCount *info = (CMD_GP_GetQiPaiYingkuiCount *)cbBuffer;
-	info->dwUserID = m_dwUserID;
+	//info->dwUserID = m_dwUserID;
 	info->nTypeID = nTypeID;
 	info->nByTime = nByTime;
 	MyNSString::mbs2wc(szTimeStart, strlen(szTimeStart), info->szTimeStart);
@@ -3671,7 +3672,7 @@ void MsgDispatch::SendPacketWithGetQiPaiYingkuiLog(int nPage, int nSize, bool bT
 	BYTE cbBuffer[sizeof(CMD_GP_GetQiPaiYingkui)];
 	memset(cbBuffer, 0 , sizeof(CMD_GP_GetQiPaiYingkui));
 	CMD_GP_GetQiPaiYingkui *info = (CMD_GP_GetQiPaiYingkui *)cbBuffer;
-	info->dwUserID = m_dwUserID;
+	//info->dwUserID = m_dwUserID;
 	info->nPage = nPage;
 	info->nSize = nSize;
 	info->bByTime = bTime;
