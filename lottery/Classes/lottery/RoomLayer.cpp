@@ -730,9 +730,9 @@ this->addChild(ltfRank1, 2);
 		isFirstRun = false;
 	}
 
-	//初始化为彩票
-	resetSelect();
-	lotteryItem->selected();
+	////初始化为彩票
+	//resetSelect();
+	//lotteryItem->selected();
 	std::string name = "lottery_kind_";
 	int count = LOTTERY_COUNT;
 	if(m_nowIndex == 0)
@@ -745,7 +745,7 @@ this->addChild(ltfRank1, 2);
 		name = "lottery_kind_";
 		count = LOTTERY_COUNT;
 	}
-	count = MyBetNumber::getInstance()->getCaiZhongCount();
+	//count = MyBetNumber::getInstance()->getCaiZhongCount();
 	static_cast<LotteryKindScrollView* >(pHelpView)->resetTable(name.c_str(), count, m_nowIndex);
 
 	//添加点击事件
