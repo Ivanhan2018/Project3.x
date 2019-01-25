@@ -574,10 +574,10 @@ bool RoomLayer::init()
 	this->addChild(selectMenu,2);
 
 	//下划线
-	Sprite *gap1 = Sprite::createWithSpriteFrame(spriteFrame("room_12.png"));
-	gap1->setAnchorPoint(Vec2(0,0.5));
-	gap1->setPosition(Vec2(0, SCREEN_HEIGHT - 526 - heightDelta));    //526    
-	this->addChild(gap1,2);  
+	//Sprite *gap1 = Sprite::createWithSpriteFrame(spriteFrame("room_12.png"));
+	//gap1->setAnchorPoint(Vec2(0,0.5));
+	//gap1->setPosition(Vec2(0, SCREEN_HEIGHT - 526 - heightDelta));    //526    
+	//this->addChild(gap1,2);  
 
 	//框列表 修改成可以根据字符串和个数来动态加载图片的框  高604 
 	pHelpView = LotteryKindScrollView::create();
@@ -622,7 +622,7 @@ bool RoomLayer::init()
 	for(int i = 0;i < 5;i ++)
 	{
 		auto tempRadio = RadioButton::create(String::createWithFormat("yx_01_%02d.png",i * 2 + 2)->getCString(),String::createWithFormat("yx_01_%02d.png",i * 2 + 1)->getCString());
-		tempRadio->setPosition(Vec2(127 * i,0));	
+		tempRadio->setPosition(Vec2(22+127 * i,0));	
 		tempRadio->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 		tempRadio->setTag(i + 1000);
 		temp->addRadioButton(tempRadio);

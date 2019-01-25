@@ -87,9 +87,10 @@ bool LoginLayer::init(bool bLogin)
 	if (pLogo)
 	{
 		pLogo->setAnchorPoint(Vec2(0, 1));
-		pLogo->setPosition(Vec2(winSize.width*0.5 - pLogo->getContentSize().width / 2, winSize.height-100 - delta));
+		Vec2 logoPos=Vec2(winSize.width*0.5 - pLogo->getContentSize().width / 2-20, winSize.height-200 - delta);
+		pLogo->setPosition(logoPos);
 		this->addChild(pLogo, 0);
-		auto fun0=RepeatForever::create(Sequence::create(ScaleTo::create(0.5f,1.05f),ScaleTo::create(0.5f,0.95f),NULL));
+		auto fun0=RepeatForever::create(Sequence::create(ScaleTo::create(0.5f,0.95f),ScaleTo::create(0.5f,0.85f),NULL));
 		pLogo->runAction(fun0);
 	}
 	
@@ -114,8 +115,9 @@ bool LoginLayer::init(bool bLogin)
 	float delta1 = 25;
 	float delta2 = 20;
 	float delta3 = 30;
+	float height=414;//pLogo->getContentSize().height;
 	Sprite *m_pAccountsBk = Sprite::createWithSpriteFrame(spriteFrame("home_05.png"));
-	m_pAccountsBk->setPosition(Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT - 120 - pLogo->getContentSize().height - delta1 - delta * 1.5f));
+	m_pAccountsBk->setPosition(Vec2(SCREEN_WIDTH/2, SCREEN_HEIGHT - 120 - height - delta1 - delta * 1.5f));
 	m_pAccountsBk->setAnchorPoint(Vec2(0.5f,1));
 	this->addChild(m_pAccountsBk,0);
 

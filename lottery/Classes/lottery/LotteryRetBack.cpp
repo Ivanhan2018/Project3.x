@@ -75,7 +75,7 @@ void LotteryRetBack::initView()
 	this->addChild(title, 1);
 
 	//背景图
-	Sprite* sptBody = Sprite::createWithSpriteFrame(spriteFrame("hd_02.png"));
+	Sprite* sptBody = Sprite::createWithSpriteFrame(spriteFrame("hd_03.png"));
 	sptBody->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
 	sptBody->setPosition(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 162));
 	this->addChild(sptBody);
