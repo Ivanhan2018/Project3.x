@@ -435,15 +435,17 @@ TableViewCell *bjpk10Cart::tableCellAtIndex(TableView *table,ssize_t index)
 	Integer *betBeiShu = tempInfo.m_betPlus;
 
 	result.append(betNumber->getCString());
-
-	if(wanFanKind->getValue() == SSC_LongHu)
-	{
-		result = BetLimit::GetLongHuHeStr(result.c_str());		
-	}
-	if(wanFanKind->getValue() == DaXiaoDanShuang_DW  || wanFanKind->getValue() == Zonghe_DXDSLh || wanFanKind->getValue() == DaXiaoDanShuang) 
-	{
-		result = BetLimit::GetDXDSHStr(result.c_str());
-	}
+	string result1 = result;
+	//DaXiaoDanShuang=21,WF_DWD=21
+	//if(wanFanKind->getValue() == SSC_LongHu)
+	//{
+	//	result = BetLimit::GetLongHuHeStr(result.c_str());		
+	//}
+	//if(wanFanKind->getValue() == DaXiaoDanShuang_DW  || wanFanKind->getValue() == Zonghe_DXDSLh || wanFanKind->getValue() == DaXiaoDanShuang) 
+	//{
+	//	result = BetLimit::GetDXDSHStr(result.c_str());
+	//}
+    CCLOG("result1=%s,result=%s,wanFanKind=%d",result1.c_str(),result.c_str(),wanFanKind->getValue());
 	//游戏名称
 	LabelTTF *title  = LabelTTF::create(String::createWithFormat("[%s]",BetLimit::GetWanFaNameFromId(wanGameKind->getValue(), 
 		wanFanKind->getValue()).c_str())->getCString(),"",27,cocos2d::Size(0,0),kCCTextAlignmentLeft);
