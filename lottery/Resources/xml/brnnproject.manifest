@@ -1,0 +1,13 @@
+{    
+	"packageUrl" : "http://down.bifuf.cn:9999/brnn/",    
+	"remoteVersionUrl" : "http://down.bifuf.cn:9999/brnnproject.manifest",    
+	"remoteManifestUrl" : "http://down.bifuf.cn:9999/brnnproject.manifest",
+	"version" : "0.0.0",    
+	"engineVersion" : "Cocos2d-x v3.10",    
+
+	"assets" : {
+
+	},    
+	"searchPaths" : [    
+	]    
+}

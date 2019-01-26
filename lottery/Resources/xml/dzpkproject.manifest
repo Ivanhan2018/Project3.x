@@ -1,0 +1,13 @@
+{    
+	"packageUrl" : "http://down.bifuf.cn:9999/dzpk/",    
+	"remoteVersionUrl" : "http://down.bifuf.cn:9999/dzpkproject.manifest",    
+	"remoteManifestUrl" : "http://down.bifuf.cn:9999/dzpkproject.manifest",
+	"version" : "0.0.0",    
+	"engineVersion" : "Cocos2d-x v3.10",    
+
+	"assets" : {
+
+	},    
+	"searchPaths" : [    
+	]    
+}

@@ -1,0 +1,13 @@
+{    
+	"packageUrl" : "http://down.bifuf.cn:9999/bjl/",
+	"remoteVersionUrl" : "http://down.bifuf.cn:9999/bjlproject.manifest",
+	"remoteManifestUrl" : "http://down.bifuf.cn:9999/bjlproject.manifest",
+	"version" : "0.0.0",    
+	"engineVersion" : "Cocos2d-x v3.10",    
+
+	"assets" : {
+
+	},    
+	"searchPaths" : [    
+	]    
+}

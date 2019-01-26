@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>tips_quit</key>
+	<string>您正在进行游戏，退出游戏将自动放弃，请问确定要返回大厅吗？</string>
+	<key>linkofftips</key>
+	<string>您的当前网络不稳定，系统正在帮您重连，稍等哦！</string>
+	<key>socketofboxstring</key>
+	<string>哎呀，您网络异常了，请点击快速开始返回游戏哟。</string>
+	<key>pochan</key>
+	<string>您的金币余额不足500，已破产，请充值！</string>
+	<key>system_banker</key>
+	<string>无人坐庄</string>
+	<key>bet_failed</key>
+	<string>下注失败</string>
+	<key>supply_declaration</key>
+	<string>        本游戏需要将金币兑换成筹码进行游戏，退出游戏时
+	会自动帮您兑换回金币，请选择您要带入的筹码数量：</string>
+	<key>supply_exchange_rate_format</key>
+	<string>兑换比率： %d 筹码 = %d 金币</string>
+	<key>supply_tips_exchange_format</key>
+	<string>当前兑换： %lld 筹码 = %lld 金币</string>	
+	<key>supply_tips_surplus_gold_format</key>
+	<string>剩余： %lld 金币</string>
+</dict>
+</plist>

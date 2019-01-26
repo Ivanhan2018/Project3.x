@@ -1,0 +1,16 @@
+{    
+	"packageUrl0" : "http://down.dwtzzs.cn:6789/bjl1/",
+	"remoteVersionUrl0" : "http://down.dwtzzs.cn:6789/bjl1/version.manifest",
+	"remoteManifestUrl0" : "http://down.dwtzzs.cn:6789/bjl1/project.manifest",
+	"packageUrl" : "http://down.dwtzzs.cn:6789/bjl1/",    
+	"remoteVersionUrl" : "http://down.dwtzzs.cn:6789/bjl1/version.manifest",    
+	"remoteManifestUrl" : "http://down.dwtzzs.cn:6789/bjl1/project.manifest",
+	"version" : "0.0.0",    
+	"engineVersion" : "Cocos2d-x v3.10",    
+
+	"assets" : {
+
+	},    
+	"searchPaths" : [    
+	]    
+}

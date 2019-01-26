@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">  
+<plist version="1.0">  
+<dict>  
+	<key>dialog_leave_game_tip</key>
+	<string>还有很多鱼哦！确定退出么?</string>
+	<key>dialog_disconnect</key>
+	<string>您网络已断开连接，请退出后重新登录！</string>
+	<key>dialog_long_time_in_background</key>
+	<string>您长时间在后台，请退出后重新登录！</string>
+</dict>
+</plist>

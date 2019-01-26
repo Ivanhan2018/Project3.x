@@ -1,0 +1,142 @@
+﻿<?xml version ="1.0" encoding="UTF-8"?>
+<config>
+        <!--登录服IP和端口-->
+
+        <address ip1="47.97.177.210" ip2="47.97.177.210" ip3="47.97.177.210" ip4="47.97.177.210" port="8500" />
+
+        <!--资源热更新-->
+
+        <HOTUPDATE platform="0">
+             <!--资源热更新配置：游戏节点顺序、平台代号（0=九亿，1=大赢家）、是否开放、本地manifest文件名、DownLoad目录-->
+
+             <game idx="0" platform="0" enable="1" manifestUrl="dzpkproject.manifest" storagePath="dzpkDownLoad"/>
+             <game idx="1" platform="0" enable="1" manifestUrl="ddzproject.manifest" storagePath="ddzDownLoad"/>
+             <game idx="2" platform="0" enable="1" manifestUrl="bjlproject.manifest" storagePath="bjlDownLoad"/>
+             <game idx="3" platform="0" enable="1" manifestUrl="fishproject.manifest" storagePath="fishDownLoad"/>
+             <game idx="4" platform="0" enable="1" manifestUrl="ppcproject.manifest" storagePath="ppcDownLoad"/>
+             <game idx="5" platform="0" enable="1" manifestUrl="brnnproject.manifest" storagePath="brnnDownLoad"/>            
+             <game idx="6" platform="0" enable="1" manifestUrl="sglyproject.manifest" storagePath="sglyDownLoad"/>            
+	            <game idx="0" platform="1" enable="1" manifestUrl="dzpkproject1.manifest" storagePath="dzpkDownLoad1"/>
+             <game idx="1" platform="1" enable="0" manifestUrl="ddzproject1.manifest" storagePath="ddzDownLoad1"/>
+             <game idx="2" platform="1" enable="1" manifestUrl="bjlproject1.manifest" storagePath="bjlDownLoad1"/>
+             <game idx="3" platform="1" enable="1" manifestUrl="fishproject1.manifest" storagePath="fishDownLoad1"/>
+             <game idx="4" platform="1" enable="1" manifestUrl="ppcproject1.manifest" storagePath="ppcDownLoad1"/>
+             <game idx="5" platform="1" enable="1" manifestUrl="brnnproject1.manifest" storagePath="brnnDownLoad1"/>
+             <game idx="6" platform="1" enable="0" manifestUrl="sglyproject1.manifest" storagePath="sglyDownLoad1"/>
+             <!--下载对话框的坐标配置-->
+
+             <PopWndDown loadingSuccessScale="1" loadingErrorScale="1" loadingPos="560,760" loadingProgressBgPos="360,800" loadingProgressPos="360,800" ProgressLabelPos="330,760" loadingSuccessPos="560,760" loadingErrorPos="560,760" bkPos="360,790" CloseDownPos="360,690" ltfTitlePos="326,273" sptTipsPos="198,273"/>
+        </HOTUPDATE>
+
+        <!--百家乐坐标配置-->
+
+        <BJL GameRecordPos="-2,593" BankerUserPos="815,593" ClosePos="42,552" ClosePos1="42,572" UpBankerPos="639,676" padding="190" PaiZiPos="536,400" YanwuParticlePos="640,360">
+             <!--九亿、大赢家游戏提示框标签大小-->
+
+             <Dialog LblSize0="480,90" LblSize1="440,90"/>
+             <!--游戏记录坐标配置：横向间隔、横向起始位置X、纵向间隔、庄纵向起始位置Y-->
+
+             <GameRecord fOffsetX="23.7" fStartX="55" fOffsetY="27" fStartY="679"/>
+             <!--庄家UI对象的相对坐标配置：庄家头像、庄家名字、成绩、金币、局数-->
+
+             <BankerUser BankerPicPos="25,33" BankerNamePos="162,76" BankerChengjiPos="340,76" BankerGoldPos="162,37" BankerJiNumberPos="340,37"/>
+             <!--游戏状态提示的坐标配置：闹钟及数字、状态提示、空闲时间、下注时间、可以下注提示、开牌时间-->
+
+             <GameStateTip TimerPos="18,40" NikePos="19,-10" GameFreeTipPos="574,417.6" GameStartTipPos="574,417.6" CallScoreTipPos="330,452" GameEndTipPos="574,465" ChangeBankerTipPos="554,352"/>
+             <!--玩家UI对象的坐标配置：玩家头像、玩家名字、成绩、金币-->
+
+             <MyUser MyPicPos="22,21" MyNamePos="206,91" MyChengjiPos="206,21" MyGoldPos="206,55"/>
+             <!--开牌状态坐标配置：闲庄背景及其子精灵（闲家点数、庄家点数、闲家、庄家、和局）、结束动画起点、结束动画终点、发牌动画起点-->
+
+             <CardManager XianZhuangBgPos="399,164" UserPlayPos="133,270" UserBankPos="345,270" PlayerPos="133,223" BankerPos="347,223" AndBureauPos="200,194" GAMEoverPos1="429,720" GAMEoverPos2="429,180" playerCardPos1="1150,550" PlayOneCardPos1="910,280" PlayOneCardPos2="512,280" BankOneCardPos1="910,280" BankOneCardPos2="732,280" CardOffsetX="27"/>
+             <!--得分统计界面标签的相对坐标配置：0闲，1平，2庄，3闲天王，4庄天王，5同点平，6闲对子，7庄对子，8合计输赢，9闲点数，10庄点数-->
+
+             <GAMEover Pos0="82,148" Pos1="204,148" Pos2="330,148" Pos3="82,96" Pos4="330,96" Pos5="204,96" Pos6="82,197" Pos7="330,197" Pos8="100,56" Pos9="84,245" Pos10="332,245"/>
+             <!--大赢家的坐标配置-->
+
+             <GAMEover1 Pos0="82,148" Pos1="204,148" Pos2="330,148" Pos3="82,96" Pos4="330,96" Pos5="204,96" Pos6="82,197" Pos7="330,197" Pos8="110,54" Pos9="82,240" Pos10="330,240"/>
+             <!--所有玩家总注的坐标配置-->
+
+             <ChipManagerNunber Pos0="185,282" Pos1="523.000000,282" Pos2="870,282" Pos3="185,150" Pos4="870,150" Pos5="523.000000,150" Pos6="185,475" Pos7="870,475" />
+             <!--大赢家的坐标配置-->
+
+             <ChipManagerNunber1 Pos0="185,282" Pos1="523.000000,282" Pos2="870,282" Pos3="185,180" Pos4="870,180" Pos5="523.000000,180" Pos6="185,475" Pos7="870,475" />
+             <!--玩家自己下注额的坐标配置-->
+
+             <OperaLayerMyNunber LblOffset="80,5" Pos0="285,282" Pos1="623.000000,282" Pos2="970,282" Pos3="285,150" Pos4="970,150" Pos5="623.000000,150" Pos6="285,475" Pos7="970,475" />
+             <!--大赢家的坐标配置-->
+
+             <OperaLayerMyNunber1 LblOffset="80,5" Pos0="285,282" Pos1="623.000000,282" Pos2="970,282" Pos3="285,180" Pos4="970,180" Pos5="623.000000,180" Pos6="285,475" Pos7="970,475" />             
+             <!--8个下注区域的左下角坐标x，左下角坐标y，右上角坐标x+w，右上角坐标y+h：0闲，1平，2庄，3闲天王，4庄天王，5同点平，6闲对子，7庄对子-->
+
+             <ChipPosRect Rect0="98,296,445,453" Rect1="485,296,795,453" Rect2="835,296,1182,453" Rect3="185,170,436,260" Rect4="844,170,1095,260" Rect5="485,170,795,260" Rect6="132,484,428,579" Rect7="852,484,1148,579"/>
+             <!--大赢家的坐标配置-->
+
+             <ChipPosRect1 Rect0="98,296,445,453" Rect1="485,296,795,453" Rect2="835,296,1182,453" Rect3="190,170,436,247" Rect4="844,170,1063,247" Rect5="485,170,795,247" Rect6="241,468,457,515" Rect7="819,468,1019,515"/>
+             <!--下注按钮的坐标配置-->
+
+             <ChipMenu Scale="1.0" Pos0="450,68" Pos1="570,68" Pos2="690,68" Pos3="810,68" Pos4="930,68" Pos5="1050,68" Pos6="1170,68"/>
+             <!--大赢家的坐标配置-->
+
+             <ChipMenu1 Scale="1.0" Pos0="420,68" Pos1="540,68" Pos2="660,68" Pos3="780,68" Pos4="900,68" Pos5="1020,68" Pos6="1140,68"/>
+             <!--上庄列表的坐标配置-->
+
+             <BankerList NumberOfCells="1" CellSize="480,38" ViewSize="480,190" ViewPos="70,30" ColumnNum="2" Col0="0,15" Col1="230,15"/>
+         </BJL>
+
+        <!--德州扑克坐标配置-->
+
+        <DZPK  TotalChipsBGPos="640,530" TotalChipValuePos="660,523" SendCardMachinePos="830,240" CloseRoundOperaLabelPos="250,160" WinLosePos="640,360" OtherCardScale="0.3" SelfCardScale="0.6" headscale="1" levelscale="1" chipValueScale="1" playerChipScale="1" playerChipValueScale="1" >
+             <!--九亿、大赢家筹码池坐标配置-->
+
+             <ChipPot Pos0="0.5,0.73" Pos1="0.5,0.7"/>
+             <!--玩家信息相对坐标配置：信息背景（绝对坐标）、筹码值背景、断线、会员等级、玩家名、动作、筹码值、等待下一局、准备（绝对坐标）、庄家（绝对坐标）、玩家手中的两张牌（绝对坐标）、动作背景（绝对坐标）、玩家筹码（绝对坐标）、玩家筹码值（相对坐标）-->
+
+             <playerInfo id="0" infoBG="1180,500" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="-120,10" chipValue="0,-60" nextRound="0,-50" Ready="1050,460" Makers="1055,460" playerCard0="1125,500" playerCard1="1105,500" actionBG="1196,548" playerChip="1040,460" playerChipValue="30,-10"/>
+             <playerInfo id="1" infoBG="1180,220" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="-120,10" chipValue="0,-60" nextRound="0,-50" Ready="1070,260" Makers="1055,260" playerCard0="1120,230" playerCard1="1100,230" actionBG="1100,288" playerChip="1040,280" playerChipValue="30,-10"/>
+             <playerInfo id="2" infoBG="900,160" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="0,50" chipValue="0,-60" nextRound="0,-50" Ready="900,260" Makers="900,238" playerCard0="845,180" playerCard1="825,180" actionBG="926,218" playerChip="900,280" playerChipValue="30,-10"/>
+             <playerInfo id="3" infoBG="370,160" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="0,50" chipValue="0,-60" nextRound="0,-50" Ready="380, 260" Makers="280,200" playerCard0="480,130" playerCard1="500,130" actionBG="490,218" playerChip="370,280" playerChipValue="30,-10"/>
+             <playerInfo id="4" infoBG="80,220" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="0,10" chipValue="0,-60" nextRound="0,-50" Ready="200,280" Makers="200,260" playerCard0="160,220" playerCard1="180,220" actionBG="180,310" playerChip="220,280" playerChipValue="30,-10"/>
+             <playerInfo id="5" infoBG="80,500" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="0,10" chipValue="0,-60" nextRound="0,-50" Ready="200,470" Makers="200,460" playerCard0="160,490" playerCard1="180,490" actionBG="200,520" playerChip="220,460" playerChipValue="30,-10"/>
+             <playerInfo id="6" infoBG="370,630" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="0,50" chipValue="0,-60" nextRound="0,-50" Ready="380,520" Makers="360,520" playerCard0="440,630" playerCard1="460,630" actionBG="450,540" playerChip="370,520" playerChipValue="30,-10"/>
+             <playerInfo id="7" infoBG="900,630" chipValueBG="-20,-50" offline="-40,40" level="60,40" playerName="0,-30" actionName="0,50" chipValue="0,-60" nextRound="0,-50" Ready="900,520" Makers="900,520" playerCard0="810,630" playerCard1="830,630" actionBG="980,540" playerChip="900,520" playerChipValue="30,-10"/>
+             <!--五张公共牌的坐标配置-->
+
+             <commonCards Scale="1" Pos0="400,360" Pos1="520,360" Pos2="640,360" Pos3="760,360" Pos4="880,360"/>
+             <!--操作按钮的坐标配置：查看牌型、牌型图片、跟任何注、弃牌、梭哈、跟注、加注、过牌、下注、加注(下注)背景、加注(下注)滑动条、加注(下注)值-->
+
+             <DZPKOperaLayer StartLeaveScale="0.8" ExitScale="0.9" ClosePos="45,675" StartItemPos="820,40" LeaveItemPos="460,40" BottomScale="0.9" Pos0="48,40" Pos1="5,53" Pos2="1050,35" Pos3="185,40" Pos4="370,40" Pos5="550,40" Pos6="720,40" Pos7="550,40" Pos8="48,100" Pos9="720,220" Pos10="720,205" Pos11="720,340"/>
+             <!--时间配置-->
+
+             <CloseRoundOpera t1="30.0" t2="30.0" test1="5" test2="5"/>
+        </DZPK>
+
+        <!--碰碰车坐标配置-->
+
+        <PPC>
+             <!--九亿信息栏的坐标配置：-->
+
+             <InfoBar FacePos="0.05,0.085" Offset0="0,0" Offset1="0,0"/>
+             <!--大赢家信息栏的坐标配置-->
+
+             <InfoBar1 FacePos="0.057,0.088" Offset0="10,0" Offset1="5,5"/>
+             <!--九亿结算界面的坐标配置：-->
+
+             <Ending Pos0="0.24,0.5" Pos1="0.54,0.5" Pos2="0.24,0.32" Pos3="0.54,0.32"/>
+             <!--大赢家结算界面的坐标配置-->
+
+             <Ending1 Pos0="0.3,0.45" Pos1="0.6,0.45" Pos2="0.3,0.2" Pos3="0.6,0.2"/>
+        </PPC>
+
+        <!--捕鱼坐标配置-->
+
+        <FISHBEAT>
+             <!--九亿的坐标配置：炮台倍率、玩家分数、玩家昵称、手动发炮-->
+
+             <CannonNode Pos0="3,-22.4" Pos1="314.25,14" Pos2="74.75,15" Pos3="90,120"/>
+             <!--大赢家的坐标配置：炮台倍率、玩家分数、玩家昵称、手动发炮-->
+
+             <CannonNode1 Pos0="3,-13" Pos1="270,12" Pos2="124.75,15" Pos3="90,127"/>
+        </FISHBEAT>
+
+</config>

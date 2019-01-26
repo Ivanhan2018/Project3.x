@@ -1,0 +1,13 @@
+{    
+	"packageUrl" : "http://120.76.216.167:8089/brnn1/",    
+	"remoteVersionUrl" : "http://120.76.216.167:8089/brnn1/version.manifest",    
+	"remoteManifestUrl" : "http://120.76.216.167:8089/brnn1/project.manifest",
+	"version" : "0.0.0",    
+	"engineVersion" : "Cocos2d-x v3.10",    
+
+	"assets" : {
+
+	},    
+	"searchPaths" : [    
+	]    
+}
