@@ -1,8 +1,8 @@
 #include "DDZDialogLayer.h"
 #include "DDZSceneData.h"
 #include "DDZSceneControl.h"
-#include "DDZRes.h"//<by hxh>
-#include "SceneView.h"//<by hxh>
+#include "BJLRes.h"//<by hxh>
+#include "MyNSString.h"//<by hxh>
 #include "DDZSceneLogic.h"
 
 using namespace ui;
@@ -136,7 +136,7 @@ void DDZDialogLayer::onClickBtnOK(Ref* pSender)
 		{
 			//EntityMgr::instance()->roomFrame()->setGameIsStart(false);
 			// add by hxh 20160818
-			SceneView::ToPortrait();
+			MyNSString::toPortrait();
 			Director::getInstance()->replaceScene(DDZSceneControl::sharedDDZSceneControl()->getScene(SCENE_start,false));
 		}
 		break;
@@ -161,7 +161,7 @@ void DDZDialogLayer::onClickBtnOK(Ref* pSender)
 		{
 			//Director::getInstance()->end();
 			//exit(0);
-			SceneView::ToPortrait();
+			MyNSString::toPortrait();
 			Director::getInstance()->replaceScene(DDZSceneControl::sharedDDZSceneControl()->getScene(SCENE_start,false));
 		}
 		break;

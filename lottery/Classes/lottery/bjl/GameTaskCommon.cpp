@@ -1,7 +1,7 @@
 #include "GameTaskCommon.h"
 #include "GlobalUnits.h"
 #include "TaskInfo.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "DBHandler.h"
 #include "CocosUnits.h"//by hxh
 #include "MyConfig.h"//by hxh

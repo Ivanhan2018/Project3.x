@@ -1,5 +1,5 @@
 #include "JniControl.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "BJLSceneControl.h"
 #include "GlobalUnits.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

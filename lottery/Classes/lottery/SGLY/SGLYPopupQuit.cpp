@@ -2,7 +2,7 @@
 #include "SGLYGameScene.h"
 #include "SGLYRes.h"
 #include "SGLYDefine.h"
-#include "ToolKit.h"
+#include "MyNSString.h"
 #include "EntityMgr.h"
 #include "RoomLayer.h"
 #include "VersionControl.h"
@@ -86,7 +86,7 @@ void SGLYPopupQuit::initUI()
 //	点击确定按钮
 void SGLYPopupQuit::onClickBtnOK(Ref* pSender)
 {
-	ToolKit::toShowInfo();
+	MyNSString::toShowInfo();
 
 	SGLYGameScene::getGameScene()->clear();
 	EntityMgr::instance()->getDispatch()->SendPacketWithPerformStandup();

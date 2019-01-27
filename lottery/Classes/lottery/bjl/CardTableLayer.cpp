@@ -7,7 +7,6 @@
 #include "MyNSString.h"//<by hxh>
 #include "MyConfig.h"//<by hxh>
 #include "CCInteger64.h"//by hxh
-#include "bjlGlobalDef.h"//by hxh
 #include "EntityMgr.h"//<by hxh>
 #include "ToolKit.h"//<by hxh>
 

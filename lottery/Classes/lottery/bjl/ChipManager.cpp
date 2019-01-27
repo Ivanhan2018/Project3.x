@@ -3,7 +3,7 @@
  ***************************************/
 #include "ChipManager.h"
 #include "CocosUnits.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "OperalayerBJL.h"//<by hxh>
 #include "MyConfig.h"//by hxh
 using namespace cocos2d;

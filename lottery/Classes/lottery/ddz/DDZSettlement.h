@@ -2,9 +2,9 @@
 #ifndef DDZ___SETTLEMENT__
 #define DDZ___SETTLEMENT__
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "DDZUser.h"
-#include "DDZCMD_DDZ.h"
+#include "CMD_DDZ.h"
 #include "DDZCardTableLayer.h"
 USING_NS_CC;
 

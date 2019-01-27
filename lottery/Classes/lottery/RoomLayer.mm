@@ -1230,7 +1230,7 @@ void RoomLayer::onLinkResult(Object* obj)
 			if(m_dwKindID==KindId_BJL){
 				// add by hxh 20160701
 #ifdef USE_BJL
-			    SceneView::ToLandscape();
+			    MyNSString::toLandscape();
 				BJLSceneControl* pSceneControl = BJLSceneControl::sharedSceneControl();
 				Scene* pScene = pSceneControl->getScene(SCENE_game,true);
 				Director::getInstance()->replaceScene(pScene);
@@ -1240,8 +1240,7 @@ void RoomLayer::onLinkResult(Object* obj)
 			//dzpk-jhy
 			else if (m_dwKindID == KindId_DZPK)
 			{
-				DZPKLayer::dzpk_ToLandscape();
-				//SceneView::ToLandscape();
+				MyNSString::toLandscape();
 				//BJLSceneControl* pSceneControl = BJLSceneControl::sharedSceneControl();
 				Scene* pScene = DZPKLayer::scene();//pSceneControl->getScene(SCENE_game,true);
 				Director::getInstance()->replaceScene(pScene);
@@ -1251,7 +1250,7 @@ void RoomLayer::onLinkResult(Object* obj)
 			else if (m_dwKindID == KindId_DDZ)
 			{
 				// add by hxh 20160701
-				SceneView::ToLandscape();
+				MyNSString::toLandscape();
 				DDZSceneControl* pSceneControl = DDZSceneControl::sharedDDZSceneControl();
 				Scene* pScene = pSceneControl->getScene(SCENE_game,true);
 				Director::getInstance()->replaceScene(pScene);
@@ -1262,7 +1261,7 @@ void RoomLayer::onLinkResult(Object* obj)
 			else if (m_dwKindID == KindId_FISH)
 			{
 				//这里捕鱼游戏入口
-				SceneView::ToLandscape();	
+				MyNSString::toLandscape();	
 
 				Scene* pscene = CGameScene::createScene();
 				Director::getInstance()->replaceScene(pscene);								
@@ -1271,7 +1270,7 @@ void RoomLayer::onLinkResult(Object* obj)
 #ifdef USE_PPC
 			else if (m_dwKindID == KindId_PPC)
 			{
-				ToolKit::toLandscape();
+				MyNSString::toLandscape();
 				PPCGameScene* pScene = PPCGameScene::create();
 				Director::getInstance()->replaceScene(pScene);
 			}
@@ -1280,7 +1279,7 @@ void RoomLayer::onLinkResult(Object* obj)
 #ifdef USE_BRNN
 			else if (m_dwKindID == KindId_BRNN)
 			{
-				ToolKit::toLandscape();
+				MyNSString::toLandscape();
 				BRNNGameScene* pScene = BRNNGameScene::create();
 				Director::getInstance()->replaceScene(pScene);
 			}
@@ -1289,7 +1288,7 @@ void RoomLayer::onLinkResult(Object* obj)
 #ifdef USE_SGLY
 			else if (m_dwKindID == KindId_SGLY)
 			{
-				ToolKit::toDontShowInfo();
+				MyNSString::toDontShowInfo();
 // 				SGLYGameScene* pScene = SGLYGameScene::create();
 				Scene* pScene = SGLYGameScene::createScene();
 				Director::getInstance()->replaceScene(pScene);

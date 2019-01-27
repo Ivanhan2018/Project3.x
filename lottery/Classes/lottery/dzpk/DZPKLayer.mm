@@ -12,17 +12,10 @@
 #include "SimpleAudioEngine.h"
 #include "SoundControl.h"//by hxh
 #include "MyNSString.h"
-#include "DDZRes.h"//by hxh
+#include "BJLRes.h"//by hxh
 #include "DZPKTools.h"
 #include "MyConfig.h"//by hxh
 #include "DZPKDialog.h"
-
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "JniHelper.h"
-#endif
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "AppController.h"
-#endif
 
 using namespace CocosDenshion;
 
@@ -113,73 +106,6 @@ void DZPKLayer::LoadRes(){
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("dzpk_raise_slider.plist","dzpk_raise_slider.png");
 }
 
-void DZPKLayer::dzpk_ToPortrait()
-{
-#if (CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32)
-	GLView* eglView = Director::getInstance()->getOpenGLView();	
-	eglView->setViewName("QiXing");
-	eglView->setFrameSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-	eglView->setDesignResolutionSize(SCREEN_WIDTH, SCREEN_HEIGHT, kResolutionExactFit);
-#endif
-	//ÇÐ»»ÊúÆÁ´úÂë 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	cocos2d::Size frameSize = pEGLView->getFrameSize();
-	JniMethodInfo minfo;
-	if( JniHelper::getStaticMethodInfo(minfo,"org.cocos2dx.cpp.AppActivity","changedActivityOrientation","(I)V") )
-	{
-		minfo.env->CallStaticVoidMethod(minfo.classID,minfo.methodID,2);
-	}
-	pEGLView->setFrameSize(frameSize.height,frameSize.width);
-	pEGLView->setDesignResolutionSize(SCREEN_WIDTH, SCREEN_HEIGHT,kResolutionExactFit);
-#endif
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	//ÊúÆÁ
-	[AppController changeRootViewControllerV];
-	//ÖØÐÂÊÊÅä
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	//»ñÈ¡ÆÁÄ»·Ö±æÂÊ
-	CGRect tempRect = [UIScreen mainScreen].bounds;
-	CGFloat scale_screen = [UIScreen mainScreen].scale;
-	pEGLView->setFrameSize(tempRect.size.width * scale_screen,tempRect.size.height * scale_screen);
-	pEGLView->setDesignResolutionSize(SCREEN_WIDTH,SCREEN_HEIGHT,kResolutionExactFit);
-#endif
-}
-
-void DZPKLayer::dzpk_ToLandscape()
-{
-#if (CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32)
-	MyConfig::Instance().LoadData("MyConfig.xml");
-	GLView* eglView = Director::getInstance()->getOpenGLView();
-	eglView->setViewName("Baccarat");
-	eglView->setFrameSize(SCREEN_HEIGHT*0.8,SCREEN_WIDTH*0.8);
-	eglView->setDesignResolutionSize(SCREEN_HEIGHT,SCREEN_WIDTH,kResolutionExactFit);
-#endif
-	//ÇÐ»»ºáÆÁ´úÂë
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	cocos2d::Size frameSize = pEGLView->getFrameSize(); 
-	JniMethodInfo minfo;
-	if( JniHelper::getStaticMethodInfo(minfo,"org.cocos2dx.cpp.AppActivity","changedActivityOrientation","(I)V") )
-	{
-		minfo.env->CallStaticVoidMethod(minfo.classID,minfo.methodID,1);
-	}
-	pEGLView->setFrameSize(frameSize.height,frameSize.width);
-	pEGLView->setDesignResolutionSize(SCREEN_HEIGHT,SCREEN_WIDTH,kResolutionExactFit);
-#endif
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	//ºáÆÁ
-	[AppController changeRootViewControllerH];
-	//ÖØÐÂÊÊÅä
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	//»ñÈ¡ÆÁÄ»·Ö±æÂÊ
-	CGRect tempRect = [UIScreen mainScreen].bounds;
-	CGFloat scale_screen = [UIScreen mainScreen].scale;
-	pEGLView->setFrameSize(tempRect.size.width * scale_screen,tempRect.size.height * scale_screen);
-	pEGLView->setDesignResolutionSize(SCREEN_HEIGHT,SCREEN_WIDTH,kResolutionExactFit);
-#endif
-}
-
 void DZPKLayer::ExitDZPK()
 {
 	EntityMgr::instance()->getDispatch()->SendPacketWithPerformStandup();
@@ -187,7 +113,7 @@ void DZPKLayer::ExitDZPK()
 	EntityMgr::instance()->getDispatch()->SendReConnect();//dzpk-jhy
 	EntityMgr::instance()->roomFrame()->reset();
 	CocosDenshion::SimpleAudioEngine::getInstance()->end(); //dzpk-jhy
-	DZPKLayer::dzpk_ToPortrait();//dzpk-jhy
+	MyNSString::toPortrait();//dzpk-jhy
 	EntityMgr::instance()->getDispatch()->setGameStatus(false);
 	Scene * scene = RoomLayer::scene();
 	Director::getInstance()->replaceScene(scene);

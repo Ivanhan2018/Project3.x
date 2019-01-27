@@ -3,7 +3,7 @@
 
 #include "BJLSceneControl.h"
 #include "SceneView.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "SceneControl.h"//by hxh
 #include "PromptBox.h"//by hxh
 #include "RoomLayer.h"//by hxh

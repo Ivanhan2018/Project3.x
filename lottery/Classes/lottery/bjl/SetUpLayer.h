@@ -2,7 +2,7 @@
 #ifndef __SETUPLAYER__
 #define __SETUPLAYER__
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "SoundControl.h"
 #include <limits>
 USING_NS_CC;

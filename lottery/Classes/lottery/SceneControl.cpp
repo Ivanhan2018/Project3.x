@@ -3,7 +3,7 @@
 
 #include "SceneControl.h"
 //#include "SceneView.h"
-//#include "DDZRes.h"
+//#include "BJLRes.h"
 #include "PromptBox.h"
 #include "RoomLayer.h"
 #include "ConfigMgr.h"

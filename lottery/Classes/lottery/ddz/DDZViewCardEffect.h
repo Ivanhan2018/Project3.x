@@ -3,8 +3,8 @@
 #ifndef DDZ___VIEW_CARD_EFFECT__
 #define DDZ___VIEW_CARD_EFFECT__
 #include "cocos2d.h"
-#include "DDZDDZRes.h"
-#include "DDZDDZLogic.h"
+#include "DDZRes.h"
+#include "DDZLogic.h"
 #include "DDZSoundControl.h"
 #include "DDZCardTableLayer.h"
 USING_NS_CC;

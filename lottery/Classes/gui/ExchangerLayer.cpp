@@ -2,7 +2,7 @@
 #include "RoomLayer.h"
 #include "CocosUnits.h"
 #include "SceneControl.h"
-//#include "DDZRes.h"
+//#include "BJLRes.h"
 #include "JsonHelper.h"
 #include "network/HttpClient.h"
 

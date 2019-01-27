@@ -1,6 +1,6 @@
 #include "PPCDialogQuit.h"
 #include "EntityMgr.h"
-#include "ToolKit.h"
+#include "MyNSString.h"
 #include "RoomLayer.h"
 #include "PPCSound.h"
 
@@ -84,7 +84,7 @@ void PPCDialogQuit::onClickBtnOK(Ref* pSender)
 	PPCSound::getInstance()->StopEffect();
 	EntityMgr::instance()->getDispatch()->SendPacketWithPerformStandup();
 // 	this->scheduleOnce([](float dt){
-		ToolKit::toPortrait();
+		MyNSString::toPortrait();
 		Scene* pScene = Scene::create();
 		RoomLayer* layer = RoomLayer::create();
 		layer->automaticLogin(false);

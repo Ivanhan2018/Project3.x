@@ -1,7 +1,7 @@
 #include "DialogLayer.h"
 #include "SceneData.h"
 #include "BJLSceneControl.h"
-#include "SceneView.h"//by hxh
+#include "MyNSString.h"//by hxh
 #include "MyConfig.h"//by hxh
 
 DialogLayer::DialogLayer(dialog_type type)
@@ -90,7 +90,7 @@ void DialogLayer::menuOkCallBack(Object * pSender)
 		{
 			//EntityMgr::instance()->roomFrame()->setGameIsStart(false);
 			// add by hxh 20160701
-			SceneView::ToPortrait();
+			MyNSString::toPortrait();
 			Director::getInstance()->replaceScene(BJLSceneControl::sharedSceneControl()->getScene(SCENE_start,false));
 		}
 		break;

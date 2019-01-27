@@ -2,7 +2,7 @@
 #ifndef DDZ___SETUPLAYER__
 #define DDZ___SETUPLAYER__
 #include "cocos2d.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "DDZSoundControl.h"
 #include <limits>
 USING_NS_CC;

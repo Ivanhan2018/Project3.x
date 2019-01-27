@@ -18,7 +18,7 @@
 #include "GroupSprite.h"
 #include "SceneControl.h"
 #include "FreeLayer.h"
-#include "SceneView.h"//by hxh
+#include "MyNSString.h"//by hxh
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "../JniHelper.h"
 #endif
@@ -363,7 +363,7 @@ void PromptBox::closePromptBox(Object *obj)
 		if (dwKindID != KindId_SGLY)
 		{
 			//	水果乐园本身为竖屏游戏，调用此方法退出后显示不正常
-			SceneView::ToPortrait();
+			MyNSString::toPortrait();
 		}
 		Director::getInstance()->replaceScene(SceneControl::sharedSceneControl()->getScene(SCENE_start,false));	
 	}

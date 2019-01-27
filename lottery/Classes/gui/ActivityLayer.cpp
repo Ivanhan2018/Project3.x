@@ -199,7 +199,6 @@ bool ActivityLayer::init()
 
 void ActivityLayer::enterActivity(Object* obj)
 {
-
 	playButtonSound();
 	int gameID = g_GlobalUnits.getGolbalUserData()->dwUserID;
 	std::string userPassword = UserDefault::getInstance()->getStringForKey("NEWZJD_PASSWORD");

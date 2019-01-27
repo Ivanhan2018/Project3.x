@@ -2,8 +2,8 @@
 
 #ifndef	DDZ___VIEW_TASK__
 #define	DDZ___VIEW_TASK__
-#include "DDZDDZLogic.h"
-#include "DDZDDZRes.h"
+#include "DDZLogic.h"
+#include "DDZRes.h"
 #include "cocos2d.h"
 USING_NS_CC;
 

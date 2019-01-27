@@ -1,12 +1,6 @@
 #include "ToolKit.h"
 #include "GlobalDef.h"
-#include "MyConfig.h"
-#include "MyNSString.h"
 #include "ui/CocosGUI.h"
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "AppController.h"
-#endif
-
 using namespace ui;
 
 ToolKit::ToolKit()
@@ -15,73 +9,6 @@ ToolKit::ToolKit()
 
 ToolKit::~ToolKit()
 {
-}
-
-void ToolKit::toPortrait()
-{
-#if (CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32)
-	GLView* eglView = Director::getInstance()->getOpenGLView();	
-	eglView->setViewName("QiXing");
-	eglView->setFrameSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-	eglView->setDesignResolutionSize(SCREEN_WIDTH, SCREEN_HEIGHT, kResolutionExactFit);
-#endif
-	//切换竖屏代码 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	cocos2d::Size frameSize = pEGLView->getFrameSize();
-	JniMethodInfo minfo;
-	if( JniHelper::getStaticMethodInfo(minfo,"org.cocos2dx.cpp.AppActivity","changedActivityOrientation","(I)V") )
-	{
-		minfo.env->CallStaticVoidMethod(minfo.classID,minfo.methodID,2);
-	}
-	pEGLView->setFrameSize(frameSize.height,frameSize.width);
-	pEGLView->setDesignResolutionSize(SCREEN_WIDTH, SCREEN_HEIGHT,kResolutionExactFit);
-#endif
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	//竖屏
-	[AppController changeRootViewControllerV];
-	//重新适配
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	//获取屏幕分辨率
-	CGRect tempRect = [UIScreen mainScreen].bounds;
-	CGFloat scale_screen = [UIScreen mainScreen].scale;
-	pEGLView->setFrameSize(tempRect.size.width * scale_screen,tempRect.size.height * scale_screen);
-	pEGLView->setDesignResolutionSize(SCREEN_WIDTH,SCREEN_HEIGHT,kResolutionExactFit);
-#endif
-}
-
-void ToolKit::toLandscape()
-{
-#if (CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32)
-	MyConfig::Instance().LoadData("MyConfig.xml");
-	GLView* eglView = Director::getInstance()->getOpenGLView();
-	eglView->setViewName("Baccarat");
-	eglView->setFrameSize(SCREEN_HEIGHT*0.8,SCREEN_WIDTH*0.8);
-	eglView->setDesignResolutionSize(SCREEN_HEIGHT,SCREEN_WIDTH,kResolutionExactFit);
-#endif
-	//切换横屏代码
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	cocos2d::Size frameSize = pEGLView->getFrameSize(); 
-	JniMethodInfo minfo;
-	if( JniHelper::getStaticMethodInfo(minfo,"org.cocos2dx.cpp.AppActivity","changedActivityOrientation","(I)V") )
-	{
-		minfo.env->CallStaticVoidMethod(minfo.classID,minfo.methodID,1);
-	}
-	pEGLView->setFrameSize(frameSize.height,frameSize.width);
-	pEGLView->setDesignResolutionSize(SCREEN_HEIGHT,SCREEN_WIDTH,kResolutionExactFit);
-#endif
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	//横屏
-	[AppController changeRootViewControllerH];
-	//重新适配
-	GLView *pEGLView = Director::getInstance()->getOpenGLView();
-	//获取屏幕分辨率
-	CGRect tempRect = [UIScreen mainScreen].bounds;
-	CGFloat scale_screen = [UIScreen mainScreen].scale;
-	pEGLView->setFrameSize(tempRect.size.width * scale_screen,tempRect.size.height * scale_screen);
-	pEGLView->setDesignResolutionSize(SCREEN_HEIGHT,SCREEN_WIDTH,kResolutionExactFit);
-#endif
 }
 
 //	随机生成一个昵称
@@ -287,36 +214,4 @@ string ToolKit::dealStringOfPrivacy(const string &sString)
 	bool bRet2=StringUtils::UTF16ToUTF8(wstrUTF16,str);
 
 	return str;
-}
-
-void ToolKit::toShowInfo()
-{
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	[AppController changeRootViewShowInfo];
-#endif
-
-	//显示
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	JniMethodInfo minfo;
-	if( JniHelper::getStaticMethodInfo(minfo,"org.cocos2dx.cpp.AppActivity","changedActivityOrientation","(I)V") )
-	{
-		minfo.env->CallStaticVoidMethod(minfo.classID,minfo.methodID,4);
-	}
-#endif
-}
-
-void ToolKit::toDontShowInfo()
-{
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	[AppController changeRootViewDontShowInfo];
-#endif
-
-	//不显示状态栏
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	JniMethodInfo minfo;
-	if( JniHelper::getStaticMethodInfo(minfo,"org.cocos2dx.cpp.AppActivity","changedActivityOrientation","(I)V") )
-	{
-		minfo.env->CallStaticVoidMethod(minfo.classID,minfo.methodID,3);
-	}	
-#endif
 }

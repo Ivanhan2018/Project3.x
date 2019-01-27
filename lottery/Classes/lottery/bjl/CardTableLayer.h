@@ -9,7 +9,7 @@
 #define MAX_RECORD_NUM (17)   // 显示记录数目
 
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "SceneData.h"
 #include "MyTimer.h"
 #include "User.h"

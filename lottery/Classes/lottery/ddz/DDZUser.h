@@ -3,7 +3,7 @@
 #define DDZ___USER__
 
 #include "cocos2d.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "DDZSceneData.h"
 
 USING_NS_CC;

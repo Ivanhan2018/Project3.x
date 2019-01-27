@@ -16,12 +16,6 @@ public:
 	ToolKit();
 	~ToolKit();
 
-	//	转换成竖屏
-	static void toPortrait();
-
-	//	转换成横屏
-	static void toLandscape();
-
 	//	随机生成一个昵称
 	static string generateNickname();
 
@@ -48,12 +42,6 @@ public:
 	**	@sString	UTF8编码的字符串
 	*/	
 	static string dealStringOfPrivacy(const string &sString);
-
-	//隐藏状态栏
-	static void toDontShowInfo();
-
-	//显示状态栏
-	static void toShowInfo();
 
 private:
 };

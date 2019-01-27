@@ -2,7 +2,7 @@
 #ifndef		__VIEW_MENU_LAYER__
 #define		__VIEW_MENU_LAYER__
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "SceneData.h"
 #include "MyTimer.h"
 USING_NS_CC;

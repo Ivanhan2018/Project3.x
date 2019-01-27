@@ -2,7 +2,7 @@
 #ifndef __DIALOGLAYER__
 #define __DIALOGLAYER__
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include <limits>
 USING_NS_CC;
 

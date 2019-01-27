@@ -3,7 +3,6 @@
 #include "SoundControl.h"
 #include "MyNSString.h"
 #include "MyConfig.h"
-#include "bjlGlobalDef.h"//by hxh
 #include "ToolKit.h"
 
 // 用于调试<add by hxh 20161027>

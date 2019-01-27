@@ -49,6 +49,17 @@ const int SeverID_PDK       = 1;
 const int SeverID_PHZ       = 2;
 const int SeverID_SDH       = 3;
 
+// add by hxh 20160729
+#ifdef WIN32
+#define STRCMP(x,y)	_stricmp(x,y)
+#define ATOI64(x) _atoi64(x)
+#define SNPRINTF(charArray,format,...) _snprintf(charArray,sizeof(charArray)-1,format,__VA_ARGS__)
+#else
+#define STRCMP(x,y)	strcasecmp(x,y)
+#define ATOI64(x) atoll(x)
+#define SNPRINTF(charArray,format,...) snprintf(charArray,sizeof(charArray),format,##__VA_ARGS__)
+#endif
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 typedef wchar_t		TCHART;
 //typedef unsigned char		BYTE;

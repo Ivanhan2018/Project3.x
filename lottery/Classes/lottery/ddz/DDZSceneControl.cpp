@@ -4,7 +4,7 @@
 #include "DDZSceneControl.h"
 #include "SceneControl.h"//by hxh
 #include "DDZSceneView.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "PromptBox.h"
 #include "RoomLayer.h"
 #include "ConfigMgr.h"

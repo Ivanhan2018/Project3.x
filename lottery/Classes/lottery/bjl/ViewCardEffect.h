@@ -3,7 +3,7 @@
 #ifndef			__VIEW_CARD_EFFECT__
 #define			__VIEW_CARD_EFFECT__
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "SoundControl.h"
 #include "CardTableLayer.h"
 USING_NS_CC;

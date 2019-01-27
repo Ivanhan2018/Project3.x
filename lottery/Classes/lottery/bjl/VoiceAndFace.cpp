@@ -1,5 +1,5 @@
 #include "VoiceAndFace.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "cocos-ext.h"
 #include "SceneData.h"
 static VoiceAndFace* s_face=NULL;

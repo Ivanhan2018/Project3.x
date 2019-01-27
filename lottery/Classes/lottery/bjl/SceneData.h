@@ -2,7 +2,7 @@
 #define		__CC_SCENEDATA_WUCAN__
 #include "cocos2d.h"
 USING_NS_CC;
-#include "CMD_DDZClient.h"
+#include "CMD_BJL.h"
 
 #define CREATE_FUNC_MSG(__TYPE__) \
 static __TYPE__* create(int v) \

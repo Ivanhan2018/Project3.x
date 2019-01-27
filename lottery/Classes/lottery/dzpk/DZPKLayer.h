@@ -45,8 +45,6 @@ public:
 	CREATE_FUNC(DZPKLayer);
 public:
 	void LoadRes();//dzpk-jhy
-	static void dzpk_ToPortrait();//dzpk-jhy
-	static void dzpk_ToLandscape();//dzpk-jhy
 	static void ExitDZPK();
 
 	// ÒÎ×ÓºÅ×ª»»

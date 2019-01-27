@@ -3,7 +3,7 @@
 #define __TIMER__
 
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "SceneData.h"
 USING_NS_CC;
 using namespace cocos2d;

@@ -105,7 +105,8 @@ void LoadingLayer::update(float dt)
 			PromptBox* box = PromptBox::PromptBoxWith(Vec2(winSize.width * 0.5,winSize.height * 0.5),mPromptTypeServerShut);
 			this->addChild(box,100);
 		}
-      
+        
+		float dur=1.5f;//0.5f
         bool auto_login = UserDefault::getInstance()->getBoolForKey("AUTO_LOGIN", false);
         if (auto_login == true) {
             UserDefault::getInstance()->setBoolForKey("AUTO_LOGIN", false);
@@ -114,7 +115,7 @@ void LoadingLayer::update(float dt)
             Scene* pScene = Scene::create();
             layer->automaticLogin(true, true);
             pScene->addChild(layer);
-            TransitionFade *tScene = TransitionFade::create(0.5f, pScene, Color3B::WHITE);
+            TransitionFade *tScene = TransitionFade::create(dur, pScene, Color3B::WHITE);
             Director::getInstance()->replaceScene(tScene);
             return;
         }
@@ -122,7 +123,7 @@ void LoadingLayer::update(float dt)
 		LoginLayer *layer = LoginLayer::create();
 		Scene* pScene = Scene::create();
 		pScene->addChild(layer);
-		TransitionFade *tScene = TransitionFade::create(0.5f, pScene, Color3B::WHITE);
+		TransitionFade *tScene = TransitionFade::create(dur, pScene, Color3B::WHITE);
 		Director::getInstance()->replaceScene(tScene);
 		layer->checkIfAutoLogin(0);	
 }

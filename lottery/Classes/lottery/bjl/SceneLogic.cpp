@@ -1,5 +1,5 @@
 #include "SceneLogic.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "GlobalFrame.h"
 #include "CMD_Game.h"
 #include "CMD_GameServer.h"
@@ -10,7 +10,7 @@
 #include "GameTaskCommon.h"
 #include "GlobalUnits.h"
 #include "ConfigMgr.h"
-#include "CMD_DDZClient.h"
+#include "CMD_BJL.h"
 #include "MyNSString.h"
 #include "MyConfig.h"//by hxh
 #include "MovingLabelLayer.h"//by hxh

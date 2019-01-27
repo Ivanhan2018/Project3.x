@@ -1,7 +1,7 @@
 #include "DDZViewHandCard.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "DDZSceneData.h"
-#include "DDZDDZLogic.h"
+#include "DDZLogic.h"
 #include "DDZSoundControl.h"
 #include "CocosUnits.h"//by hxh
 #include "DDZSceneLogic.h"

@@ -6,7 +6,7 @@ xxxx 2014.1.5
 
 #include "DZPKOperaLayer.h"
 #include "SimpleAudioEngine.h"
-#include "DDZRes.h"//by hxh
+#include "BJLRes.h"//by hxh
 #include "MyConfig.h"//by hxh
 #include "MyNSString.h"//by hxh
 #include "DZPKLayer.h"//by hxh

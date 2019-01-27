@@ -2,7 +2,7 @@
 
 #ifndef		__VIEW_TASK__
 #define		__VIEW_TASK__
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "cocos2d.h"
 USING_NS_CC;
 

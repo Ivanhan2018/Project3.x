@@ -1,6 +1,6 @@
 #include "DZPKDialog.h"
 #include "SoundControl.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "CMD_DZPK.h"
 #include "DZPKLayer.h"
 

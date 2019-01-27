@@ -7,7 +7,7 @@
 //
 
 #include "RoomLight.h"
-#include "DDZRes.h"//by hxh
+#include "BJLRes.h"//by hxh
 #include "MyConfig.h"//by hxh
 #include <math.h>
 

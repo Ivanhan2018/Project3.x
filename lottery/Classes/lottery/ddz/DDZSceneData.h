@@ -2,9 +2,8 @@
 #define		DDZ___CC_SCENEDATA_WUCAN__
 #include "cocos2d.h"
 USING_NS_CC;
-#include "DDZCMD_DDZ.h"
-#include "DDZCMD_DDZClient.h"
-#include "DDZDDZLogic.h"
+#include "CMD_DDZ.h"
+#include "DDZLogic.h"
 #define CREATE_FUNC_MSG(__TYPE__) \
 static __TYPE__* create(int v) \
 { \

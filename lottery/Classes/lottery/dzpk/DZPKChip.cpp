@@ -1,5 +1,5 @@
 ﻿#include "DZPKChip.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "DZPKTools.h"
 #include "CocosUnits.h"
 

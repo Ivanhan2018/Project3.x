@@ -2,7 +2,7 @@
 #define __DZPK_CARD_H__
 
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "CMD_DZPK.h"
 
 USING_NS_CC;

@@ -2,7 +2,7 @@
 #define __USER_DZPK_H__
 
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "GlobalDef.h"
 #include "DZPKCard.h"
 #include "DZPKPlayerChip.h"

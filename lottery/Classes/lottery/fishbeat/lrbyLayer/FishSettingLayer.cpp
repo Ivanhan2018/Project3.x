@@ -1,7 +1,7 @@
 #include "FishSettingLayer.h"
 #include "Sound.h"
 #include "EntityMgr.h"
-#include "SceneView.h"
+#include "MyNSString.h"
 #include "RoomLayer.h"
 #include "CMD_Fish.h"
 
@@ -342,7 +342,7 @@ void FishSettingLayer::leaveGame()
 			EntityMgr::instance()->roomFrame()->reset();
 			ConfigMgr::instance()->m_Config.m_isGameRun=false;
 
-			SceneView::ToPortrait();
+			MyNSString::toPortrait();
 			Scene* s=Scene::create();
 
 			RoomLayer* layer = RoomLayer::create();
@@ -359,7 +359,7 @@ void FishSettingLayer::leaveGame()
 	EntityMgr::instance()->roomFrame()->reset();
 	ConfigMgr::instance()->m_Config.m_isGameRun=false;
 
-	SceneView::ToPortrait();
+	MyNSString::toPortrait();
 	Scene* s=Scene::create();
 
 	RoomLayer* layer = RoomLayer::create();

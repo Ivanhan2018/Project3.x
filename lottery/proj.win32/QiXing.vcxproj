@@ -73,7 +73,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)\external\win32-specific\icon\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(_COCOS_HEADER_WIN32_BEGIN);$(ProjectDir)..\cocos2d;$(_COCOS_HEADER_WIN32_END);$(ProjectDir)..\Classes\Json;$(ProjectDir)..\Classes\C2DXShareSDK;$(ProjectDir)..\Classes\ans;$(ProjectDir)..\Classes\common;$(ProjectDir)..\Classes\configMgr;$(ProjectDir)..\Classes\controls;$(ProjectDir)..\Classes\entity;$(ProjectDir)..\Classes\event;$(ProjectDir)..\Classes\globalUnits;$(ProjectDir)..\Classes\gui;$(ProjectDir)..\Classes\msgDispatch;$(ProjectDir)..\Classes\net;$(ProjectDir)..\Classes\serializers;$(ProjectDir)..\Classes\xy28;$(ProjectDir)..\Classes\lottery;$(ProjectDir)..\Classes\lottery\ChongQing;$(ProjectDir)..\Classes\lottery\GuangDong11Xuan5;$(ProjectDir)..\Classes\lottery\FC3DPL3;$(ProjectDir)..\Classes\lottery\bjpk10;$(ProjectDir)..\Classes\lzma;$(ProjectDir)..\Classes\lottery\bjk8;$(ProjectDir)..\Classes\lottery\bjl\serializers;$(ProjectDir)..\Classes\lottery\bjl\globalUnits;$(ProjectDir)..\Classes\lottery\bjl\common;$(ProjectDir)..\Classes\lottery\bjl;$(ProjectDir)..\Classes\lottery\dzpk;$(ProjectDir)..\Classes\lottery\LiuHe;$(ProjectDir)..\Classes\lottery\XingYun28;$(ProjectDir)..\Classes\lottery\OtherLotterys;$(ProjectDir)..\Classes\lottery\ddz;$(ProjectDir)..\Classes\lottery\fishbeat;$(ProjectDir)..\Classes\lottery\fishbeat\GameWidget;$(ProjectDir)..\Classes\lottery\fishbeat\GameData;$(ProjectDir)..\Classes\lottery\ppc;$(ProjectDir)..\Classes\BaseGame;$(ProjectDir)..\Classes\lottery\ppc\common;$(ProjectDir)..\Classes\lottery\fishbeat\lrbyLayer;$(ProjectDir)..\Classes\lottery\BRNN\common;$(ProjectDir)..\Classes\lottery\BRNN;$(ProjectDir)..\Classes\lottery\SGLY\common;$(ProjectDir)..\Classes\lottery\SGLY;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)\external\win32-specific\icon\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;$(_COCOS_HEADER_WIN32_BEGIN);$(ProjectDir)..\cocos2d;$(_COCOS_HEADER_WIN32_END);$(ProjectDir)..\Classes\Json;$(ProjectDir)..\Classes\C2DXShareSDK;$(ProjectDir)..\Classes\ans;$(ProjectDir)..\Classes\common;$(ProjectDir)..\Classes\configMgr;$(ProjectDir)..\Classes\controls;$(ProjectDir)..\Classes\entity;$(ProjectDir)..\Classes\event;$(ProjectDir)..\Classes\globalUnits;$(ProjectDir)..\Classes\gui;$(ProjectDir)..\Classes\msgDispatch;$(ProjectDir)..\Classes\net;$(ProjectDir)..\Classes\serializers;$(ProjectDir)..\Classes\xy28;$(ProjectDir)..\Classes\lottery;$(ProjectDir)..\Classes\lottery\ChongQing;$(ProjectDir)..\Classes\lottery\GuangDong11Xuan5;$(ProjectDir)..\Classes\lottery\FC3DPL3;$(ProjectDir)..\Classes\lottery\bjpk10;$(ProjectDir)..\Classes\lzma;$(ProjectDir)..\Classes\lottery\bjk8;$(ProjectDir)..\Classes\lottery\bjl\serializers;$(ProjectDir)..\Classes\lottery\bjl\globalUnits;$(ProjectDir)..\Classes\lottery\bjl\common;$(ProjectDir)..\Classes\lottery\bjl;$(ProjectDir)..\Classes\lottery\dzpk;$(ProjectDir)..\Classes\lottery\LiuHe;$(ProjectDir)..\Classes\lottery\XingYun28;$(ProjectDir)..\Classes\lottery\OtherLotterys;$(ProjectDir)..\Classes\lottery\ddz;$(ProjectDir)..\Classes\lottery\fishbeat;$(ProjectDir)..\Classes\lottery\fishbeat\GameWidget;$(ProjectDir)..\Classes\lottery\fishbeat\GameData;$(ProjectDir)..\Classes\lottery\ppc;$(ProjectDir)..\Classes\SysFunc\Include;$(ProjectDir)..\Classes\BaseGame;$(ProjectDir)..\Classes\lottery\ppc\common;$(ProjectDir)..\Classes\lottery\fishbeat\lrbyLayer;$(ProjectDir)..\Classes\lottery\BRNN\common;$(ProjectDir)..\Classes\lottery\BRNN;$(ProjectDir)..\Classes\lottery\SGLY\common;$(ProjectDir)..\Classes\lottery\SGLY;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;kGameLogEnabled;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -161,10 +161,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\common\DBHandler.cpp" />
     <ClCompile Include="..\Classes\common\Encrypt.cpp" />
     <ClCompile Include="..\Classes\common\JsonHelper.cpp" />
-    <ClCompile Include="..\Classes\common\MyNSString.cpp" />
     <ClCompile Include="..\Classes\common\sqlite3.c" />
     <ClCompile Include="..\Classes\common\XDate.cpp" />
     <ClCompile Include="..\Classes\configMgr\ConfigMgr.cpp" />
+    <ClCompile Include="..\Classes\configMgr\MyConfig.cpp" />
+    <ClCompile Include="..\Classes\configMgr\TinyXmlReader.cpp" />
     <ClCompile Include="..\Classes\controls\CCTouchSprite.cpp" />
     <ClCompile Include="..\Classes\controls\SoundControl.cpp" />
     <ClCompile Include="..\Classes\controls\tableViewLayer.cpp" />
@@ -245,7 +246,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\lottery\bjl\SceneLogic.cpp" />
     <ClCompile Include="..\Classes\lottery\bjl\SceneTableInterfaceLayer.cpp" />
     <ClCompile Include="..\Classes\lottery\bjl\SceneView.cpp" />
-    <ClCompile Include="..\Classes\lottery\bjl\serializers\MyConfig.cpp" />
     <ClCompile Include="..\Classes\lottery\bjl\Settlement.cpp" />
     <ClCompile Include="..\Classes\lottery\bjl\SetUpLayer.cpp" />
     <ClCompile Include="..\Classes\lottery\bjl\Tools.cpp" />
@@ -285,10 +285,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingKindScrollView.cpp" />
     <ClCompile Include="..\Classes\lottery\ChongQing\ChongQingWuFen.cpp" />
     <ClCompile Include="..\Classes\lottery\ddz\DDZCardTableLayer.cpp" />
-    <ClCompile Include="..\Classes\lottery\ddz\DDZDDZLogic.cpp" />
     <ClCompile Include="..\Classes\lottery\ddz\DDZDialogLayer.cpp" />
     <ClCompile Include="..\Classes\lottery\ddz\DDZGameTaskCommon.cpp" />
     <ClCompile Include="..\Classes\lottery\ddz\DDZJniControl.cpp" />
+    <ClCompile Include="..\Classes\lottery\ddz\DDZLogic.cpp" />
     <ClCompile Include="..\Classes\lottery\ddz\DDZMyTools.cpp" />
     <ClCompile Include="..\Classes\lottery\ddz\DDZSceneControl.cpp" />
     <ClCompile Include="..\Classes\lottery\ddz\DDZSceneData.cpp" />
@@ -502,8 +502,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\PublicComponents\TableComponents\FrameOneDesk.cpp" />
     <ClCompile Include="..\Classes\PublicComponents\TableComponents\FrameOneRoom.cpp" />
     <ClCompile Include="..\Classes\PublicComponents\TableComponents\FrameScrollView.cpp" />
-    <ClCompile Include="..\Classes\serializers\geometry.cpp" />
-    <ClCompile Include="..\Classes\serializers\TinyXmlReader.cpp" />
+    <ClCompile Include="..\Classes\SysFunc\Source_Android\MyNSString.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -545,7 +544,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\common\IDataArchive.h" />
     <ClInclude Include="..\Classes\common\JsonHelper.h" />
     <ClInclude Include="..\Classes\common\MacPlatformDef.h" />
-    <ClInclude Include="..\Classes\common\MyNSString.h" />
     <ClInclude Include="..\Classes\common\packet.h" />
     <ClInclude Include="..\Classes\common\platform.h" />
     <ClInclude Include="..\Classes\common\private.h" />
@@ -556,6 +554,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\common\VersionControl.h" />
     <ClInclude Include="..\Classes\common\XDate.h" />
     <ClInclude Include="..\Classes\configMgr\ConfigMgr.h" />
+    <ClInclude Include="..\Classes\configMgr\MyConfig.h" />
+    <ClInclude Include="..\Classes\configMgr\TinyXmlReader.h" />
     <ClInclude Include="..\Classes\controls\CCTouchSprite.h" />
     <ClInclude Include="..\Classes\controls\SoundControl.h" />
     <ClInclude Include="..\Classes\controls\tableViewLayer.h" />
@@ -630,16 +630,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\lottery\bjk8\BJK8GambleLayer.h" />
     <ClInclude Include="..\Classes\lottery\bjk8\BJK8Kind.h" />
     <ClInclude Include="..\Classes\lottery\bjk8\BJK8WuFen.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\BJLRes.h" />
     <ClInclude Include="..\Classes\lottery\bjl\BJLSceneControl.h" />
     <ClInclude Include="..\Classes\lottery\bjl\CardManager.h" />
     <ClInclude Include="..\Classes\lottery\bjl\CardSprite.h" />
     <ClInclude Include="..\Classes\lottery\bjl\CardTableLayer.h" />
     <ClInclude Include="..\Classes\lottery\bjl\ChipManager.h" />
-    <ClInclude Include="..\Classes\lottery\bjl\CMD_DDZ.h" />
-    <ClInclude Include="..\Classes\lottery\bjl\CMD_DDZClient.h" />
+    <ClInclude Include="..\Classes\lottery\bjl\CMD_BJL.h" />
     <ClInclude Include="..\Classes\lottery\bjl\DialogLayer.h" />
     <ClInclude Include="..\Classes\lottery\bjl\GameTaskCommon.h" />
-    <ClInclude Include="..\Classes\lottery\bjl\globalUnits\bjlGlobalDef.h" />
     <ClInclude Include="..\Classes\lottery\bjl\globalUnits\CCInteger64.h" />
     <ClInclude Include="..\Classes\lottery\bjl\JniControl.h" />
     <ClInclude Include="..\Classes\lottery\bjl\MyTimer.h" />
@@ -649,7 +648,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\lottery\bjl\SceneLogic.h" />
     <ClInclude Include="..\Classes\lottery\bjl\SceneTableInterfaceLayer.h" />
     <ClInclude Include="..\Classes\lottery\bjl\SceneView.h" />
-    <ClInclude Include="..\Classes\lottery\bjl\serializers\MyConfig.h" />
     <ClInclude Include="..\Classes\lottery\bjl\Settlement.h" />
     <ClInclude Include="..\Classes\lottery\bjl\SetUpLayer.h" />
     <ClInclude Include="..\Classes\lottery\bjl\Tools.h" />
@@ -691,15 +689,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingGroupSingle.h" />
     <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingKindScrollView.h" />
     <ClInclude Include="..\Classes\lottery\ChongQing\ChongQingWuFen.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\CMD_DDZ.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZCardTableLayer.h" />
-    <ClInclude Include="..\Classes\lottery\ddz\DDZCMD_DDZ.h" />
-    <ClInclude Include="..\Classes\lottery\ddz\DDZCMD_DDZClient.h" />
-    <ClInclude Include="..\Classes\lottery\ddz\DDZDDZLogic.h" />
-    <ClInclude Include="..\Classes\lottery\ddz\DDZDDZRes.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZDialogLayer.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZGameTaskCommon.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZJniControl.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZLogic.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZMyTools.h" />
+    <ClInclude Include="..\Classes\lottery\ddz\DDZRes.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZSceneControl.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZSceneData.h" />
     <ClInclude Include="..\Classes\lottery\ddz\DDZSceneLogic.h" />
@@ -925,8 +922,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\PublicComponents\TableComponents\FrameOneDesk.h" />
     <ClInclude Include="..\Classes\PublicComponents\TableComponents\FrameOneRoom.h" />
     <ClInclude Include="..\Classes\PublicComponents\TableComponents\FrameScrollView.h" />
-    <ClInclude Include="..\Classes\serializers\geometry.h" />
-    <ClInclude Include="..\Classes\serializers\TinyXmlReader.h" />
+    <ClInclude Include="..\Classes\SysFunc\Include\MyNSString.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -948,6 +944,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <None Include="..\Classes\Json\lib_json\json_internalarray.inl" />
     <None Include="..\Classes\Json\lib_json\json_internalmap.inl" />
     <None Include="..\Classes\Json\lib_json\json_valueiterator.inl" />
+    <None Include="..\Classes\lottery\bjl\BJLSceneControl.mm" />
+    <None Include="..\Classes\lottery\bjl\SceneView.mm" />
     <None Include="..\Classes\lottery\Reachability.m" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

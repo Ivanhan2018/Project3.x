@@ -1,7 +1,7 @@
 #include "DDZGameTaskCommon.h"
 #include "GlobalUnits.h"
 #include "TaskInfo.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "DBHandler.h"
 
 int DDZtaskNum[3] = {50,100,500};

@@ -3,7 +3,7 @@
 #define DDZ___CARDTABLE_LAYER__
 
 #include "cocos2d.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "DDZSceneData.h"
 #include "DDZTimer.h"
 #include "DDZUser.h"

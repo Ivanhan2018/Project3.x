@@ -7,9 +7,8 @@
 #include "CardManager.h"
 #include "CocosUnits.h"
 #include "GlobalUnits.h"
-#include "DDZRes.h"//by hxh
+#include "BJLRes.h"//by hxh
 #include "MyConfig.h"//by hxh
-#include "bjlGlobalDef.h"//by hxh
 #include "SoundControl.h"//by hxh
 #include "MyNSString.h"//by hxh
 

@@ -1,5 +1,5 @@
 ﻿#include "DZPKChipPot.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "DZPKTools.h"
 
 DZPKChipPot::DZPKChipPot()

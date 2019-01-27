@@ -39,10 +39,6 @@
 #include "JniHelper.h"
 #endif
 
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#import "Reachability.h"
-#endif
-
 #define GAMEKINDDDZ 300
 
 #include "EntityMgr.h"
@@ -231,26 +227,7 @@ void MsgDispatch::update(float dt)
 			SendPacketWithGetSystemTime();
 		
 			//只有当收不到心跳包的时候才去检测网络 不应该
-			int hasNetwork = 1;
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-			hasNetwork = getNetworkType();
-#endif
-
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-			Reachability *myConn = [Reachability reachabilityWithHostName:@"www"];//任何字符串都可以
-			switch([myConn currentReachabilityStatus])
-			{
-			case NotReachable:
-				hasNetwork = 0;
-				break;
-			case ReachableViaWiFi:
-				hasNetwork = 1;
-				break;
-			case ReachableViaWWAN:
-				hasNetwork = 2;
-				break;
-			}
-#endif
+			int hasNetwork = MyNSString::getNetworkType();
 			//如果是网络环境发生改变，则需重连
 			if(hasNetwork != 0 && hasNetwork != netWorkType && netWorkType != 0)
 			{

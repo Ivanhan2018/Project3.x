@@ -2,7 +2,7 @@
 #ifndef	DDZ___VIEW_MENU_LAYER__
 #define	DDZ___VIEW_MENU_LAYER__
 #include "cocos2d.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "DDZSceneData.h"
 #include "DDZTimer.h"
 #include "ui/CocosGUI.h"

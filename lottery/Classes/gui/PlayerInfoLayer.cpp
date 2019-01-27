@@ -8,10 +8,7 @@
 #include "PromptBox.h"
 #include "FreeLayer.h"
 #include "ModifyPassWord.h"
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "AppController.h"
-#endif
+#include "MyNSString.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "../JniHelper.h"
@@ -486,9 +483,7 @@ cell����Ԫ��
 */
 void PlayerInfoLayer::tableCellTouched(TableView *table, TableViewCell *cell)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) 
-        [[AppController sharedAppController] turnToImageView];
-#endif
+	MyNSString::turnToImageView();
 }
 
 void PlayerInfoLayer::scrollViewDidScroll(ScrollView* view)

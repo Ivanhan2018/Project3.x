@@ -6,8 +6,8 @@
 
 
 #include "cocos2d.h"
-#include "ans/AnsSingleton.h"
-#include "serializers/TinyXmlReader.h"
+#include "AnsSingleton.h"
+#include "TinyXmlReader.h"
 
 #pragma comment(lib, "libiconv.lib")
 

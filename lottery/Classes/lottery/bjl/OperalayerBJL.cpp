@@ -1,9 +1,9 @@
 #include "OperalayerBJL.h"
 #include "SimpleAudioEngine.h"
-#include "CMD_DDZClient.h"//by hxh
+#include "CMD_BJL.h"//by hxh
 #include "MsgDispatch.h"
 #include "CocosUnits.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "CCInteger64.h"//by hxh
 #include "MyConfig.h"//by hxh
 #include "SceneView.h"

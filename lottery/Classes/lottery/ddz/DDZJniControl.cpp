@@ -1,6 +1,6 @@
 #include "DDZJniControl.h"
-#include "DDZDDZRes.h"
-#include "DDZRes.h"//<by hxh>
+#include "DDZRes.h"
+#include "BJLRes.h"//<by hxh>
 #include "DDZSceneControl.h"
 #include "GlobalUnits.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

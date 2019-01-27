@@ -10,7 +10,7 @@
 
 #include "cocos2d.h"
 #include "CardSprite.h"
-#include "CMD_DDZClient.h"//by hxh
+#include "CMD_BJL.h"//by hxh
 #include "Tools.h"//by hxh
 USING_NS_CC;
 using namespace cocos2d;

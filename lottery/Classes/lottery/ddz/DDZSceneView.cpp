@@ -1,6 +1,6 @@
 #include "DDZSceneView.h"
 #include "DDZSceneLogic.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "RoomLayer.h"
 #include "DDZSceneControl.h"
 #include "SoundControl.h"//<by hxh>

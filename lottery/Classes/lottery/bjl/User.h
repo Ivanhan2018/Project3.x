@@ -3,7 +3,7 @@
 #define __USER__
 
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 USING_NS_CC;
 
 class User : public Layer

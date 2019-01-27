@@ -1,5 +1,5 @@
 #include "DDZVoiceAndFace.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include "cocos-ext.h"
 #include "DDZSceneData.h"
 static DDZVoiceAndFace* s_face=NULL;

@@ -2,7 +2,7 @@
 #ifndef DDZ___DIALOGLAYER__
 #define DDZ___DIALOGLAYER__
 #include "cocos2d.h"
-#include "DDZDDZRes.h"
+#include "DDZRes.h"
 #include <limits>
 #include "ui/CocosGUI.h"
 

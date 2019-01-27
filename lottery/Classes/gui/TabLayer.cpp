@@ -5,7 +5,7 @@
 #include "PromptBox.h"
 #include "MovingLabelLayer.h"
 #include "SceneControl.h"
-//#include "DDZRes.h"
+//#include "BJLRes.h"
 #include "CocosUnits.h"
 
 

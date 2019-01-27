@@ -6,7 +6,7 @@
 #include "EntityMgr.h"
 #include "TableViewLayer.h"
 #include "LoadingLayer.h"
-#include "ChongCoinsLayer.h"
+#include "MyNSString.h"
 #include "SceneControl.h"
 #include "DBHandler.h"
 #include "SoundControl.h"
@@ -75,13 +75,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	//director->setDisplayStats(true);
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	[[UIApplication sharedApplication] setStatusBarHidden:NO];
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-
-	//屏幕常亮
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-#endif
+	MyNSString::doSomeThing();
 
 	FileUtils::getInstance()->addSearchPath("res/");
     FileUtils::getInstance()->addSearchPath("RoomList/");

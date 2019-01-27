@@ -1,5 +1,5 @@
 #include "ViewHandCard.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "SceneData.h"
 #include "SoundControl.h"
 

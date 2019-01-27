@@ -2,7 +2,7 @@
 #ifndef __SETTLEMENT__
 #define __SETTLEMENT__
 #include "cocos2d.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "User.h"
 #include "CardTableLayer.h"
 USING_NS_CC;

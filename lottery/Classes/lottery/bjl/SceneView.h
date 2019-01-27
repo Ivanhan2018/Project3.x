@@ -21,11 +21,6 @@ USING_NS_CC;
 class SceneView:public Node
 {
 public:
-	// «–ªªµΩ ˙∆¡<add by hxh 20160702>
-	static void ToPortrait();
-	// «–ªªµΩ∫·∆¡<add by hxh 20160702>
-	static void ToLandscape();
-public:
 	SceneView(void);
 	~SceneView(void);
 	CREATE_FUNC(SceneView);

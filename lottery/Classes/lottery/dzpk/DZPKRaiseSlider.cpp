@@ -1,5 +1,5 @@
 ﻿#include "DZPKRaiseSlider.h"
-#include "DDZRes.h"
+#include "BJLRes.h"
 #include "DZPKTools.h"
 #include "DZPKLayer.h"
 

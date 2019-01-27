@@ -1,7 +1,7 @@
 #include "BRNNDialogQuit.h"
 #include "BRNNRes.h"
 #include "BRNNDefine.h"
-#include "ToolKit.h"
+#include "MyNSString.h"
 #include "EntityMgr.h"
 #include "RoomLayer.h"
 
@@ -72,7 +72,7 @@ void BRNNDialogQuit::onClickBtnOK(Ref* pSender)
 {
 	EntityMgr::instance()->getDispatch()->SendPacketWithPerformStandup();
 	//this->scheduleOnce([](float dt){
-		ToolKit::toPortrait();
+		MyNSString::toPortrait();
 		Scene* pScene = Scene::create();
 		RoomLayer* layer = RoomLayer::create();
 		layer->automaticLogin(false);

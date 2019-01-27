@@ -1,5 +1,5 @@
 #include "RoyalFlush.h"
-#include "DDZRes.h"//by hxh
+#include "BJLRes.h"//by hxh
 using namespace cocos2d;
 
 RoyalFlush::RoyalFlush(void)
