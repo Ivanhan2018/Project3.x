@@ -131,31 +131,9 @@ MsgDispatch::MsgDispatch()
 	
 	m_nSendGameOption = 0;
 	//默认无连接
-	netWorkType = 0;
+	//netWorkType = 0;
 	//初始化网络状态
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	netWorkType = 1;
-#endif
-
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	netWorkType = getNetworkType();
-#endif
-
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	Reachability *myConn = [Reachability reachabilityWithHostName:@"www"];//任何字符串都可以
-	switch([myConn currentReachabilityStatus])
-	{
-	case NotReachable:
-		netWorkType = 0;
-		break;
-	case ReachableViaWiFi:
-		netWorkType = 1;
-		break;
-	case ReachableViaWWAN:
-		netWorkType = 2;
-		break;
-	}
-#endif
+	netWorkType = MyNSString::getNetworkType();
 }
 MsgDispatch::~MsgDispatch()
 {	
