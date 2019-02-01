@@ -3,15 +3,6 @@
 #include "CocosUnits.h"
 #include "JsonHelper.h"
 #include "DBHandler.h"
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-// 引入相关的头文件
-//#include "CCUMSocialSDK.h"
-//#include "UMShareButton.h"
-// 使用友盟命令空间
-//USING_NS_UM_SOCIAL;
-#import "AppController.h"
-#endif
-
 #include "network/HttpClient.h"
 
 #define minInWarning(a,b) (((a) < (b)) ? (a) : (b))

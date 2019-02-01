@@ -946,7 +946,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <None Include="..\Classes\Json\lib_json\json_valueiterator.inl" />
     <None Include="..\Classes\lottery\bjl\BJLSceneControl.mm" />
     <None Include="..\Classes\lottery\bjl\SceneView.mm" />
-    <None Include="..\Classes\lottery\Reachability.m" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

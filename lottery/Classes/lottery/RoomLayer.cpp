@@ -100,11 +100,6 @@
 #include "../JniHelper.h"
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "AppController.h"
-#//import "ConfigHeader.h"
-#endif
-
 #include "network/HttpClient.h"
 #include "LotteryMailBox.h"
 #include "LotteryMessageCenter.h"

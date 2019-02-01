@@ -11,13 +11,7 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 //#include "../proj.android/jni/hellocpp/Jni_system.h"
 //#include "../../../../cocos2dx/platform/android/jni/JniHelper.h"  //verysharp
-#endif
-
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "JniHelper.h"
-#endif
-#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "AppController.h"
 #endif
 
 SceneView::SceneView(void)
