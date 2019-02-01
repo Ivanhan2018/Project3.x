@@ -352,7 +352,6 @@
 		058BF73C22043B97005A1747 /* PPCTableArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF55A22043B95005A1747 /* PPCTableArea.cpp */; };
 		058BF73D22043B97005A1747 /* PPCTravel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF55C22043B95005A1747 /* PPCTravel.cpp */; };
 		058BF73E22043B97005A1747 /* PromptBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF55E22043B95005A1747 /* PromptBox.cpp */; };
-		058BF73F22043B97005A1747 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 058BF56122043B95005A1747 /* Reachability.m */; };
 		058BF74022043B97005A1747 /* RoomLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF56222043B95005A1747 /* RoomLayer.cpp */; };
 		058BF74122043B97005A1747 /* RoomListLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF56422043B96005A1747 /* RoomListLayer.cpp */; };
 		058BF74222043B97005A1747 /* RoomListScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF56622043B96005A1747 /* RoomListScrollView.cpp */; };
@@ -389,6 +388,7 @@
 		058BF76122043B97005A1747 /* FrameOneRoom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF5B122043B96005A1747 /* FrameOneRoom.cpp */; };
 		058BF76222043B97005A1747 /* FrameScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF5B322043B96005A1747 /* FrameScrollView.cpp */; };
 		058BF76422043B97005A1747 /* MyNSString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 058BF5BB22043B96005A1747 /* MyNSString.mm */; };
+		058BF76722045C39005A1747 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 058BF76622045C39005A1747 /* Reachability.m */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -1193,8 +1193,6 @@
 		058BF55D22043B95005A1747 /* PPCTravel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCTravel.h; sourceTree = "<group>"; };
 		058BF55E22043B95005A1747 /* PromptBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PromptBox.cpp; sourceTree = "<group>"; };
 		058BF55F22043B95005A1747 /* PromptBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromptBox.h; sourceTree = "<group>"; };
-		058BF56022043B95005A1747 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		058BF56122043B95005A1747 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		058BF56222043B95005A1747 /* RoomLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoomLayer.cpp; sourceTree = "<group>"; };
 		058BF56322043B96005A1747 /* RoomLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomLayer.h; sourceTree = "<group>"; };
 		058BF56422043B96005A1747 /* RoomListLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoomListLayer.cpp; sourceTree = "<group>"; };
@@ -1272,6 +1270,8 @@
 		058BF5B422043B96005A1747 /* FrameScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameScrollView.h; sourceTree = "<group>"; };
 		058BF5B722043B96005A1747 /* MyNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNSString.h; sourceTree = "<group>"; };
 		058BF5BB22043B96005A1747 /* MyNSString.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyNSString.mm; sourceTree = "<group>"; };
+		058BF76522045C03005A1747 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		058BF76622045C39005A1747 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1826,8 +1826,6 @@
 				058BF53922043B95005A1747 /* ppc */,
 				058BF55E22043B95005A1747 /* PromptBox.cpp */,
 				058BF55F22043B95005A1747 /* PromptBox.h */,
-				058BF56022043B95005A1747 /* Reachability.h */,
-				058BF56122043B95005A1747 /* Reachability.m */,
 				058BF56222043B95005A1747 /* RoomLayer.cpp */,
 				058BF56322043B96005A1747 /* RoomLayer.h */,
 				058BF56422043B96005A1747 /* RoomListLayer.cpp */,
@@ -2509,6 +2507,7 @@
 			isa = PBXGroup;
 			children = (
 				058BF5B722043B96005A1747 /* MyNSString.h */,
+				058BF76522045C03005A1747 /* Reachability.h */,
 			);
 			path = Include;
 			sourceTree = "<group>";
@@ -2516,6 +2515,7 @@
 		058BF5BA22043B96005A1747 /* Source_Ios */ = {
 			isa = PBXGroup;
 			children = (
+				058BF76622045C39005A1747 /* Reachability.m */,
 				058BF5BB22043B96005A1747 /* MyNSString.mm */,
 			);
 			path = Source_Ios;
@@ -2802,6 +2802,7 @@
 				058BF6DB22043B97005A1747 /* LrbyClientEngine.cpp in Sources */,
 				058BF6F422043B97005A1747 /* LotteryAbout.cpp in Sources */,
 				058BF70D22043B97005A1747 /* LotteryRecord.cpp in Sources */,
+				058BF76722045C39005A1747 /* Reachability.m in Sources */,
 				058BF5DF22043B96005A1747 /* GlobalUnits.cpp in Sources */,
 				058BF62B22043B96005A1747 /* SceneTableInterfaceLayer.cpp in Sources */,
 				058BF75722043B97005A1747 /* HDLzma.cpp in Sources */,
@@ -3085,7 +3086,6 @@
 				058BF6B222043B96005A1747 /* FC3DPL3KindScrollView.cpp in Sources */,
 				058BF63422043B96005A1747 /* ViewTask.cpp in Sources */,
 				058BF5DA22043B96005A1747 /* EntityMgr.mm in Sources */,
-				058BF73F22043B97005A1747 /* Reachability.m in Sources */,
 				058BF6B722043B96005A1747 /* TableFrame.cpp in Sources */,
 				058BF60222043B96005A1747 /* PlayerInfoLayer.mm in Sources */,
 				058BF6DA22043B96005A1747 /* LockLineLayer.cpp in Sources */,
