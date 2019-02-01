@@ -332,9 +332,9 @@ void MissionLayer::tableCellTouched(TableView *table, TableViewCell *cell)
 {
     int tag = cell->getTag();
     if (tag == 1) {
-		#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        [[AppController sharedAppController] pressPingFen];
-		#endif
+		//#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+  //      [[AppController sharedAppController] pressPingFen];
+		//#endif
     }
 }
 
