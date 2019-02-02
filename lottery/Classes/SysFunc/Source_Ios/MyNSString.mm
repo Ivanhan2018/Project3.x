@@ -667,7 +667,7 @@ void MyNSString::toLandscape()
 void MyNSString::toShowInfo()
 {
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	[AppController changeRootViewShowInfo];
+	//[AppController changeRootViewShowInfo];
 #endif
 
 	//显示
@@ -683,7 +683,7 @@ void MyNSString::toShowInfo()
 void MyNSString::toDontShowInfo()
 {
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	[AppController changeRootViewDontShowInfo];
+	//[AppController changeRootViewDontShowInfo];
 #endif
 
 	//不显示状态栏

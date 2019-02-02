@@ -8,20 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0536D16821FC185E00C892F8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0536D16721FC185E00C892F8 /* SystemConfiguration.framework */; };
-		058BF1DD220435CB005A1747 /* fishbeat in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1CF220435C8005A1747 /* fishbeat */; };
-		058BF1DE220435CB005A1747 /* bjl in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D0220435C8005A1747 /* bjl */; };
-		058BF1DF220435CB005A1747 /* dzpk in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D1220435C8005A1747 /* dzpk */; };
-		058BF1E0220435CB005A1747 /* brnn in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D2220435C9005A1747 /* brnn */; };
-		058BF1E1220435CB005A1747 /* xml in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D3220435C9005A1747 /* xml */; };
-		058BF1E2220435CB005A1747 /* music in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D4220435C9005A1747 /* music */; };
-		058BF1E3220435CB005A1747 /* common in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D5220435C9005A1747 /* common */; };
-		058BF1E4220435CB005A1747 /* sgly in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D6220435C9005A1747 /* sgly */; };
-		058BF1E5220435CB005A1747 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D7220435CA005A1747 /* res */; };
-		058BF1E6220435CB005A1747 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D8220435CA005A1747 /* fonts */; };
-		058BF1E7220435CB005A1747 /* LotteryImage in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1D9220435CA005A1747 /* LotteryImage */; };
-		058BF1E8220435CB005A1747 /* ppc in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1DA220435CA005A1747 /* ppc */; };
-		058BF1E9220435CB005A1747 /* RoomList in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1DB220435CB005A1747 /* RoomList */; };
-		058BF1EA220435CB005A1747 /* ddz in Resources */ = {isa = PBXBuildFile; fileRef = 058BF1DC220435CB005A1747 /* ddz */; };
 		058BF5BC22043B96005A1747 /* AnsIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF20522043B94005A1747 /* AnsIO.cpp */; };
 		058BF5BD22043B96005A1747 /* AnsLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF20722043B94005A1747 /* AnsLog.cpp */; };
 		058BF5BE22043B96005A1747 /* AnsNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF20A22043B94005A1747 /* AnsNew.cpp */; };
@@ -47,7 +33,6 @@
 		058BF5D722043B96005A1747 /* SoundControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF26122043B94005A1747 /* SoundControl.cpp */; };
 		058BF5D822043B96005A1747 /* tableViewLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF26322043B94005A1747 /* tableViewLayer.cpp */; };
 		058BF5D922043B96005A1747 /* EntityMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF26622043B94005A1747 /* EntityMgr.cpp */; };
-		058BF5DA22043B96005A1747 /* EntityMgr.mm in Sources */ = {isa = PBXBuildFile; fileRef = 058BF26822043B94005A1747 /* EntityMgr.mm */; };
 		058BF5DB22043B96005A1747 /* Login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF26A22043B94005A1747 /* Login.cpp */; };
 		058BF5DC22043B96005A1747 /* RoomFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF26C22043B94005A1747 /* RoomFrame.cpp */; };
 		058BF5DD22043B96005A1747 /* UserItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF26E22043B94005A1747 /* UserItem.cpp */; };
@@ -389,6 +374,20 @@
 		058BF76222043B97005A1747 /* FrameScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 058BF5B322043B96005A1747 /* FrameScrollView.cpp */; };
 		058BF76422043B97005A1747 /* MyNSString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 058BF5BB22043B96005A1747 /* MyNSString.mm */; };
 		058BF76722045C39005A1747 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 058BF76622045C39005A1747 /* Reachability.m */; };
+		05D91D302205CCE400ACA013 /* LotteryImage in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D232205CCE200ACA013 /* LotteryImage */; };
+		05D91D312205CCE400ACA013 /* bjl in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D242205CCE200ACA013 /* bjl */; };
+		05D91D322205CCE400ACA013 /* music in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D252205CCE200ACA013 /* music */; };
+		05D91D332205CCE400ACA013 /* ppc in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D262205CCE200ACA013 /* ppc */; };
+		05D91D342205CCE400ACA013 /* common in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D272205CCE200ACA013 /* common */; };
+		05D91D352205CCE400ACA013 /* dzpk in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D282205CCE200ACA013 /* dzpk */; };
+		05D91D362205CCE400ACA013 /* xml in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D292205CCE300ACA013 /* xml */; };
+		05D91D372205CCE400ACA013 /* brnn in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D2A2205CCE300ACA013 /* brnn */; };
+		05D91D382205CCE400ACA013 /* RoomList in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D2B2205CCE300ACA013 /* RoomList */; };
+		05D91D392205CCE400ACA013 /* sgly in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D2C2205CCE300ACA013 /* sgly */; };
+		05D91D3A2205CCE400ACA013 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D2D2205CCE300ACA013 /* res */; };
+		05D91D3B2205CCE400ACA013 /* ddz in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D2E2205CCE300ACA013 /* ddz */; };
+		05D91D3C2205CCE400ACA013 /* fishbeat in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D2F2205CCE400ACA013 /* fishbeat */; };
+		05D91D3E2205CE2F00ACA013 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 05D91D3D2205CE2E00ACA013 /* fonts */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -472,20 +471,6 @@
 
 /* Begin PBXFileReference section */
 		0536D16721FC185E00C892F8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
-		058BF1CF220435C8005A1747 /* fishbeat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fishbeat; path = ../../Resources/fishbeat; sourceTree = "<group>"; };
-		058BF1D0220435C8005A1747 /* bjl */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bjl; path = ../../Resources/bjl; sourceTree = "<group>"; };
-		058BF1D1220435C8005A1747 /* dzpk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dzpk; path = ../../Resources/dzpk; sourceTree = "<group>"; };
-		058BF1D2220435C9005A1747 /* brnn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = brnn; path = ../../Resources/brnn; sourceTree = "<group>"; };
-		058BF1D3220435C9005A1747 /* xml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = xml; path = ../../Resources/xml; sourceTree = "<group>"; };
-		058BF1D4220435C9005A1747 /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; name = music; path = ../../Resources/music; sourceTree = "<group>"; };
-		058BF1D5220435C9005A1747 /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = ../../Resources/common; sourceTree = "<group>"; };
-		058BF1D6220435C9005A1747 /* sgly */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sgly; path = ../../Resources/sgly; sourceTree = "<group>"; };
-		058BF1D7220435CA005A1747 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../Resources/res; sourceTree = "<group>"; };
-		058BF1D8220435CA005A1747 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../Resources/fonts; sourceTree = "<group>"; };
-		058BF1D9220435CA005A1747 /* LotteryImage */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LotteryImage; path = ../../Resources/LotteryImage; sourceTree = "<group>"; };
-		058BF1DA220435CA005A1747 /* ppc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ppc; path = ../../Resources/ppc; sourceTree = "<group>"; };
-		058BF1DB220435CB005A1747 /* RoomList */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RoomList; path = ../../Resources/RoomList; sourceTree = "<group>"; };
-		058BF1DC220435CB005A1747 /* ddz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ddz; path = ../../Resources/ddz; sourceTree = "<group>"; };
 		058BF20222043B94005A1747 /* AnsDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsDebug.h; sourceTree = "<group>"; };
 		058BF20322043B94005A1747 /* AnsEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsEvent.h; sourceTree = "<group>"; };
 		058BF20422043B94005A1747 /* AnsGeomethry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsGeomethry.h; sourceTree = "<group>"; };
@@ -566,7 +551,6 @@
 		058BF26422043B94005A1747 /* tableViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tableViewLayer.h; sourceTree = "<group>"; };
 		058BF26622043B94005A1747 /* EntityMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityMgr.cpp; sourceTree = "<group>"; };
 		058BF26722043B94005A1747 /* EntityMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityMgr.h; sourceTree = "<group>"; };
-		058BF26822043B94005A1747 /* EntityMgr.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EntityMgr.mm; sourceTree = "<group>"; };
 		058BF26922043B94005A1747 /* IUserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUserItem.h; sourceTree = "<group>"; };
 		058BF26A22043B94005A1747 /* Login.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Login.cpp; sourceTree = "<group>"; };
 		058BF26B22043B94005A1747 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
@@ -1270,8 +1254,22 @@
 		058BF5B422043B96005A1747 /* FrameScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameScrollView.h; sourceTree = "<group>"; };
 		058BF5B722043B96005A1747 /* MyNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNSString.h; sourceTree = "<group>"; };
 		058BF5BB22043B96005A1747 /* MyNSString.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyNSString.mm; sourceTree = "<group>"; };
-		058BF76522045C03005A1747 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		058BF76622045C39005A1747 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		05A2C21B2205CB2100851D2C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		05D91D232205CCE200ACA013 /* LotteryImage */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LotteryImage; path = ../../Resources/LotteryImage; sourceTree = "<group>"; };
+		05D91D242205CCE200ACA013 /* bjl */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bjl; path = ../../Resources/bjl; sourceTree = "<group>"; };
+		05D91D252205CCE200ACA013 /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; name = music; path = ../../Resources/music; sourceTree = "<group>"; };
+		05D91D262205CCE200ACA013 /* ppc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ppc; path = ../../Resources/ppc; sourceTree = "<group>"; };
+		05D91D272205CCE200ACA013 /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = ../../Resources/common; sourceTree = "<group>"; };
+		05D91D282205CCE200ACA013 /* dzpk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dzpk; path = ../../Resources/dzpk; sourceTree = "<group>"; };
+		05D91D292205CCE300ACA013 /* xml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = xml; path = ../../Resources/xml; sourceTree = "<group>"; };
+		05D91D2A2205CCE300ACA013 /* brnn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = brnn; path = ../../Resources/brnn; sourceTree = "<group>"; };
+		05D91D2B2205CCE300ACA013 /* RoomList */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RoomList; path = ../../Resources/RoomList; sourceTree = "<group>"; };
+		05D91D2C2205CCE300ACA013 /* sgly */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sgly; path = ../../Resources/sgly; sourceTree = "<group>"; };
+		05D91D2D2205CCE300ACA013 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../Resources/res; sourceTree = "<group>"; };
+		05D91D2E2205CCE300ACA013 /* ddz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ddz; path = ../../Resources/ddz; sourceTree = "<group>"; };
+		05D91D2F2205CCE400ACA013 /* fishbeat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fishbeat; path = ../../Resources/fishbeat; sourceTree = "<group>"; };
+		05D91D3D2205CE2E00ACA013 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../Resources/fonts; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1372,20 +1370,20 @@
 		058BF1CE2204354D005A1747 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				058BF1D0220435C8005A1747 /* bjl */,
-				058BF1D2220435C9005A1747 /* brnn */,
-				058BF1D5220435C9005A1747 /* common */,
-				058BF1DC220435CB005A1747 /* ddz */,
-				058BF1D1220435C8005A1747 /* dzpk */,
-				058BF1CF220435C8005A1747 /* fishbeat */,
-				058BF1D8220435CA005A1747 /* fonts */,
-				058BF1D9220435CA005A1747 /* LotteryImage */,
-				058BF1D4220435C9005A1747 /* music */,
-				058BF1DA220435CA005A1747 /* ppc */,
-				058BF1D7220435CA005A1747 /* res */,
-				058BF1DB220435CB005A1747 /* RoomList */,
-				058BF1D6220435C9005A1747 /* sgly */,
-				058BF1D3220435C9005A1747 /* xml */,
+				05D91D3D2205CE2E00ACA013 /* fonts */,
+				05D91D242205CCE200ACA013 /* bjl */,
+				05D91D2A2205CCE300ACA013 /* brnn */,
+				05D91D272205CCE200ACA013 /* common */,
+				05D91D2E2205CCE300ACA013 /* ddz */,
+				05D91D282205CCE200ACA013 /* dzpk */,
+				05D91D2F2205CCE400ACA013 /* fishbeat */,
+				05D91D232205CCE200ACA013 /* LotteryImage */,
+				05D91D252205CCE200ACA013 /* music */,
+				05D91D262205CCE200ACA013 /* ppc */,
+				05D91D2D2205CCE300ACA013 /* res */,
+				05D91D2B2205CCE300ACA013 /* RoomList */,
+				05D91D2C2205CCE300ACA013 /* sgly */,
+				05D91D292205CCE300ACA013 /* xml */,
 			);
 			name = Resources;
 			path = "New Group";
@@ -1536,7 +1534,6 @@
 			children = (
 				058BF26622043B94005A1747 /* EntityMgr.cpp */,
 				058BF26722043B94005A1747 /* EntityMgr.h */,
-				058BF26822043B94005A1747 /* EntityMgr.mm */,
 				058BF26922043B94005A1747 /* IUserItem.h */,
 				058BF26A22043B94005A1747 /* Login.cpp */,
 				058BF26B22043B94005A1747 /* Login.h */,
@@ -2507,7 +2504,6 @@
 			isa = PBXGroup;
 			children = (
 				058BF5B722043B96005A1747 /* MyNSString.h */,
-				058BF76522045C03005A1747 /* Reachability.h */,
 			);
 			path = Include;
 			sourceTree = "<group>";
@@ -2515,6 +2511,7 @@
 		058BF5BA22043B96005A1747 /* Source_Ios */ = {
 			isa = PBXGroup;
 			children = (
+				05A2C21B2205CB2100851D2C /* Reachability.h */,
 				058BF76622045C39005A1747 /* Reachability.m */,
 				058BF5BB22043B96005A1747 /* MyNSString.mm */,
 			);
@@ -2743,43 +2740,43 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05D91D372205CCE400ACA013 /* brnn in Resources */,
+				05D91D382205CCE400ACA013 /* RoomList in Resources */,
+				05D91D362205CCE400ACA013 /* xml in Resources */,
+				05D91D332205CCE400ACA013 /* ppc in Resources */,
 				058BF61022043B96005A1747 /* json_internalmap.inl in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
+				05D91D3C2205CCE400ACA013 /* fishbeat in Resources */,
+				05D91D302205CCE400ACA013 /* LotteryImage in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				05D91D312205CCE400ACA013 /* bjl in Resources */,
 				058BF5C222043B96005A1747 /* AnsString.tpp in Resources */,
-				058BF1E9220435CB005A1747 /* RoomList in Resources */,
+				05D91D342205CCE400ACA013 /* common in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				05D91D3E2205CE2F00ACA013 /* fonts in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
-				058BF1EA220435CB005A1747 /* ddz in Resources */,
 				058BF61522043B96005A1747 /* sconscript in Resources */,
+				05D91D352205CCE400ACA013 /* dzpk in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
-				058BF1E7220435CB005A1747 /* LotteryImage in Resources */,
-				058BF1E6220435CB005A1747 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				058BF1E5220435CB005A1747 /* res in Resources */,
-				058BF1E3220435CB005A1747 /* common in Resources */,
-				058BF1E2220435CB005A1747 /* music in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
-				058BF1E8220435CB005A1747 /* ppc in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				058BF60F22043B96005A1747 /* json_internalarray.inl in Resources */,
-				058BF1E1220435CB005A1747 /* xml in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
-				058BF1DE220435CB005A1747 /* bjl in Resources */,
-				058BF1E4220435CB005A1747 /* sgly in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
-				058BF1DF220435CB005A1747 /* dzpk in Resources */,
-				058BF1E0220435CB005A1747 /* brnn in Resources */,
+				05D91D322205CCE400ACA013 /* music in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				058BF61322043B96005A1747 /* json_valueiterator.inl in Resources */,
+				05D91D3B2205CCE400ACA013 /* ddz in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
-				058BF1DD220435CB005A1747 /* fishbeat in Resources */,
+				05D91D392205CCE400ACA013 /* sgly in Resources */,
+				05D91D3A2205CCE400ACA013 /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3085,7 +3082,6 @@
 				058BF67122043B96005A1747 /* DZPKPlayerChip.cpp in Sources */,
 				058BF6B222043B96005A1747 /* FC3DPL3KindScrollView.cpp in Sources */,
 				058BF63422043B96005A1747 /* ViewTask.cpp in Sources */,
-				058BF5DA22043B96005A1747 /* EntityMgr.mm in Sources */,
 				058BF6B722043B96005A1747 /* TableFrame.cpp in Sources */,
 				058BF60222043B96005A1747 /* PlayerInfoLayer.mm in Sources */,
 				058BF6DA22043B96005A1747 /* LockLineLayer.cpp in Sources */,
