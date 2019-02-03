@@ -199,7 +199,7 @@ inline void downloadPesent(const char* pesent,const char* gameID)
 	{
 		Integer* inter = Integer::create(_pesent);
 		//EntityMgr::instance()->m_nDownLoadPe = _pesent;
-
+#if 0
 		switch (_gameID)
 		{
 		case GameId_DDZ:
@@ -261,6 +261,7 @@ inline void downloadPesent(const char* pesent,const char* gameID)
 				return;
 			}
 		}
+#endif
 	}
 }
 

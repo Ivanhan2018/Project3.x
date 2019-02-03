@@ -13,7 +13,7 @@ using namespace std;
 using namespace tinyxml2;
 
 #define MAX_COLUMN_NUM (5)
-#define MAX_GAME_NUM (7)
+#define MAX_GAME_NUM (8)
 #define MAX_PLATFORM_NUM (2)
 
 /*

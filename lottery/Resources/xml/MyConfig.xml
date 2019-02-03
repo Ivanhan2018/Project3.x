@@ -15,14 +15,16 @@
              <game idx="3" platform="0" enable="1" manifestUrl="fishproject.manifest" storagePath="fishDownLoad"/>
              <game idx="4" platform="0" enable="1" manifestUrl="ppcproject.manifest" storagePath="ppcDownLoad"/>
              <game idx="5" platform="0" enable="1" manifestUrl="brnnproject.manifest" storagePath="brnnDownLoad"/>            
-             <game idx="6" platform="0" enable="1" manifestUrl="sglyproject.manifest" storagePath="sglyDownLoad"/>            
-	            <game idx="0" platform="1" enable="1" manifestUrl="dzpkproject1.manifest" storagePath="dzpkDownLoad1"/>
+             <game idx="6" platform="0" enable="1" manifestUrl="sglyproject.manifest" storagePath="sglyDownLoad"/>     
+			 <game idx="7" platform="0" enable="0" manifestUrl="zjhproject.manifest" storagePath="zjhDownLoad"/>  
+	         <game idx="0" platform="1" enable="1" manifestUrl="dzpkproject1.manifest" storagePath="dzpkDownLoad1"/>
              <game idx="1" platform="1" enable="0" manifestUrl="ddzproject1.manifest" storagePath="ddzDownLoad1"/>
              <game idx="2" platform="1" enable="1" manifestUrl="bjlproject1.manifest" storagePath="bjlDownLoad1"/>
              <game idx="3" platform="1" enable="1" manifestUrl="fishproject1.manifest" storagePath="fishDownLoad1"/>
              <game idx="4" platform="1" enable="1" manifestUrl="ppcproject1.manifest" storagePath="ppcDownLoad1"/>
              <game idx="5" platform="1" enable="1" manifestUrl="brnnproject1.manifest" storagePath="brnnDownLoad1"/>
              <game idx="6" platform="1" enable="0" manifestUrl="sglyproject1.manifest" storagePath="sglyDownLoad1"/>
+			 <game idx="7" platform="1" enable="0" manifestUrl="zjhproject1.manifest" storagePath="zjhDownLoad1"/>  			 
              <!--下载对话框的坐标配置-->
 
              <PopWndDown loadingSuccessScale="1" loadingErrorScale="1" loadingPos="560,760" loadingProgressBgPos="360,800" loadingProgressPos="360,800" ProgressLabelPos="330,760" loadingSuccessPos="560,760" loadingErrorPos="560,760" bkPos="360,790" CloseDownPos="360,690" ltfTitlePos="326,273" sptTipsPos="198,273"/>

@@ -20,7 +20,7 @@
 #include "CMD_LogonServer.h"
 #include "MyNSString.h"
 #include "DBHandler.h"
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 #include "DDZSceneView.h"
 #endif
 #include "CocosUnits.h"
@@ -658,7 +658,7 @@ bool RoomFrame::OnSocketGameSystem(CMD_Command* pCommand, void * pBuffer, WORD w
 
 		if (kindID == KindId_DDZ)
 		{
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 			DDZDialogLayer* pDialogLayer = DDZDialogLayer::create(DDZdialog_Other_Login);
 			Director::getInstance()->getRunningScene()->addChild(pDialogLayer);
 			pDialogLayer->setTipsString(szMessage);
@@ -879,7 +879,7 @@ bool RoomFrame::OnSocketSubUserCome(CMD_Command* pCommand, void* pBuffer, WORD w
 		m_nChair = pUserInfoHead->wChairID;
 		m_nTable = pUserInfoHead->wTableID;
 		//斗地主通知当前玩家的基本信息
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 		auto kindID = EntityMgr::instance()->getDispatch()->m_dwKindID;
 		if (kindID == KindId_DDZ)
 		{
@@ -1470,7 +1470,7 @@ bool RoomFrame::dealDDZOnSocketSubStatus(CMD_Command* pCommand, void * pBuffer, 
 					*/
 					// 坐下判断
 					EntityMgr::instance()->getDispatch()->SendPacketWithGameOption();
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 					NotificationCenter::getInstance()->postNotification(MESSAGE_TOVIEW,Integer::create(DDZmsgToView_SitDown));
 #endif
 				}
@@ -1654,7 +1654,7 @@ bool RoomFrame::dealFishOnSocketSubStatus(CMD_Command* pCommand, void * pBuffer,
 				{
 					// 坐下判断
 					//EntityMgr::instance()->getDispatch()->SendPacketWithGameOption();
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 					NotificationCenter::getInstance()->postNotification(MESSAGE_TOVIEW,Integer::create(DDZmsgToView_SitDown));
 #endif
 				}
@@ -1813,7 +1813,7 @@ bool RoomFrame::dealPPCOnSocketSubStatus(CMD_Command* pCommand, void * pBuffer, 
 				{
 					// 坐下判断
 					EntityMgr::instance()->getDispatch()->SendPacketWithGameOption();
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 					NotificationCenter::getInstance()->postNotification(MESSAGE_TOVIEW,Integer::create(DDZmsgToView_SitDown));
 #endif
 				}

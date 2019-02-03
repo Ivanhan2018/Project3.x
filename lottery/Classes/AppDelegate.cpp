@@ -17,7 +17,7 @@ using namespace CocosDenshion;
 #include "MovingLabelLayer.h"
 #include "VersionControl.h"
 
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 	#include "DDZTimeCheckControl.h"
 #endif
 
@@ -127,7 +127,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	}
 #endif
 
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 	//ddz
 	string ddzpath[2]={"",""};
 	ddzpath[1]=(platform==0?"ddz":"ddz1");
@@ -247,7 +247,7 @@ void AppDelegate::applicationDidEnterBackground()
 	Director::getInstance()->stopAnimation();
 
 	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 	DDZTimeCheckControl::getInstance()->saveEnterBackgroundTime();
 #endif
 }
@@ -258,7 +258,7 @@ void AppDelegate::applicationWillEnterForeground()
  Director::getInstance()->startAnimation();
 
 	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();	
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 	DDZTimeCheckControl::getInstance()->saveEnterForegroundTime();
 #endif
 

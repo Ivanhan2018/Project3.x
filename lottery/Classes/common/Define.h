@@ -16,12 +16,6 @@
 using namespace std;
 using namespace cocos2d;
 
-#define USE_DZPK
-#define USE_DZZ
-#define USE_BJL
-#define USE_FISHBEAT
-#define USE_ROOM_LIST
-#define USE_PPC
 //定义一个标清屏
 #define     SCREEN_WIDTH    720
 #define     SCREEN_HEIGHT   1280
@@ -30,24 +24,14 @@ using namespace cocos2d;
 #define     WINDOW_WIDTH    480
 #define     WINDOW_HEIGHT   720
 
-const int GameId_DDZ		= 1;
-const int GameId_PHZ		= 2;
-const int GameId_CSMJ		= 3;
-const int GameId_ZJH		= 4;
-const int GameId_SDK		= 5;
-const int GameId_PDK		= 6;
-const int KindId_BJL	    = 122;//<by hxh>
-const int KindId_DZPK		= 308;//<by hxh>
-const int KindId_DDZ	    = 200;//<by hxh>
-const int KindId_FISH		= 715;//
+const int KindId_ZJH		= 106;
+const int KindId_BJL	    = 122;
+const int KindId_DZPK		= 308;
+const int KindId_DDZ	    = 200;
+const int KindId_FISH		= 715;
 const int KindId_PPC		= 108;
 const int KindId_BRNN		= 104;
 const int KindId_SGLY		= 132;
-
-const int SeverID_CSMJ      = 0;
-const int SeverID_PDK       = 1;
-const int SeverID_PHZ       = 2;
-const int SeverID_SDH       = 3;
 
 // add by hxh 20160729
 #ifdef WIN32

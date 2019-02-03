@@ -14,13 +14,13 @@
 #define GAME_KIND_SPRITE_TAG			100
 #define PHY_KIND_SPRITE_TAG				200
 #define INVALID_TAG					-100
-#define MAX_GAME				7
+#define MAX_GAME				8
 
 USING_NS_CC;
 USING_NS_CC_EXT;
 
-static int gameSortList[MAX_GAME] = {3,4,5,6,2,1,7};
-static int gameKindIdList[MAX_GAME] = {KindId_DZPK,KindId_DDZ,KindId_BJL,KindId_FISH,KindId_PPC,KindId_BRNN,KindId_SGLY};
+static int gameSortList[MAX_GAME] = {3,4,5,6,2,1,7,8};
+static int gameKindIdList[MAX_GAME] = {KindId_DZPK,KindId_DDZ,KindId_BJL,KindId_FISH,KindId_PPC,KindId_BRNN,KindId_SGLY,KindId_ZJH};
 
 class LotteryKindScrollView : public Layer,TableViewDataSource,TableViewDelegate 
 {

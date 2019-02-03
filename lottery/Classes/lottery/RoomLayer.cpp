@@ -76,7 +76,7 @@
 #include "DZPKLayer.h"
 #endif
 //dzz
-#ifdef  USE_DZZ
+#ifdef  USE_DDZ
 #include "DDZSceneControl.h"
 #endif
 
@@ -840,62 +840,16 @@ void RoomLayer::toRecord(Object* obj)
 int RoomLayer::getidx(int KindId)
 {
 	int idx=-1;
-	switch (KindId)
+	for(int i=0;i<MAX_GAME;i++)
 	{
-	case KindId_DZPK:
-		idx=0;
-		break;
-	case KindId_DDZ:
-		idx=1;
-		break;
-	case KindId_BJL:
-		idx=2;
-		break;
-	case KindId_FISH:
-		idx=3;
-		break;
-	case KindId_PPC:
-		idx=4;
-		break;
-	case KindId_BRNN:
-		idx=5;
-		break;
-	case KindId_SGLY:
-		idx=6;
-		break;
-	default:
-		break;
+	   if(gameKindIdList[i]==KindId)
+		   return i;
 	}
 	return idx;
 }
 
 int RoomLayer::getKindId(int idx)
 {
-	//int KindId=0;
-	//switch (idx)
-	//{
-	//case 0:
-	//	KindId=KindId_DZPK;
-	//	break;
-	//case 1:
-	//	KindId=KindId_DDZ;
-	//	break;
-	//case 2:
-	//	KindId=KindId_BJL;
-	//	break;
-	//case 3:
-	//	KindId=KindId_FISH;
-	//	break;
-	//case 4:
-	//	KindId=KindId_PPC;
-	//	break;
-	//case 5:
-	//	KindId=KindId_BRNN;
-	//	break;
-	//default:
-	//	break;
-	//}
-	//return KindId;
 	if(idx >= MAX_GAME) return 0;
 
 	return gameKindIdList[idx];
@@ -928,27 +882,6 @@ void RoomLayer::toGame(Object* obj)
 			arr->addObject(Integer::create(ServerId));
 			NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_UPDATEDOWNLOAD,arr);
 		}
-		//switch (KindId)
-		//{
-		//case KindId_DZPK:
-		//	pView->pressKindButton(GAME_KIND_SPRITE_TAG+1);
-		//	break;
-		//case KindId_DDZ:
-		//	pView->pressKindButton(GAME_KIND_SPRITE_TAG+2);
-		//	break;
-		//case KindId_BJL:
-		//	pView->pressKindButton(GAME_KIND_SPRITE_TAG+3);
-		//	break;
-		//case KindId_FISH:
-		//	pView->pressKindButton(GAME_KIND_SPRITE_TAG+4);
-		//	break;
-		//case KindId_PPC:
-		//	pView->pressKindButton(GAME_KIND_SPRITE_TAG+5);
-		//	break;
-		//default:
-		//	break;
-		//}
-
 	}
 	
 }
@@ -1241,7 +1174,7 @@ void RoomLayer::onLinkResult(Object* obj)
 				Director::getInstance()->replaceScene(pScene);
 			}
 #endif
-#ifdef  USE_DZZ
+#ifdef  USE_DDZ
 			else if (m_dwKindID == KindId_DDZ)
 			{
 				// add by hxh 20160701

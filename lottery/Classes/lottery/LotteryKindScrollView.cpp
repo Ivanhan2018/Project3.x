@@ -24,7 +24,7 @@
 #include "DZPKLayer.h"
 #endif
 //dzz
-#ifdef  USE_DZZ
+#ifdef  USE_DDZ
 #include "DDZSceneControl.h"
 #endif
 //fish
@@ -251,7 +251,7 @@ void LotteryKindScrollView::connectGameRoomServerEx(int tag,int serverId)
 #endif
 		break;
 	case 1:
-#ifdef  USE_DZZ
+#ifdef  USE_DDZ
 		{
 			bool ret=EntityMgr::instance()->getDispatch()->connectGameServer(KindId_DDZ,serverId);
 			if (!ret)
@@ -587,7 +587,7 @@ TableViewCell* LotteryKindScrollView::tableCellAtIndex(TableView *table, ssize_t
 			if(data_index == 1)
 				nameStr = String::createWithFormat("%s%02d.png",m_name.c_str(),data_index)->getCString();
 #endif // DZPK
-#ifdef USE_DZZ
+#ifdef USE_DDZ
 			if(data_index == 2)
 				nameStr = String::createWithFormat("%s%02d.png",m_name.c_str(),data_index)->getCString();
 #endif // 
@@ -611,6 +611,10 @@ TableViewCell* LotteryKindScrollView::tableCellAtIndex(TableView *table, ssize_t
 			if(data_index == 7)
 				nameStr = String::createWithFormat("%s%02d.png",m_name.c_str(),data_index)->getCString();
 #endif
+//#ifdef USE_ZJH
+//			if(data_index == 8)
+//				nameStr = String::createWithFormat("%s%02d.png",m_name.c_str(),data_index)->getCString();
+//#endif
 		} else
 		{
 			nameStr = String::createWithFormat("%s%02d.png",m_name.c_str(),kindId)->getCString();

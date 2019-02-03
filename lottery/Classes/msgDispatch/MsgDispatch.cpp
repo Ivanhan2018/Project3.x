@@ -958,7 +958,11 @@ bool MsgDispatch::onSocketMainLogin(CMD_Command* pCommand, void * pBuffer, WORD 
 void MsgDispatch::dispEntityMsg(CMD_Command* pCommand, void * pBuffer, WORD wDataSize,GBEVENT_ID eid)
 {
 	tagCmdBuffer tag;
-	memset(tag.dateBuffer, 0, 40960);
+	int mSize=sizeof(tag.dateBuffer);
+	if(wDataSize>mSize)
+		return;
+	
+	memset(tag.dateBuffer, 0, mSize);
 
 	tag.nDataSize = wDataSize;
 	memcpy(tag.dateBuffer, pBuffer,wDataSize);

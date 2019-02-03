@@ -13,8 +13,9 @@ using namespace cocos2d;
 #define VER_369
 
 //游戏相关
+#define USE_ZJH
 #define USE_DZPK
-#define USE_DZZ
+#define USE_DDZ
 #define USE_BJL
 #define USE_FISHBEAT
 #define USE_PPC		//	碰碰车

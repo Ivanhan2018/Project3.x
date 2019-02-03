@@ -450,7 +450,7 @@ void FreeCell::setCellIdx(int idx,bool isGet){
 void FreeCell:: chooseFree(Object* obj)
 {
 	playButtonSound();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if 0//(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	if(EntityMgr::instance()->m_nDownLoadPe == -1)
 	{
 		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t458"),Vec2(427,240));

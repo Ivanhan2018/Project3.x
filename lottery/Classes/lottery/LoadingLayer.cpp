@@ -106,7 +106,7 @@ void LoadingLayer::update(float dt)
 			this->addChild(box,100);
 		}
         
-		float dur=1.5f;//0.5f
+		float dur=0.5f;
         bool auto_login = UserDefault::getInstance()->getBoolForKey("AUTO_LOGIN", false);
         if (auto_login == true) {
             UserDefault::getInstance()->setBoolForKey("AUTO_LOGIN", false);
@@ -119,11 +119,21 @@ void LoadingLayer::update(float dt)
             Director::getInstance()->replaceScene(tScene);
             return;
         }
-    
-		LoginLayer *layer = LoginLayer::create();
-		Scene* pScene = Scene::create();
-		pScene->addChild(layer);
-		TransitionFade *tScene = TransitionFade::create(dur, pScene, Color3B::WHITE);
-		Director::getInstance()->replaceScene(tScene);
-		layer->checkIfAutoLogin(0);	
+
+		std::function<void()> callback = [=](){
+			LoginLayer *layer = LoginLayer::create();
+			Scene* pScene = Scene::create();
+			pScene->addChild(layer);
+			TransitionFade *tScene = TransitionFade::create(dur, pScene, Color3B::WHITE);
+			Director::getInstance()->replaceScene(tScene);
+			layer->checkIfAutoLogin(0);	
+		};
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+		callback();
+#else
+		DelayTime* de = DelayTime::create(1.5f);
+		CallFunc* call = CallFunc::create(callback);
+		Action* action = Sequence::create(de, call, nullptr);
+		this->runAction(action);  
+#endif
 }
