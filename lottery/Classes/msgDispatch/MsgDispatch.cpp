@@ -5841,7 +5841,7 @@ void MsgDispatch::SendReConnect(int typeId)
 	{
 		//成功
 		NotificationCenter::getInstance()->postNotification(MSG_UI_ANS_NETWORK_RECON,Integer::create(typeId));
-
+		playButtonSound("ba.wav");
 		EntityMgr::instance()->login()->setUserLogin(userAccount, userPassword);
 	}
 }

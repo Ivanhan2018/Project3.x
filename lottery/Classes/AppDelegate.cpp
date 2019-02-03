@@ -250,17 +250,29 @@ void AppDelegate::applicationDidEnterBackground()
 #ifdef USE_DDZ
 	DDZTimeCheckControl::getInstance()->saveEnterBackgroundTime();
 #endif
+
+	CCLOG("================applicationDidEnterBackground\n\n");
+	Scene *scene = CCDirector::getInstance()->getRunningScene();
+	if (!scene) return;
+	scene->getEventDispatcher()->dispatchCustomEvent("game_on_hide");
+	scene->getEventDispatcher()->dispatchCustomEvent("lobbby_on_hide");
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
- Director::getInstance()->startAnimation();
+    Director::getInstance()->startAnimation();
 
 	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();	
 #ifdef USE_DDZ
 	DDZTimeCheckControl::getInstance()->saveEnterForegroundTime();
 #endif
+
+	CCLOG("applicationWillEnterForeground================\n");
+	Scene *scene = CCDirector::getInstance()->getRunningScene();
+	if (!scene) return;
+	scene->getEventDispatcher()->dispatchCustomEvent("game_on_show");
+	scene->getEventDispatcher()->dispatchCustomEvent("lobbby_on_show");
 
 	//static bool isFirst = true;
 	//if(!isFirst)

@@ -30,12 +30,12 @@ inline  SpriteFrame* spriteFrame(std::string name)
     return SpriteFrameCache::getInstance()->spriteFrameByName("gamble_15.png");
 }
 
-inline  void playButtonSound()
+inline  void playButtonSound(const char *filePath="active_item.wav")
 {
 	bool hasEffect = UserDefault::getInstance()->getBoolForKey("hasEffect", true);
     if(hasEffect)
     {
-        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("button.mp3",false);
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(filePath,false);
     }
 }
 

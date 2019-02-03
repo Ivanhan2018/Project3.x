@@ -561,9 +561,19 @@ TableViewCell* LotteryKindScrollView::tableCellAtIndex(TableView *table, ssize_t
 		Sprite *kindSprite = Sprite::createWithSpriteFrame(spriteFrame(nameStr));
 		if(kindSprite)
 		{
-			kindSprite->setPosition(Vec2(SCREEN_WIDTH * (i * 2 + 1) / 8, 100));
+			kindSprite->setPosition(Vec2(SCREEN_WIDTH * (i * 2 + 1) / 8, 80));
 			kindSprite->setTag(LOTTERY_KIND_SPRITE_TAG+kindId);
-			cell->addChild(kindSprite);	
+			cell->addChild(kindSprite);
+
+			if(kindId==CZChongQingSSC)
+			{
+				Sprite *remenSprite = Sprite::createWithSpriteFrame(spriteFrame("remen.png"));
+				if(remenSprite)
+				{
+					remenSprite->setPosition(Vec2(40, 150));
+					kindSprite->addChild(remenSprite);
+				}
+			}
 		}
 		else
 		{

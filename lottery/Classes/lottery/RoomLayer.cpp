@@ -770,6 +770,23 @@ this->addChild(ltfRank1, 2);
 	//滚动 排行榜
 	EntityMgr::instance()->getDispatch()->SendPacketWithGetRankList();
 
+#ifdef WIN32
+	// 监听按键
+	auto listener_back = EventListenerKeyboard::create();
+	listener_back->onKeyReleased = [=](EventKeyboard::KeyCode keycode, Event *event){
+		if (keycode == EventKeyboard::KeyCode::KEY_F1)
+		{
+			playButtonSound("ba.wav");
+			return;
+		}
+		if (keycode == EventKeyboard::KeyCode::KEY_F2)
+		{
+			return;
+		}
+	};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener_back, this);
+#endif
+
     return  true;
 }
 
