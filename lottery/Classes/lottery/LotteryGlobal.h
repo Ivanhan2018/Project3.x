@@ -5,9 +5,6 @@
 
 #define MAX_QIHAO 100
 
-//д╛хопРап
-static int tempArr[] = {1,11,26,12,24,23,4,6,8,9,16,3,5,10,13,17,15,14};
-
 USING_NS_CC;
 
 struct Bet_Info 

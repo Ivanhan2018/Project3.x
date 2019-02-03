@@ -433,84 +433,22 @@ void LotteryKindScrollView::resetTable(const char* preName,const int count,const
 	{
 		table_idx = LOTTERY_KIND_SPRITE_TAG;
 
-		static int vec_ssc[14] = {1,2,4,11,12,20,23,24,25,26,28,29,30,31};
-		static int vec_11x5[5] = {6,7,8,9,16};
-		static int vec_klc[4] = {10,13,14,17};
-		static int vec_3d[3] = {3,5,15};
-
-		//重庆彩是默认彩种，这里必须做特殊处理
-		int iChongQingCai = 0;
-
-		for(int i = 0,j = 0;i < m_Count;i ++)
-		{					
-			int tempInt = MyBetNumber::getInstance()->getCaiZhong(j + 1);
-
-			//CCLOG("i = %d,j + 1 = %d,tempint =%d",i,j,tempInt);
-			if(tempInt == 1) iChongQingCai ++;
-			//重庆彩出现多次后，删除
-			if(iChongQingCai > 1) break;			
-#ifdef VER_369
-			bool isContained = false;
-			int k = 0;
-
-			switch (iType)
+		static int vec_ssc[8] = {CZChongQingSSC,CZ_FENFEN_CAI,CZ_BJPK10,CZ_JILI_2FEN_CAI,CZ_WUFEN_CAI,CZ_BEIJING_5FEN_CAI,CZ_TIANJIN_SSC,CZXinJiangSSC};
+		static int vec_11x5[4] = {CZGD11Xuan5,CZSD11Xuan5,CZJX11Xuan5,CZ_HLJ11Xuan5};
+		static int vec_klc[3] = {CZKUAILE8,CZ_LUCKY_28,CZ_HK6HeCai};
+		static int vec_3d[3] = {CZ3D,CZPailie3,CZ_SEVENSTAR};
+		static int num_ssc=sizeof(vec_ssc)/sizeof(vec_ssc[0]);
+		static int num_11x5=sizeof(vec_11x5)/sizeof(vec_11x5[0]);
+		static int num_klc=sizeof(vec_klc)/sizeof(vec_klc[0]);
+		static int num_3d=sizeof(vec_3d)/sizeof(vec_3d[0]);
+		static int nums[]={num_ssc,num_11x5,num_klc,num_3d};
+		static int* vecs[]={&vec_ssc[0],&vec_11x5[0],&vec_klc[0],&vec_3d[0]};
+		if(iType>0 && iType<=4)
+		{
+			for(int i = 0;i < nums[iType-1];i ++)
 			{
-			case 1:
-				for(k = 0;k < 14;k ++)
-				{
-					if(tempInt == vec_ssc[k])
-					{
-						isContained = true;
-						break;
-					}
-				}
-				break;
-			case 2:
-				for(k = 0;k < 5;k ++)
-				{
-					if(tempInt == vec_11x5[k])
-					{
-						isContained = true;
-						break;
-					}
-				}
-				break;
-			case 3:
-				for(k = 0;k < 4;k ++)
-				{
-					if(tempInt == vec_klc[k])
-					{
-						isContained = true;
-						break;
-					}
-				}
-				break;
-			case 4:
-				for(k = 0;k < 3;k ++)
-				{
-					if(tempInt == vec_3d[k])
-					{
-						isContained = true;
-						break;
-					}
-				}
-				break;
-			default:
-				break;
-			}
-			if(!isContained)
-			{
-				tempInt = 0;
-			}
-#endif
-
-			if(tempInt == 0) 
-			{
-				j ++;i --;
-				continue;
-			}
-			m_Data.push_back(tempInt + table_idx); //从一开始
-			j ++;
+				m_Data.push_back(*(vecs[iType-1]+i) + table_idx);
+			}		     
 		}
 	}else
 	{
