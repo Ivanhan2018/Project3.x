@@ -117,4 +117,39 @@
 }
 
 
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    NSLog(@"viewSafeAreaInsetsDidChange%@",NSStringFromUIEdgeInsets(self.view.safeAreaInsets));
+    [self updateOrientation];
+}
+
+bool changeViewFrame = false;
+
+- (void)updateOrientation {
+    if (@available(iOS 11.0, *)) {
+        CGRect rect = [[UIScreen mainScreen]bounds];
+        CGSize size = rect.size;
+        CGFloat width = size.width;
+        CGFloat height = size.height;
+        CGFloat scale_screen = [UIScreen mainScreen].scale;
+        
+        float k=height/width;
+        //通过分辨率判断是否是iPhoneX手机
+        if (k>2.0f)
+        {
+            if (self.view && !changeViewFrame)
+            {
+                CGRect s =CGRectMake(self.view.safeAreaInsets.left-13,0,self.view.frame.size.width -self.view.safeAreaInsets.left-self.view.safeAreaInsets.right+26,self.view.frame.size.height);
+                self.view.frame = s;
+                changeViewFrame =true;
+            }
+        }
+    }
+    
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden{
+    return YES;
+}
+
 @end

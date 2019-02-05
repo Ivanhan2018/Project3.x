@@ -28,6 +28,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
+
 @implementation AppController
 
 #pragma mark -
@@ -82,6 +83,31 @@ static AppController *s_self;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden:true];
+    
+#if 1
+    if (@available(iOS 11.0, *))
+    {
+        CGRect rect = [[UIScreen mainScreen]bounds];
+        CGSize size = rect.size;
+        CGFloat width = size.width;
+        CGFloat height = size.height;
+        CGFloat scale_screen = [UIScreen mainScreen].scale;
+        float k=height/width;
+        //通过分辨率判断是否是iPhoneX手机
+        if (k>2.0f)
+        {
+            CGRect s = CGRectMake(0,0,_viewController.view.frame.size.width + _viewController.view.safeAreaInsets.left + _viewController.view.safeAreaInsets.right,_viewController.view.frame.size.height + _viewController.view.safeAreaInsets.bottom);
+            
+            UIView *Ucolor = [[UIView alloc]initWithFrame:s];
+            
+            // 设置全局默认背景色darkGrayColo whiteColor
+            Ucolor.backgroundColor = [UIColor darkGrayColor];
+            
+            [window addSubview:Ucolor];
+            [window sendSubviewToBack:Ucolor];
+        }
+    }
+#endif
 
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
