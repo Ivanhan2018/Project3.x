@@ -18,6 +18,12 @@ CGameRule::~CGameRule(void)
 
 }
 
+int CGameRule::GetSecByHMS(int h,int m,int s)
+{
+	int sec=3600*h+60*m+s;
+	return sec;
+}
+
 //离下次开奖时间还剩下的时间
 long CGameRule::GetKjShjDiff()
 {
@@ -111,11 +117,11 @@ void CGameRule::SetStartTime(const char* value)
 
 CChqSSCRule::CChqSSCRule(void)
 	: m_t1_start(0)
-	, m_t1_end(2)
-	, m_t2_start(10)
-	, m_t2_end(22)	
-	, m_t3_start(22)
-	, m_t3_end(24)
+	, m_t1_end(7200)
+	, m_t2_start(36000)
+	, m_t2_end(79200)	
+	, m_t3_start(79200)
+	, m_t3_end(86400)
 	, timespan_kj_shj(600)
 	, timespan_ye_kj_shj(300)
 {
@@ -148,78 +154,48 @@ string CChqSSCRule::GetNextExpect(int nDelta)
 	if(getIsStopSell()) return "0";
 
 	time_t ct;
-	//ct = time(NULL);
 	theApp->GetTime(ct);
 	tm *tmLocal = localtime(&ct);
 	struct tm *my_tm = localtime(&ct);
-
-
-	int hour = tmLocal->tm_hour;
+	//int hour = tmLocal->tm_hour;
+    int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
 	int qishu = 0;
-	if (hour < m_t1_end) //0 - 2点  86400
+	if (sec < m_t1_end) //0 - 2点  86400
 	{				
-		my_tm->tm_hour = m_t1_start;
+		my_tm->tm_hour = m_t1_start/3600;
 		my_tm->tm_min = 0;
 		my_tm->tm_sec = delay_chqssc;
 		time_t t1;
 		t1 = mktime(my_tm);  
 		long total = (long)difftime(ct,t1);
-		//if (total % timespan_ye_kj_shj >= 280)
-		//{
-		//	qishu = (int)(total / timespan_ye_kj_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_ye_kj_shj + 1);
-		//}
+		qishu = (int)(total / timespan_ye_kj_shj + 1);
 		if(qishu > 24) qishu = 24;
 	}
-	else if (hour >= m_t2_start && hour < m_t2_end) //早10点到晚上10点
+	else if (sec >= m_t2_start && sec < m_t2_end) //早10点到晚上10点
 	{
-		my_tm->tm_hour = m_t2_start;
+		my_tm->tm_hour = m_t2_start/3600;
 		my_tm->tm_min = 0;
 		my_tm->tm_sec = delay_chqssc;
 		time_t t1;
 		t1 = mktime(my_tm);
 		long total = (long)difftime(ct,t1);
-		//if (total % timespan_kj_shj >= 540)
-		//{
-		//	qishu = 24 + (int)(total / timespan_kj_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = 24 + (int)(total / timespan_kj_shj) + 1;
-		//}
+		qishu = 24 + (int)(total / timespan_kj_shj) + 1;
 	}
-	else if (hour >= m_t3_start) //22到24点
+	else if (sec >= m_t3_start) //22到24点
 	{
-		my_tm->tm_hour = m_t3_start;
+		my_tm->tm_hour = m_t3_start/3600;
 		my_tm->tm_min = 0;
 		my_tm->tm_sec = delay_chqssc;
 		time_t t1;
 		t1 = mktime(my_tm);
 		long total = (long)difftime(ct,t1);
-		//if (total % timespan_ye_kj_shj >= 280)
-		//{
-		//	qishu = 96 + (int)(total / timespan_ye_kj_shj)+2;
-		//}
-		//else
-		//{
-			qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
-		//}
+		qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
 		if (qishu > 120)		//处理期数超过120期
 		{
 			my_tm->tm_sec = 20;		//later 20 seconds
 			t1 = mktime(my_tm);
 			total = (long)difftime(ct, t1);
-			//if (total % timespan_ye_kj_shj >= 280)
-			//{
-			//	qishu = 96 + (int)(total / timespan_ye_kj_shj) + 2;
-			//}
-			//else
-			//{
-				qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
-			//}
+			qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
 		}
 	}
 	else
@@ -240,35 +216,28 @@ string CChqSSCRule::GetNextExpect(int nDelta)
 time_t CChqSSCRule::GetNextKjShj()
 {
 	time_t ct;
-	//ct = time(NULL);
 	theApp->GetTime(ct);
 	tm *tmLocal = localtime(&ct);
 	struct tm *my_tm = localtime(&ct);
 
-	int hour = tmLocal->tm_hour;
+	//int hour = tmLocal->tm_hour;
+    int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
 	int qishu = 0;
-	if (hour < m_t1_end) //
+	if (sec < m_t1_end) //
 	{		
-		my_tm->tm_hour = m_t1_start;
+		my_tm->tm_hour = m_t1_start/3600;
 		my_tm->tm_min = 0;
 		my_tm->tm_sec = delay_chqssc; 
 		time_t t1;
 		t1 = mktime(my_tm);
 		long total = (long)difftime(ct,t1);
 		int qishu = 0;
-		//if (total % timespan_ye_kj_shj  >= 280)
-		//{
-		//	qishu = (int)(total / timespan_ye_kj_shj)+2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_ye_kj_shj) + 1;
-		//}
+		qishu = (int)(total / timespan_ye_kj_shj) + 1;
 		
 		t1 += qishu * timespan_ye_kj_shj;
 		if(qishu == 24)
 		{
-			my_tm->tm_hour = m_t2_start-1;
+			my_tm->tm_hour = m_t2_start/3600-1;
 			my_tm->tm_min = 50;
 			my_tm->tm_sec = delay_chqssc;
 			time_t t2;
@@ -279,49 +248,35 @@ time_t CChqSSCRule::GetNextKjShj()
 		}
 		return t1;
 	}
-	else if (hour >= m_t2_start && hour < m_t2_end)
+	else if (sec >= m_t2_start && sec < m_t2_end)
 	{
-		my_tm->tm_hour = m_t2_start;
+		my_tm->tm_hour = m_t2_start/3600;
 		my_tm->tm_min = 0;
 		my_tm->tm_sec = delay_chqssc;
 		time_t t1;
 		t1 = mktime(my_tm);
 		long total = (long)difftime(ct,t1);
 		int qishu = 0;
-		//if (total % timespan_kj_shj >= 540)
-		//{
-		//	qishu = (int)(total / timespan_kj_shj)+2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_kj_shj) + 1;
-		//}
+		qishu = (int)(total / timespan_kj_shj) + 1;
 		t1 += qishu * timespan_kj_shj;
 		return t1;
 	}
-	else if (hour >= m_t3_start)
+	else if (sec >= m_t3_start)
 	{
-		my_tm->tm_hour = m_t3_start;
+		my_tm->tm_hour = m_t3_start/3600;
 		my_tm->tm_min = 0;
 		my_tm->tm_sec = delay_chqssc; 
 		time_t t1;
 		t1 = mktime(my_tm);
 		long total = (long)difftime(ct,t1);
 		int qishu = 0;
-		//if (total % timespan_ye_kj_shj >= 280)
-		//{
-		//	qishu = (int)(total / timespan_ye_kj_shj)+2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_ye_kj_shj) + 1;
-		//}
+		qishu = (int)(total / timespan_ye_kj_shj) + 1;
 		t1 += qishu * timespan_ye_kj_shj;		
 		return t1;
 	}
 	else
 	{
-		my_tm->tm_hour = m_t2_start-1;
+		my_tm->tm_hour = m_t2_start/3600-1;
 		my_tm->tm_min = 50;
 		my_tm->tm_sec = delay_chqssc;
 		time_t t1;

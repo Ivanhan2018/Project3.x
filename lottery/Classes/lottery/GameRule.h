@@ -22,6 +22,7 @@ public:
 protected:
 	CGameRule(void);
 	MsgDispatch *theApp;
+	static int GetSecByHMS(int h,int m,int s);
 public:
 	//ÏÂÆÚÆÚºÅ
 	virtual string GetNextExpect(int nDelta=0) = 0;
