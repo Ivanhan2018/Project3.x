@@ -237,7 +237,7 @@ void XingYunGambleLayer::initView()
 	this->addChild(lotteryIdLabel, 2);
 
 	//当前时间倒计时
-	String *currentTimeString = String::create(ConfigMgr::instance()->text("display_text.xml", "t72"));
+	String *currentTimeString = String::create(STR_XDSJ);
 	currentTimeLabel = LabelTTF::create(currentTimeString->getCString(), "", fontSize);
 	currentTimeLabel->setAnchorPoint(Vec2(0,0.5f));
 	currentTimeLabel->setPosition(Vec2(SCREEN_WIDTH/2, lotteryIdLabel->getPositionY()));
@@ -427,10 +427,10 @@ void XingYunGambleLayer::updateCurrentTime()
 	{
 		if(gameRule->IsFenDanDuration())//正在封单
 		{
-			headStr = String::create(ConfigMgr::instance()->text("display_text.xml", "t74"));		
+			headStr = String::create(STR_FDSJ);		
 		} else
 		{
-			headStr = String::create(ConfigMgr::instance()->text("display_text.xml", "t72"));
+			headStr = String::create(STR_XDSJ);
 		}
 	}
 

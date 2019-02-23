@@ -344,7 +344,7 @@ void LoginLayer::onLogin(Object *obj)
 	}	
 
 	//先关掉之前的登陆，否则会在断线重连后无法登陆
-//	EntityMgr::instance()->getDispatch()->closeLoginSocket();    //by 2018.8
+	EntityMgr::instance()->getDispatch()->closeLoginSocket();//这句不能被注释掉，否则会导致bug：启动app切换到后台一段时间后再切换到前台，此时点击登录按钮无法登录
 
 	bool bRet = EntityMgr::instance()->getDispatch()->connectLoginServer();
 	if (!bRet)

@@ -54,4 +54,7 @@ private:
 	TinyXmlReader m_TinyXmlReader;
 };
 
+#define STR_XDSJ ConfigMgr::instance()->text("display_text.xml", "t72")//下单时间
+#define STR_FDSJ ConfigMgr::instance()->text("display_text.xml", "t74")//封单时间
+
 #endif //#define __CONFIGMGR_READER_H__
