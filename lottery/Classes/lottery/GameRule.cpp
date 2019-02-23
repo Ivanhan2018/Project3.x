@@ -126,14 +126,6 @@ void CGameRule::SetStartTime(const char* value)
 }
 
 CChqSSCRule::CChqSSCRule(void)
-	: m_t1_start(0)
-	, m_t1_end(7200)
-	, m_t2_start(36000)
-	, m_t2_end(79200)	
-	, m_t3_start(79200)
-	, m_t3_end(86400)
-	, timespan_kj_shj(600)
-	, timespan_ye_kj_shj(300)
 {
 	fenDanDuration = 35;
 }
@@ -146,16 +138,52 @@ CChqSSCRule::~CChqSSCRule(void)
 //获取每期时间间隔,像重庆时时彩，有时候5分钟，有时候10分钟。
 long CChqSSCRule::GetQiSpan()
 {
-	time_t ct;
-	//ct = time(NULL);
-	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
+	return 1200;
+}
 
-	int hour = tmLocal->tm_hour;
-	if (hour >= m_t2_start && hour < m_t2_end) //早上10点到晚上10点
-		return timespan_kj_shj;
+int CChqSSCRule::GetQiShu(int sec)
+{
+	int qishu = 0;
+	if (sec < 1800||sec>=85800) //001期没开奖
+	{				
+		qishu = 1;
+	}
+	else if (sec >= 1800 && sec<11400) //001期开奖——009期没开奖
+	{				
+		long total = sec - 1800;
+		qishu = (int)(total / 1200 + 2);
+	}
+	else if (sec >= 11400 && sec<27000) //010期没开奖
+	{				
+		qishu = 10;
+	}
+	else if (sec >= 27000 && sec < 85800) //010期开奖——059期没开奖
+	{
+		long total = sec - 27000;
+		qishu = (int)(total / 1200+11);
+	}
 	else
-		return timespan_ye_kj_shj;
+	{
+		qishu = 59;
+	}
+	return qishu;
+}
+
+int CChqSSCRule::GetKjShj(int qishu)
+{
+	//前9期,等差数列求通项公式
+	if(qishu>=1 && qishu<=9)
+	{
+	   int iKjShj=1800+1200*(qishu-1);
+	   return iKjShj;
+	}
+	//后50期,等差数列求通项公式
+	else if(qishu>=10 && qishu<=59)
+	{
+	   int iKjShj=27000+1200*(qishu-10);
+	   return iKjShj;
+	}
+	return 0;
 }
 
 //下期期号
@@ -167,42 +195,16 @@ string CChqSSCRule::GetNextExpect(int nDelta)
 	theApp->GetTime(ct);
 	struct tm *my_tm = localtime(&ct);
     int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
-	time_t ct0=GetMorningTime(ct);
-	int qishu = 0;
-	if (sec < m_t1_end) //0 - 2点  86400
-	{				
-		long total = sec - m_t1_start;
-		qishu = (int)(total / timespan_ye_kj_shj + 1);
-		if(qishu > 24) qishu = 24;
-	}
-	else if (sec >= m_t2_start && sec < m_t2_end) //早10点到晚上10点
-	{
-		long total = sec - m_t2_start;
-		qishu = 24 + (int)(total / timespan_kj_shj) + 1;
-	}
-	else if (sec >= m_t3_start) //22到24点
-	{
-		long total = sec - m_t3_start;
-		qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
-		if (qishu > 120)		//处理期数超过120期
-		{
-			total += 20;//later 20 seconds
-			qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
-		}
-	}
-	else
-	{
-		qishu = 24;
-	}
+	int qishu=GetQiShu(sec);
 	//做出调整
 	qishu += nDelta;
  
 	tm *tmLocal=my_tm;
-	//if(ct-ct0>43200)//期号算到第二天的第一期
-	//{
-	//    time_t ct1=GetMorningTime(ct+86400);
-	//    tmLocal = localtime(&ct1);
-	//}
+	if(sec>=85800)//期号算到第二天的第一期
+	{
+	    time_t ct1=GetMorningTime(ct+86400);
+	    tmLocal = localtime(&ct1);
+	}
 	char temp[64] = {0};
 	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
 
@@ -219,57 +221,18 @@ time_t CChqSSCRule::GetNextKjShj()
 	struct tm *my_tm = localtime(&ct);
 
     int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
-	time_t ct0=GetMorningTime(ct);
-	int qishu = 0;
-	if (sec < m_t1_end) //
-	{		
-		long total = sec - m_t1_start;
-		int qishu = (int)(total / timespan_ye_kj_shj) + 1;
-		time_t t1 = ct0+m_t1_start+qishu * timespan_ye_kj_shj;
-		if(qishu == 24)
-		{
-			my_tm->tm_hour = m_t2_start/3600-1;
-			my_tm->tm_min = 50;
-			my_tm->tm_sec = delay_chqssc;
-			time_t t2;
-			t2 = mktime(my_tm);
-			long total = (long)difftime(ct,t2);
-			t2 += timespan_kj_shj;
-			t1 = t2;
-		}
-		return t1;
-	}
-	else if (sec >= m_t2_start && sec < m_t2_end)
-	{
-		long total = sec - m_t2_start;
-		int qishu = (int)(total / timespan_kj_shj) + 1;
-		time_t t1 = ct0+m_t2_start+qishu * timespan_kj_shj;
-		return t1;
-	}
-	else if (sec >= m_t3_start)
-	{
-		long total = sec - m_t3_start;
-		int qishu  = (int)(total / timespan_ye_kj_shj) + 1;
-		time_t t1 = ct0+m_t3_start+qishu * timespan_ye_kj_shj;		
-		return t1;
-	}
-	else
-	{
-		my_tm->tm_hour = m_t2_start/3600-1;
-		my_tm->tm_min = 50;
-		my_tm->tm_sec = delay_chqssc;
-		time_t t1;
-		t1 = mktime(my_tm);
-		long total = (long)difftime(ct,t1);
-		t1 += timespan_kj_shj;
-		return t1;
-	}
+	
+	int qishu=GetQiShu(sec);
+    int kjshj=GetKjShj(qishu);
+	time_t ct0=GetMorningTime(sec>=85800?ct+86400:ct);//凌晨零时整的时间戳
+	time_t t1 = ct0+kjshj;
+	return t1;
 }
 
 //是否可撤单-离开奖时间大于两分钟
 bool CChqSSCRule::IsCanCancel(string qihao)
 {
-	//比下期旗号还要早，允许撤单
+	//比下期期号还要早，允许撤单
 
 	if(qihao > GetNextExpect())
 		return true;
