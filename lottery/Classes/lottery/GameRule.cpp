@@ -24,6 +24,16 @@ int CGameRule::GetSecByHMS(int h,int m,int s)
 	return sec;
 }
 
+time_t CGameRule::GetMorningTime(time_t t)
+{ 
+    struct tm * tm=localtime(&t);  
+    tm->tm_hour = 0;  
+    tm->tm_min = 0;  
+    tm->tm_sec = 0;  
+    time_t ct0=mktime(tm);
+	return ct0;
+}
+
 //离下次开奖时间还剩下的时间
 long CGameRule::GetKjShjDiff()
 {
@@ -155,46 +165,28 @@ string CChqSSCRule::GetNextExpect(int nDelta)
 
 	time_t ct;
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
 	struct tm *my_tm = localtime(&ct);
-	//int hour = tmLocal->tm_hour;
-    int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	time_t ct0=GetMorningTime(ct);
 	int qishu = 0;
 	if (sec < m_t1_end) //0 - 2点  86400
 	{				
-		my_tm->tm_hour = m_t1_start/3600;
-		my_tm->tm_min = 0;
-		my_tm->tm_sec = delay_chqssc;
-		time_t t1;
-		t1 = mktime(my_tm);  
-		long total = (long)difftime(ct,t1);
+		long total = sec - m_t1_start;
 		qishu = (int)(total / timespan_ye_kj_shj + 1);
 		if(qishu > 24) qishu = 24;
 	}
 	else if (sec >= m_t2_start && sec < m_t2_end) //早10点到晚上10点
 	{
-		my_tm->tm_hour = m_t2_start/3600;
-		my_tm->tm_min = 0;
-		my_tm->tm_sec = delay_chqssc;
-		time_t t1;
-		t1 = mktime(my_tm);
-		long total = (long)difftime(ct,t1);
+		long total = sec - m_t2_start;
 		qishu = 24 + (int)(total / timespan_kj_shj) + 1;
 	}
 	else if (sec >= m_t3_start) //22到24点
 	{
-		my_tm->tm_hour = m_t3_start/3600;
-		my_tm->tm_min = 0;
-		my_tm->tm_sec = delay_chqssc;
-		time_t t1;
-		t1 = mktime(my_tm);
-		long total = (long)difftime(ct,t1);
+		long total = sec - m_t3_start;
 		qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
 		if (qishu > 120)		//处理期数超过120期
 		{
-			my_tm->tm_sec = 20;		//later 20 seconds
-			t1 = mktime(my_tm);
-			total = (long)difftime(ct, t1);
+			total += 20;//later 20 seconds
 			qishu = 96 + (int)(total / timespan_ye_kj_shj) + 1;
 		}
 	}
@@ -204,9 +196,16 @@ string CChqSSCRule::GetNextExpect(int nDelta)
 	}
 	//做出调整
 	qishu += nDelta;
+ 
+	tm *tmLocal=my_tm;
+	//if(ct-ct0>43200)//期号算到第二天的第一期
+	//{
+	//    time_t ct1=GetMorningTime(ct+86400);
+	//    tmLocal = localtime(&ct1);
+	//}
+	char temp[64] = {0};
+	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
 
-	char temp[64] = {0}; 
-	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal); 
 	char last[64] = {0};
 	sprintf(last, "%s%03d", temp, qishu);
 	return last;
@@ -217,24 +216,16 @@ time_t CChqSSCRule::GetNextKjShj()
 {
 	time_t ct;
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
 	struct tm *my_tm = localtime(&ct);
 
-	//int hour = tmLocal->tm_hour;
-    int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	time_t ct0=GetMorningTime(ct);
 	int qishu = 0;
 	if (sec < m_t1_end) //
 	{		
-		my_tm->tm_hour = m_t1_start/3600;
-		my_tm->tm_min = 0;
-		my_tm->tm_sec = delay_chqssc; 
-		time_t t1;
-		t1 = mktime(my_tm);
-		long total = (long)difftime(ct,t1);
-		int qishu = 0;
-		qishu = (int)(total / timespan_ye_kj_shj) + 1;
-		
-		t1 += qishu * timespan_ye_kj_shj;
+		long total = sec - m_t1_start;
+		int qishu = (int)(total / timespan_ye_kj_shj) + 1;
+		time_t t1 = ct0+m_t1_start+qishu * timespan_ye_kj_shj;
 		if(qishu == 24)
 		{
 			my_tm->tm_hour = m_t2_start/3600-1;
@@ -250,28 +241,16 @@ time_t CChqSSCRule::GetNextKjShj()
 	}
 	else if (sec >= m_t2_start && sec < m_t2_end)
 	{
-		my_tm->tm_hour = m_t2_start/3600;
-		my_tm->tm_min = 0;
-		my_tm->tm_sec = delay_chqssc;
-		time_t t1;
-		t1 = mktime(my_tm);
-		long total = (long)difftime(ct,t1);
-		int qishu = 0;
-		qishu = (int)(total / timespan_kj_shj) + 1;
-		t1 += qishu * timespan_kj_shj;
+		long total = sec - m_t2_start;
+		int qishu = (int)(total / timespan_kj_shj) + 1;
+		time_t t1 = ct0+m_t2_start+qishu * timespan_kj_shj;
 		return t1;
 	}
 	else if (sec >= m_t3_start)
 	{
-		my_tm->tm_hour = m_t3_start/3600;
-		my_tm->tm_min = 0;
-		my_tm->tm_sec = delay_chqssc; 
-		time_t t1;
-		t1 = mktime(my_tm);
-		long total = (long)difftime(ct,t1);
-		int qishu = 0;
-		qishu = (int)(total / timespan_ye_kj_shj) + 1;
-		t1 += qishu * timespan_ye_kj_shj;		
+		long total = sec - m_t3_start;
+		int qishu  = (int)(total / timespan_ye_kj_shj) + 1;
+		time_t t1 = ct0+m_t3_start+qishu * timespan_ye_kj_shj;		
 		return t1;
 	}
 	else

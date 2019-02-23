@@ -23,6 +23,8 @@ protected:
 	CGameRule(void);
 	MsgDispatch *theApp;
 	static int GetSecByHMS(int h,int m,int s);
+	//获取今天凌晨零点零时零分的时间戳
+	static time_t GetMorningTime(time_t t);
 public:
 	//下期期号
 	virtual string GetNextExpect(int nDelta=0) = 0;
