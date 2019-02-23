@@ -2141,43 +2141,69 @@ CBJPK10Rule::CBJPK10Rule(void)
 	, timespan_ye_kj_shj(300)
 {
 	fenDanDuration = 30;
-
-	m_nStartQihao = 599995 - 20;
-	m_tStartTime = 1486137600;
+    //729920 07040209100508010306 2019-02-23 09:32:33 
+#if 0
+	tm tm_today;
+	tm_today.tm_hour = 9;
+	tm_today.tm_min = 10;
+	tm_today.tm_sec = 0;
+	tm_today.tm_year = 119;
+	tm_today.tm_mon = 1;
+	tm_today.tm_mday = 23;
+	tm_today.tm_wday = 6;
+	tm_today.tm_yday = 53;
+	tm_today.tm_isdst = 0;
+	m_tStartTime=mktime(&tm_today);
+#else
+    m_tStartTime = 1550884200;
+#endif
+	m_nStartQihao = 729920;
 }
 
 CBJPK10Rule::~CBJPK10Rule(void)
 {
 
 }
-//long CBJPK10Rule::GetFdShjDiff()
-//{
-//	if (strlen(m_lastExpect) == 0)
-//	{
-//		return 0;
-//	}
-//
-//	time_t current_t;
-//	theApp->GetTime(current_t);
-//	time_t next_t = GetNextKjShj();
-//	double total = difftime(next_t, current_t);
-//
-//	return (long)total; 
-//}
-////是否可撤单-离开奖时间大于两分钟
-//bool CBJPK10Rule::IsCanCancel(string qihao)
-//{
-//	//比下期旗号还要早，允许撤单
-//	if (qihao > GetNextExpect())
-//		return true;
-//
-//	if (qihao != GetNextExpect())
-//	{
-//		return false;
-//	}
-//
-//	return GetFdShjDiff() > fenDanDuration;
-//}
+
+int CBJPK10Rule::GetQiShu0()
+{
+	time_t ct;
+	theApp->GetTime(ct);
+    time_t tStartTime=GetMorningTime(ct)+33000;
+	int qishu0 = m_nStartQihao + (tStartTime - m_tStartTime )/ 86400 * 44;
+	return qishu0;
+}
+
+int CBJPK10Rule::GetQiShu(int sec)
+{
+	int qishu = 0;
+	if (sec < 33000) //第1期没开奖
+	{				
+		qishu = 0;
+	}
+	else if (sec >= 33000 && sec<85800) //第1期开奖——第44期没开奖
+	{				
+		long total = sec - 33000;
+		qishu = (int)(total / 1200 + 1);
+	}
+	else //第44期开奖
+	{
+		qishu = 44;
+	}
+	return qishu;
+}
+
+int CBJPK10Rule::GetKjShj(int qishu)
+{
+	//等差数列求通项公式
+	if(qishu>=1 && qishu<=44)
+	{
+	   int iKjShj=33000+1200*(qishu-1);
+	   return iKjShj;
+	}
+	return 0;
+}
+
 //下期期号
 string CBJPK10Rule::GetNextExpect(int nDelta)
 {
@@ -2190,53 +2216,13 @@ string CBJPK10Rule::GetNextExpect(int nDelta)
 	time_t ct_now;
 	theApp->GetTime(ct_now);
 	tm *tmLocal = localtime(&ct_now);
-
 	xD.GetLunarDate(1900+tmLocal->tm_year, tmLocal->tm_mon+1, tmLocal->tm_mday, iLunarYear, iLunarMon, iLunarDay);
-	int nRestDays = (iLunarYear - 2017)*7;
-
-	int nQiHao = 0;
-
-	int TodayQihao = 0;
-	if ((tmLocal->tm_hour >9) && (tmLocal->tm_hour<23) || (tmLocal->tm_hour == 23) && (tmLocal->tm_min<57) || (tmLocal->tm_hour == 9) && (tmLocal->tm_min >= 7))
-	{
-		tm tm_today;
-		memset(&tm_today,0,sizeof(tm));//增加分配内存操作
-		tm_today.tm_year = tmLocal->tm_year;
-		tm_today.tm_mon =  tmLocal->tm_mon;
-		tm_today.tm_mday = tmLocal->tm_mday;
-		tm_today.tm_hour = 9;
-		tm_today.tm_min = 7;
-		tm_today.tm_sec = 30;
-
-		time_t t_todayFirst = mktime(&tm_today);
-		
-		//先看今天到了多少期
-		long totalSecond = (long)difftime(ct_now, t_todayFirst);
-
-		//5分钟=300秒
-		//if (totalSecond % 300 > 280)
-		//	TodayQihao = totalSecond / 300 + 2;
-		//else
-			TodayQihao = totalSecond / 300 + 1;
-		
-	}
-	else if ((tmLocal->tm_hour == 23) && (tmLocal->tm_min >= 57))
-	{	
-		TodayQihao++;
-	}
-	else
-	{
-		ct_now -= 86400;
-		struct tm *tmp_tm = localtime(&ct_now);
-		tmp_tm->tm_hour = 23;
-		tmp_tm->tm_min = 57;
-		tmp_tm->tm_sec = 0;
-		ct_now = mktime(tmp_tm);
-		TodayQihao = 179;
-	}
-
-	nQiHao = m_nStartQihao + (ct_now - m_tStartTime )/ 86400 * 179 + TodayQihao;
-	nQiHao -= nRestDays* 179;	//扣除休息日7天
+	int nRestDays = (1900+tmLocal->tm_year-iLunarYear)*7;
+    int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
+	int qishu=GetQiShu(sec);
+	int qishu0 = GetQiShu0();
+	int nQiHao = qishu0+qishu;
+	nQiHao -= nRestDays* 44;	//扣除休息日7天
 	char sztmp[32];
 	sprintf(sztmp, "%ld", nQiHao);
 	return string(sztmp);

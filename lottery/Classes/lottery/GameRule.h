@@ -521,10 +521,12 @@ public:
 	//下期开奖时间
 	virtual time_t GetNextKjShj();
 
-	////离下次封单时间还剩下的时间
-	//long GetFdShjDiff();
-	////是否可以撤单
-	//bool IsCanCancel(string qihao);
+	//获取今天第一期的期号	
+	int GetQiShu0();
+	//今天到了多少期
+	int GetQiShu(int sec);
+	//获取开奖时间
+	int GetKjShj(int qishu);
 private:
 	//时间1 00:00-02:00
 	int m_t1_start;
