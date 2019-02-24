@@ -169,16 +169,12 @@ public:
 	//下期期号
 	virtual string GetNextExpect(int nDelta=0);
 	//下期开奖时间
-	virtual time_t GetNextKjShj(){return GetNextFdShj();}
-	//下期封单时间
-	time_t GetNextFdShj();
-	////离下次封单时间还剩下的时间
-	//long GetFdShjDiff();
+	virtual time_t GetNextKjShj();
 
-	//string GetFdShjDiffDesc();
-
-	//bool IsCanCancel(string qihao);
-	//virtual string GetKjShjDiffDesc(int nSecond = 60);
+	//获取期号
+	int GetQiShu(int sec);
+	//获取开奖时间
+	int GetKjShj(int qishu);
 private:
 	int timespan_fd_shj;
 	int timespan_kj_shj;

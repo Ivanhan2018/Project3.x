@@ -162,10 +162,6 @@ int CChqSSCRule::GetQiShu(int sec)
 		long total = sec - 27000;
 		qishu = (int)(total / 1200+11);
 	}
-	else
-	{
-		qishu = 59;
-	}
 	return qishu;
 }
 
@@ -183,7 +179,7 @@ int CChqSSCRule::GetKjShj(int qishu)
 	   int iKjShj=27000+1200*(qishu-10);
 	   return iKjShj;
 	}
-	return 0;
+	return 1800;
 }
 
 //下期期号
@@ -530,7 +526,7 @@ time_t CCanadaSDWFRule::GetNextKjShj()
 CJxSSCRule::CJxSSCRule(void)
 	: timespan_fd_shj(60*9+15), timespan_kj_shj(600)
 {
-	fenDanDuration = 120; //封单时间180秒 修改为120秒
+	fenDanDuration = 120-45; //封单时间180秒 修改为120秒
 }
 
 CJxSSCRule::~CJxSSCRule(void)
@@ -544,150 +540,68 @@ string CJxSSCRule::GetNextExpect(int nDelta)
 	if(getIsStopSell()) return "0";
 
 	time_t ct;
-	//ct = time(NULL);
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
-
-	if (tmLocal->tm_hour >= 9 && tmLocal->tm_hour < 23){
-
-		tmLocal->tm_hour = 8;
-		tmLocal->tm_min = 59;
-		tmLocal->tm_sec = 20;
-		time_t t1;
-		t1 = mktime(tmLocal);
-		long total = (long)difftime(ct, t1);
-		int qishu = 0;
-		//if (total %timespan_kj_shj >= 540)
-		//{
-		//	qishu = (int)(total / timespan_kj_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_kj_shj) + 1;
-		//}
-
-		char temp[64] = { 0 };
-		strftime(temp, sizeof(temp), "%Y%m%d", tmLocal);
-		char szlast[64] = { 0 };
-		sprintf(szlast, "%s%03d", temp, qishu);
-		return szlast;
+	struct tm *my_tm = localtime(&ct);
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	int qishu=GetQiShu(sec);
+	////做出调整
+	//qishu += nDelta;
+ 
+	tm *tmLocal=my_tm;
+	if(sec>=82800)//期号算到第二天的第一期
+	{
+	    time_t ct1=GetMorningTime(ct+86400);
+	    tmLocal = localtime(&ct1);
 	}
-	else if (tmLocal->tm_hour >= 23) {
+	char temp[64] = {0};
+	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
 
-			char temp[64] = { 0 };	
-			auto tempCt = ct + 86400;
-			tm *tempLocal = localtime(&tempCt);
-			strftime(temp, sizeof(temp), "%Y%m%d", tempLocal);
-			char szlast[64] = { 0 };
-			sprintf(szlast, "%s001", temp);
-			return szlast;		
-	}
-	else {
-		char temp[64] = { 0 };				
-		strftime(temp, sizeof(temp), "%Y%m%d", tmLocal);
-		char szlast[64] = { 0 };
-		sprintf(szlast, "%s001", temp);
-		return szlast;
-	}
+	char last[64] = {0};
+	sprintf(last, "%s%03d", temp, qishu);
+	return last;
 }
 
-time_t CJxSSCRule::GetNextFdShj()
+time_t CJxSSCRule::GetNextKjShj()
 {
 	time_t ct;
-	//ct = time(NULL);
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
-	if (tmLocal->tm_hour >= 9 && tmLocal->tm_hour < 23){
+	struct tm *my_tm = localtime(&ct);
 
-		tmLocal->tm_hour = 8;
-		tmLocal->tm_min = 59;
-		tmLocal->tm_sec = 0;
-		time_t t1;
-		t1 = mktime(tmLocal);
-		long total = (long)difftime(ct, t1);
-		int qishu = 0;
-		//if (total %timespan_kj_shj >= 540)
-		//{
-		//	qishu = (int)(total / timespan_kj_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_kj_shj) + 1;
-		//}
-
-		t1 += qishu * timespan_kj_shj;
-		return t1;
-	}
-	else if (tmLocal->tm_hour >= 23) {
-
-		tmLocal->tm_hour = 8;
-		tmLocal->tm_min = 59;
-		tmLocal->tm_sec = 0;
-		time_t t1;
-		t1 = mktime(tmLocal) + 86400;
-		return t1;				
-	}
-	else {
-		tmLocal->tm_hour = 8;
-		tmLocal->tm_min = 59;
-		tmLocal->tm_sec = 0;
-		time_t t1;
-		t1 = mktime(tmLocal);
-		return t1;				
-	}
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	
+	int qishu=GetQiShu(sec);
+    int kjshj=GetKjShj(qishu);
+	time_t ct0=GetMorningTime(sec>=82800?ct+86400:ct);//凌晨零时整的时间戳
+	time_t t1 = ct0+kjshj;
+	return t1;
 }
 
-//long CJxSSCRule::GetFdShjDiff()
-//{
-//	if (strlen(m_lastExpect) == 0)
-//	{
-//		return 0;
-//	}
-//
-//	time_t current_t;
-//	//ct = time(NULL);
-//	theApp->GetTime(current_t);
-//	time_t next_t = GetNextFdShj();
-//	double total = difftime(next_t,current_t);
-//
-//	return (long)total;
-//}
-//
-//string CJxSSCRule::GetFdShjDiffDesc()
-//{
-//	if (strlen(m_lastExpect) == 0)
-//	{
-//		return "00:00";
-//	}
-//
-//	long secDiff = GetFdShjDiff();
-//	if (secDiff <= 0 || secDiff > 480)
-//	{
-//		return "00:00";
-//	}
-//
-//	int minute = secDiff / 60;
-//	int second = secDiff % 60;
-//
-//	char temp[120] = {0};
-//	sprintf(temp, "%02d:%02d", minute, second);
-//	string str = string(temp);
-//	return str;
-//}
-//
-////是否可撤单-离开奖时间大于两分钟
-//bool CJxSSCRule::IsCanCancel(string qihao)
-//{
-//	//比下期旗号还要早，允许撤单
-//	if(qihao > GetNextExpect())
-//		return true;
-//	if(qihao != GetNextExpect())
-//	{
-//		return false;
-//	}
-//
-//	return GetFdShjDiff() > fenDanDuration; 
-//}
+int CJxSSCRule::GetQiShu(int sec)
+{
+	int qishu = 0;
+	if (sec < 33600||sec>=82800) //001期没开奖
+	{				
+		qishu = 1;
+	}
+	else if (sec >= 33600 && sec < 82800) //001期开奖——042期没开奖
+	{
+		long total = sec - 33600;
+		qishu = (int)(total / 1200+2);
+	}
+	return qishu;
+}
+
+int CJxSSCRule::GetKjShj(int qishu)
+{
+	//等差数列求通项公式
+	if(qishu>=1 && qishu<=42)
+	{
+	   int iKjShj=33600+1200*(qishu-1);
+	   return iKjShj;
+	}
+	return 33600;
+}
+
 //----------------------------------------------------------------
 CXJSSCRule::CXJSSCRule(void)
 	: timespan_fd_shj(600)
