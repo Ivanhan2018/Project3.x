@@ -1572,45 +1572,15 @@ char CSD11X5Rule::m_lastExpect[KJ_QIHAO_LENGTH] = "";
 char CSD11X5Rule::m_lastKjShj[KJ_SHIJIAN_LENGTH] = "";
 
 CSD11X5Rule::CSD11X5Rule(void)
-	: timespan_kj_shj(600)
-	, timespan_ye_kj_shj(300)
 {
-	fenDanDuration = 50;
+	fenDanDuration = 50+10;
 }
 
 CSD11X5Rule::~CSD11X5Rule(void)
 {
 
 }
-//long CSD11X5Rule::GetFdShjDiff()
-//{
-//	if (strlen(m_lastExpect) == 0)
-//	{
-//		return 0;
-//	}
-//
-//	time_t current_t;
-//	//current_t = time(NULL);
-//	theApp->GetTime(current_t);
-//	time_t next_t = GetNextKjShj();
-//	double total = difftime(next_t,current_t);
-//
-//	return (long)total;
-//}
-////是否可撤单-离开奖时间大于两分钟
-//bool CSD11X5Rule::IsCanCancel(string qihao)
-//{
-//	//比下期旗号还要早，允许撤单
-//	if(qihao > GetNextExpect())
-//		return true;
-//
-//	if(qihao != GetNextExpect())
-//	{
-//		return false;
-//	}
-//
-//	return GetFdShjDiff() > fenDanDuration; 
-//}
+
 //下期期号
 string CSD11X5Rule::GetNextExpect(int nDelta)
 {
@@ -1622,86 +1592,67 @@ string CSD11X5Rule::GetNextExpect(int nDelta)
 	}
 
 	time_t ct;
-	//ct = time(NULL);
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
 	struct tm *my_tm = localtime(&ct);
-	string rQh;
-	int nQh = 1;
-	if ((my_tm->tm_hour == 8 && my_tm->tm_min>=35)||(my_tm->tm_hour>=9) && (my_tm->tm_hour < 22) || (my_tm->tm_hour == 22 && my_tm->tm_min<55)){
-		struct tm *tm_start = localtime(&ct);    		
-		tm_start->tm_hour = 8;
-		tm_start->tm_min = 25;
-		tm_start->tm_sec = 0;
-		time_t ctm = mktime(tm_start);	
-
-		long total = (long)difftime(ct,ctm);
-
-		//if(total % timespan_kj_shj >= 540)
-		//	nQh = total / timespan_kj_shj + 2;
-		//else
-			nQh = total / timespan_kj_shj + 1;		
-
-		char tmp[120] = {0};
-		sprintf(tmp, "%d%02d%02d%02d", tmLocal->tm_year + 1900,tmLocal->tm_mon + 1, tmLocal->tm_mday, nQh);
-		rQh = string(tmp);
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	int qishu=GetQiShu(sec);
+	////做出调整
+	//qishu += nDelta;
+ 
+	tm *tmLocal=my_tm;
+	if(sec>=82800)//期号算到第二天的第一期
+	{
+	    time_t ct1=GetMorningTime(ct+86400);
+	    tmLocal = localtime(&ct1);
 	}
-	else {
-		if(my_tm->tm_hour >= 23 ||((my_tm->tm_hour == 22 && my_tm->tm_min > 55 )))
-			ct += 86400;
-		//else 其他时间不要加1天
-		struct tm *tmp_tm = localtime(&ct);
-		char temp[KJ_QIHAO_LENGTH] = {0};
-		sprintf(temp, "%d%02d%02d01", tmp_tm->tm_year+1900, tmp_tm->tm_mon+1, tmp_tm->tm_mday);
-		rQh = string(temp);
-	}
+	char temp[64] = {0};
+	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
 
-	return rQh;
+	char last[64] = {0};
+	sprintf(last, "%s%02d", temp, qishu);
+	return last;
 }
 
-//下期开奖时间
 time_t CSD11X5Rule::GetNextKjShj()
 {
 	time_t ct;
-	//ct = time(NULL);
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
 	struct tm *my_tm = localtime(&ct);
-	string rQh;
-	if ((my_tm->tm_hour == 8 && my_tm->tm_min>=35 )|| (my_tm->tm_hour>=9) && (my_tm->tm_hour < 22) || (my_tm->tm_hour == 22 && my_tm->tm_min<55)){		
-	struct tm *tmp_tm = localtime(&ct);
-		tmp_tm->tm_hour = 8;
-		tmp_tm->tm_min = 25;
-		tmp_tm->tm_sec = 0;
-		time_t temp_start = mktime(tmp_tm);
 
-		//算出和第一期相差的时间
-		long total = (long)difftime(ct, temp_start); 
-		int nQihao = 1;
-
-		//if (total % timespan_kj_shj >= 540)
-		//{
-		//	nQihao = total / timespan_kj_shj+2;
-		//} else
-		//{
-			nQihao = total / timespan_kj_shj+1;
-		//}
-
-		temp_start += nQihao * timespan_kj_shj;
-
-		return temp_start;
-	}
-	else {
-		if(my_tm->tm_hour >= 23 ||((my_tm->tm_hour == 22 && my_tm->tm_min >= 55 )))
-			ct += 86400;
-		struct tm *tmp_tm = localtime(&ct);
-		tmp_tm->tm_hour = 8;
-		tmp_tm->tm_min = 25;
-		tmp_tm->tm_sec = 0;
-		return mktime(tmp_tm);
-	}
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	
+	int qishu=GetQiShu(sec);
+    int kjshj=GetKjShj(qishu);
+	time_t ct0=GetMorningTime(sec>=82800?ct+86400:ct);//凌晨零时整的时间戳
+	time_t t1 = ct0+kjshj;
+	return t1;
 }
 
+int CSD11X5Rule::GetQiShu(int sec)
+{
+	int qishu = 0;
+	if (sec < 32400||sec>=82800) //001期没开奖
+	{				
+		qishu = 1;
+	}
+	else if (sec >= 32400 && sec < 82800) //001期开奖——043期没开奖
+	{
+		long total = sec - 32400;
+		qishu = (int)(total / 1200+2);
+	}
+	return qishu;
+}
+
+int CSD11X5Rule::GetKjShj(int qishu)
+{
+	//等差数列求通项公式
+	if(qishu>=1 && qishu<=43)
+	{
+	   int iKjShj=32400+1200*(qishu-1);
+	   return iKjShj;
+	}
+	return 32400;
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //黑龙江11选5

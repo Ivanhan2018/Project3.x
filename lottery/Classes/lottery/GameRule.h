@@ -462,26 +462,14 @@ public:
 	virtual string GetNextExpect(int nDelta=0);
 	//下期开奖时间
 	virtual time_t GetNextKjShj();
-	//bool IsCanCancel(string qihao);
-	////离下次封单时间还剩下的时间
-	//long GetFdShjDiff();
 
-private:
-	//时间1 00:00-02:00
-	int m_t1_start;
-	int m_t1_end;
-	//时间2 10:00-22:00
-	int m_t2_start;
-	int m_t2_end;	
-	//时间3 22:00-24:00
-	int m_t3_start;
-	int m_t3_end;	
+	//获取期号
+	int GetQiShu(int sec);
+	//获取开奖时间
+	int GetKjShj(int qishu);	
 public:
 	static char m_lastExpect[KJ_QIHAO_LENGTH];
 	static char m_lastKjShj[KJ_SHIJIAN_LENGTH];
-
-	int timespan_kj_shj;
-	int timespan_ye_kj_shj;
 };
 
 
