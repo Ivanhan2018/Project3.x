@@ -2177,7 +2177,7 @@ int CBJPK10Rule::GetQiShu0()
 int CBJPK10Rule::GetQiShu(int sec)
 {
 	int qishu = 0;
-	if (sec < 34200) //第1期没开奖
+	if (sec < 34200||sec>=85800) //第1期没开奖
 	{				
 		qishu = 0;
 	}
@@ -2188,7 +2188,7 @@ int CBJPK10Rule::GetQiShu(int sec)
 	}
 	else //第44期开奖
 	{
-		qishu = 44;
+		qishu = 0;
 	}
 	return qishu;
 }
@@ -2201,7 +2201,7 @@ int CBJPK10Rule::GetKjShj(int qishu)
 	   int iKjShj=34200+1200*(qishu-1);
 	   return iKjShj;
 	}
-	return 0;
+	return 34200;
 }
 
 //下期期号
@@ -2235,60 +2235,13 @@ time_t CBJPK10Rule::GetNextKjShj()
 	theApp->GetTime(ct_now);
 	tm *tmLocal = localtime(&ct_now);
 
-	if ((tmLocal->tm_hour >9) && (tmLocal->tm_hour<23) || (tmLocal->tm_hour == 23) && (tmLocal->tm_min<57) || (tmLocal->tm_hour == 9) && (tmLocal->tm_min >= 7))
-	{
-		int TodayQihao = 1;
-
-		tm   tm_today;
-		memset(&tm_today,0,sizeof(tm));//增加分配内存操作
-		tm_today.tm_year = tmLocal->tm_year;
-		tm_today.tm_mon = tmLocal->tm_mon;
-		tm_today.tm_mday = tmLocal->tm_mday;
-		tm_today.tm_hour = 9;
-		tm_today.tm_min = 7;
-		tm_today.tm_sec = 30;
-
-		time_t t_todayFirst = mktime(&tm_today);
-
-		//先看今天到了多少期
-		long totalSecond = (long)difftime(ct_now, t_todayFirst);
-		//5分钟=300秒
-		//if ((int)totalSecond % 300 > 280)
-		//	TodayQihao = (int)(totalSecond/300) +  2;
-		//else
-			TodayQihao = (int)(totalSecond/300) + 1;	
-
-		t_todayFirst += TodayQihao * 300;
-
-		return t_todayFirst;
-
-	}
-	else if ((tmLocal->tm_hour<9) || (tmLocal->tm_hour == 9 && tmLocal->tm_min<7))
-	{
-		tm   tm_today;
-		memset(&tm_today,0,sizeof(tm));//增加分配内存操作
-		tm_today.tm_year = tmLocal->tm_year;
-		tm_today.tm_mon = tmLocal->tm_mon;
-		tm_today.tm_mday = tmLocal->tm_mday; //不加1
-		tm_today.tm_hour = 9;
-		tm_today.tm_min = 7;
-		tm_today.tm_sec = 30;
-		return mktime(&tm_today);
-	}
-	else
-	{
-		tm   tm_today;
-		memset(&tm_today,0,sizeof(tm));//增加分配内存操作
-		tm_today.tm_year = tmLocal->tm_year;
-		tm_today.tm_mon = tmLocal->tm_mon;
-		tm_today.tm_mday = tmLocal->tm_mday+1;		//+1 day
-		tm_today.tm_hour = 9;
-		tm_today.tm_min = 7;
-		tm_today.tm_sec = 30;
-		return mktime(&tm_today);
-	}
-
-	return mktime(tmLocal);
+    int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
+	
+	int qishu=GetQiShu(sec);
+    int kjshj=GetKjShj(qishu+1);
+	time_t ct0=GetMorningTime(sec>=85800?ct_now+86400:ct_now);//凌晨零时整的时间戳
+	time_t t1 = ct0+kjshj;
+	return t1;
 }
 
 
