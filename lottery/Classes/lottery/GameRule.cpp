@@ -524,7 +524,6 @@ time_t CCanadaSDWFRule::GetNextKjShj()
 
 ///////////////////////天津彩//////////////////////////////////////////////////////////
 CJxSSCRule::CJxSSCRule(void)
-	: timespan_fd_shj(60*9+15), timespan_kj_shj(600)
 {
 	fenDanDuration = 120-45; //封单时间180秒 修改为120秒
 }
@@ -604,9 +603,8 @@ int CJxSSCRule::GetKjShj(int qishu)
 
 //----------------------------------------------------------------
 CXJSSCRule::CXJSSCRule(void)
-	: timespan_fd_shj(600)
 {
-	fenDanDuration = 60;
+	fenDanDuration = 60-15;
 }
 
 CXJSSCRule::~CXJSSCRule(void)
@@ -621,197 +619,67 @@ string CXJSSCRule::GetNextExpect(int nDelta)
 
 	time_t ct;
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
-	string rQh;
-	if ((tmLocal->tm_hour == 10 && tmLocal->tm_min >= 10) || (tmLocal->tm_hour > 10 && tmLocal->tm_hour <=24))
+	struct tm *my_tm = localtime(&ct);
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	int qishu=GetQiShu(sec);
+	////做出调整
+	//qishu += nDelta;
+ 
+	tm *tmLocal=my_tm;
+	if(sec<37200)//期号算到前一天的后七期
 	{
-		tmLocal->tm_hour = 10;
-		tmLocal->tm_min = 0;
-		tmLocal->tm_sec = delay_xjssc;
-		time_t t1;
-		t1 = mktime(tmLocal);
-		long total = (long)difftime(ct, t1);
-		int qishu = 0;
-		//if (total %timespan_fd_shj >= 540)
-		//{
-		//	qishu = (int)(total / timespan_fd_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_fd_shj) + 1;
-		//}
-
-		char temp[64] = { 0 };
-		strftime(temp, sizeof(temp), "%Y%m%d", tmLocal);
-		char szlast[64] = { 0 };
-		sprintf(szlast, "%s%02d", temp, qishu);
-		return szlast;
+	    time_t ct1=GetMorningTime(ct-86400);
+	    tmLocal = localtime(&ct1);
 	}
-	else if (tmLocal->tm_hour >= 0 && tmLocal->tm_hour <= 2)
-	{
-		tmLocal->tm_hour = 0;
-		tmLocal->tm_min = 0;
-		tmLocal->tm_sec = delay_xjssc;
-		time_t t1;
-		t1 = mktime(tmLocal);
-		long total = (long)difftime(ct, t1);
-		int qishu = 0;
-		//if (total %timespan_fd_shj >= 540)
-		//{
-		//	qishu = (int)(total / timespan_fd_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_fd_shj) + 1;
-		//}
-		
-		qishu += 84;
+	char temp[64] = {0};
+	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
 
-		if(qishu > 96)
-		{
-			qishu -= 96;
-			char temp[64] = { 0 };				
-			strftime(temp, sizeof(temp), "%Y%m%d", tmLocal);
-			char szlast[64] = { 0 };
-			sprintf(szlast, "%s%02d", temp, qishu);
-			return szlast;
-		} else
-		{
-			char temp[64] = { 0 };	
-			auto tempCt = ct - 86400;
-			tm *tempLocal = localtime(&tempCt);
-			strftime(temp, sizeof(temp), "%Y%m%d", tempLocal);
-			char szlast[64] = { 0 };
-			sprintf(szlast, "%s%02d", temp, qishu);
-			return szlast;
-		}
-		
-	}
-	else 
-	{
-		struct tm *tmp_tm = localtime(&ct);
-		char temp[KJ_QIHAO_LENGTH] = {0};
-		sprintf(temp, "%d%02d%02d01", tmp_tm->tm_year+1900, tmp_tm->tm_mon+1, tmp_tm->tm_mday);
-		rQh = string(temp);
-	}
-
-	return rQh;
+	char last[64] = {0};
+	sprintf(last, "%s%02d", temp, qishu);
+	return last;
 }
 
-time_t CXJSSCRule::GetNextFdShj()
+time_t CXJSSCRule::GetNextKjShj()
 {
 	time_t ct;
 	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
-	string rQh;
-	if ((tmLocal->tm_hour == 10 && tmLocal->tm_min >= 10) || (tmLocal->tm_hour > 10 && tmLocal->tm_hour <= 24))
-	{
-		tmLocal->tm_hour = 10;
-		tmLocal->tm_min = 0;
-		tmLocal->tm_sec = delay_xjssc; 
-		time_t t1;
-		t1 = mktime(tmLocal);
-		long total = (long)difftime(ct, t1);
-		int qishu = 0;
-		//if (total %timespan_fd_shj >= 540)
-		//{
-		//	qishu = (int)(total / timespan_fd_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_fd_shj) + 1;
-		//}
-		t1 += qishu * timespan_fd_shj;
-		return t1;
-	}
-	else if ((tmLocal->tm_hour >= 10 && tmLocal->tm_hour <= 24) || (tmLocal->tm_hour >= 0 && tmLocal->tm_hour <= 2))
-	{
-		tmLocal->tm_hour = 0;
-		tmLocal->tm_min = 0;
-		tmLocal->tm_sec = delay_xjssc; 
-		time_t t1;
-		t1 = mktime(tmLocal);
-		long total = (long)difftime(ct, t1);
-		int qishu = 0;
-		//if (total %timespan_fd_shj >= 540)
-		//{
-		//	qishu = (int)(total / timespan_fd_shj) + 2;
-		//}
-		//else
-		//{
-			qishu = (int)(total / timespan_fd_shj) + 1;
-		//}
+	struct tm *my_tm = localtime(&ct);
 
-		//qishu += 84;
-		t1 += qishu * timespan_fd_shj;
-		return t1;
-	}
-	else
-	{
-		tmLocal->tm_hour = 10;
-		tmLocal->tm_min = 10;
-		tmLocal->tm_sec = delay_xjssc;
-		time_t t1;
-		t1 = mktime(tmLocal);
-		return t1;
-	}
-
+    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
+	
+	int qishu=GetQiShu(sec);
+    int kjshj=GetKjShj(qishu);
+	time_t ct0=GetMorningTime(ct);//凌晨零时整的时间戳
+	time_t t1 = ct0+kjshj;
+	return t1;
 }
 
-//long CXJSSCRule::GetFdShjDiff()
-//{
-//	if (strlen(m_lastExpect) == 0)
-//	{
-//		return 0;
-//	}
-//
-//	time_t current_t;
-//	//ct = time(NULL);
-//	theApp->GetTime(current_t);
-//	time_t next_t = GetNextFdShj();
-//	double total = difftime(next_t,current_t);
-//
-//	return (long)total;
-//}
-//
-//string CXJSSCRule::GetFdShjDiffDesc()
-//{
-//	if (strlen(m_lastExpect) == 0)
-//	{
-//		return "00:00";
-//	}
-//
-//	long secDiff = GetFdShjDiff();
-//	if (secDiff <= 60 || secDiff > 540)
-//	{
-//		return "00:00";
-//	}
-//
-//	int minute = secDiff / 60 - 1;
-//	int second = secDiff % 60;
-//
-//	char temp[120] = {0};
-//	sprintf(temp, "%02d:%02d", minute, second);
-//	string str = string(temp);
-//
-//	return str;
-//}
-//
-////是否可撤单-离开奖时间大于两分钟
-//bool CXJSSCRule::IsCanCancel(string qihao)
-//{
-//	//比下期旗号还要早，允许撤单
-//	if(qihao > GetNextExpect())
-//		return true;
-//
-//	if(qihao != GetNextExpect())
-//	{
-//		return false;
-//	}
-//
-//	return GetFdShjDiff() > fenDanDuration; 
-//}
+int CXJSSCRule::GetQiShu(int sec)
+{
+	int sec1=(sec+86400-7200)%86400;//乌鲁木齐时间sec1比北京时间sec晚两个小时
+	int qishu = 0;
+	if (sec1 < 30000) //001期没开奖
+	{				
+		qishu = 1;
+	}
+	else if (sec1 >= 30000 && sec1 < 86400) //001期开奖——048期没开奖
+	{
+		long total = sec1 - 30000;
+		qishu = (int)(total / 1200+2);
+	}
+	return qishu;
+}
 
+int CXJSSCRule::GetKjShj(int qishu)
+{
+	//等差数列求通项公式
+	if(qishu>=1 && qishu<=48)
+	{
+	   int iKjShj=37200+1200*(qishu-1);//取值范围为[30000, 93600]
+	   return iKjShj;
+	}
+	return 37200;
+}
 ////////////////////////////////////////////
 
 CFenFenCaiRule::CFenFenCaiRule(void)
