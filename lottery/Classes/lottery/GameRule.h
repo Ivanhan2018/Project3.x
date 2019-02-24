@@ -178,9 +178,9 @@ public:
 	virtual time_t GetNextKjShj();
 
 	//获取期号
-	int GetQiShu(int sec);
+	virtual int GetQiShu(int sec);
 	//获取开奖时间
-	int GetKjShj(int qishu);
+	virtual int GetKjShj(int qishu);
 };
 
 
@@ -330,22 +330,17 @@ private:
 
 ///////////////////////////////////////////////////////////////////////////
 //广东11选5
-class CGD11X5Rule : public CGameRule
+class CGD11X5Rule : public CJxSSCRule
 {
 public:
 	CGD11X5Rule(void);
+	CGD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
 	virtual ~CGD11X5Rule(void);
 
 public:
 	//下期期号
 	virtual string GetNextExpect(int nDelta=0);
-	//下期开奖时间
-	virtual time_t GetNextKjShj();
 
-	//获取期号
-	int GetQiShu(int sec);
-	//获取开奖时间
-	int GetKjShj(int qishu);
 public:
 	static char m_lastExpect[KJ_QIHAO_LENGTH];
 	static char m_lastKjShj[KJ_SHIJIAN_LENGTH];
@@ -457,22 +452,17 @@ public:
 };
 ///////////////////////////////////////////////////////////////
 //山东11选5
-class CSD11X5Rule : public CGameRule
+class CSD11X5Rule : public CJxSSCRule
 {
 public:
 	CSD11X5Rule(void);
+	CSD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
 	virtual ~CSD11X5Rule(void);
 
 public:
 	//下期期号
 	virtual string GetNextExpect(int nDelta=0);
-	//下期开奖时间
-	virtual time_t GetNextKjShj();
 
-	//获取期号
-	int GetQiShu(int sec);
-	//获取开奖时间
-	int GetKjShj(int qishu);	
 public:
 	static char m_lastExpect[KJ_QIHAO_LENGTH];
 	static char m_lastKjShj[KJ_SHIJIAN_LENGTH];

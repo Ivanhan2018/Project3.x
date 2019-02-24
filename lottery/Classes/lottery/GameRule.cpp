@@ -1226,7 +1226,15 @@ char CGD11X5Rule::m_lastExpect[KJ_QIHAO_LENGTH] = "";
 char CGD11X5Rule::m_lastKjShj[KJ_SHIJIAN_LENGTH] = "";
 CGD11X5Rule::CGD11X5Rule(void)
 {
-	fenDanDuration = 60;
+	m_iKjShjFirst=34200;
+	m_iKjShjLast=83400;
+	m_qishu=42;
+	m_timespan=1200;
+	fenDanDuration = 60; //封单时间
+}
+
+CGD11X5Rule::CGD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan):CJxSSCRule(iKjShjFirst,iKjShjLast,qishu,timespan,fdtimespan)
+{
 }
 
 CGD11X5Rule::~CGD11X5Rule(void)
@@ -1253,7 +1261,7 @@ string CGD11X5Rule::GetNextExpect(int nDelta)
 	//qishu += nDelta;
  
 	tm *tmLocal=my_tm;
-	if(sec>=83400)//期号算到第二天的第一期
+	if(sec>=m_iKjShjLast)//期号算到第二天的第一期
 	{
 	    time_t ct1=GetMorningTime(ct+86400);
 	    tmLocal = localtime(&ct1);
@@ -1264,47 +1272,6 @@ string CGD11X5Rule::GetNextExpect(int nDelta)
 	char last[64] = {0};
 	sprintf(last, "%s%02d", temp, qishu);
 	return last;
-}
-
-time_t CGD11X5Rule::GetNextKjShj()
-{
-	time_t ct;
-	theApp->GetTime(ct);
-	struct tm *my_tm = localtime(&ct);
-
-    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
-	
-	int qishu=GetQiShu(sec);
-    int kjshj=GetKjShj(qishu);
-	time_t ct0=GetMorningTime(sec>=83400?ct+86400:ct);//凌晨零时整的时间戳
-	time_t t1 = ct0+kjshj;
-	return t1;
-}
-
-int CGD11X5Rule::GetQiShu(int sec)
-{
-	int qishu = 0;
-	if (sec < 34200||sec>=83400) //001期没开奖
-	{				
-		qishu = 1;
-	}
-	else if (sec >= 34200 && sec < 83400) //001期开奖——042期没开奖
-	{
-		long total = sec - 34200;
-		qishu = (int)(total / 1200+2);
-	}
-	return qishu;
-}
-
-int CGD11X5Rule::GetKjShj(int qishu)
-{
-	//等差数列求通项公式
-	if(qishu>=1 && qishu<=42)
-	{
-	   int iKjShj=34200+1200*(qishu-1);
-	   return iKjShj;
-	}
-	return 34200;
 }
 
 ////////////////////////////////////////////
@@ -1586,7 +1553,15 @@ char CSD11X5Rule::m_lastKjShj[KJ_SHIJIAN_LENGTH] = "";
 
 CSD11X5Rule::CSD11X5Rule(void)
 {
-	fenDanDuration = 50+10;
+	m_iKjShjFirst=32400;
+	m_iKjShjLast=82800;
+	m_qishu=43;
+	m_timespan=1200;
+	fenDanDuration = 50+10; //封单时间
+}
+
+CSD11X5Rule::CSD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan):CJxSSCRule(iKjShjFirst,iKjShjLast,qishu,timespan,fdtimespan)
+{
 }
 
 CSD11X5Rule::~CSD11X5Rule(void)
@@ -1613,7 +1588,7 @@ string CSD11X5Rule::GetNextExpect(int nDelta)
 	//qishu += nDelta;
  
 	tm *tmLocal=my_tm;
-	if(sec>=82800)//期号算到第二天的第一期
+	if(sec>=m_iKjShjLast)//期号算到第二天的第一期
 	{
 	    time_t ct1=GetMorningTime(ct+86400);
 	    tmLocal = localtime(&ct1);
@@ -1624,47 +1599,6 @@ string CSD11X5Rule::GetNextExpect(int nDelta)
 	char last[64] = {0};
 	sprintf(last, "%s%02d", temp, qishu);
 	return last;
-}
-
-time_t CSD11X5Rule::GetNextKjShj()
-{
-	time_t ct;
-	theApp->GetTime(ct);
-	struct tm *my_tm = localtime(&ct);
-
-    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
-	
-	int qishu=GetQiShu(sec);
-    int kjshj=GetKjShj(qishu);
-	time_t ct0=GetMorningTime(sec>=82800?ct+86400:ct);//凌晨零时整的时间戳
-	time_t t1 = ct0+kjshj;
-	return t1;
-}
-
-int CSD11X5Rule::GetQiShu(int sec)
-{
-	int qishu = 0;
-	if (sec < 32400||sec>=82800) //001期没开奖
-	{				
-		qishu = 1;
-	}
-	else if (sec >= 32400 && sec < 82800) //001期开奖——043期没开奖
-	{
-		long total = sec - 32400;
-		qishu = (int)(total / 1200+2);
-	}
-	return qishu;
-}
-
-int CSD11X5Rule::GetKjShj(int qishu)
-{
-	//等差数列求通项公式
-	if(qishu>=1 && qishu<=43)
-	{
-	   int iKjShj=32400+1200*(qishu-1);
-	   return iKjShj;
-	}
-	return 32400;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
