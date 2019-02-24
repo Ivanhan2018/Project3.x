@@ -2145,7 +2145,7 @@ CBJPK10Rule::CBJPK10Rule(void)
 #if 0
 	tm tm_today;
 	tm_today.tm_hour = 9;
-	tm_today.tm_min = 10;
+	tm_today.tm_min = 30;
 	tm_today.tm_sec = 0;
 	tm_today.tm_year = 119;
 	tm_today.tm_mon = 1;
@@ -2155,7 +2155,7 @@ CBJPK10Rule::CBJPK10Rule(void)
 	tm_today.tm_isdst = 0;
 	m_tStartTime=mktime(&tm_today);
 #else
-    m_tStartTime = 1550884200;
+    m_tStartTime = 1550885400;
 #endif
 	m_nStartQihao = 729920;
 }
@@ -2169,7 +2169,7 @@ int CBJPK10Rule::GetQiShu0()
 {
 	time_t ct;
 	theApp->GetTime(ct);
-    time_t tStartTime=GetMorningTime(ct)+33000;
+    time_t tStartTime=GetMorningTime(ct)+34200;//今天第一期的开奖时间
 	int qishu0 = m_nStartQihao + (tStartTime - m_tStartTime )/ 86400 * 44;
 	return qishu0;
 }
@@ -2177,14 +2177,14 @@ int CBJPK10Rule::GetQiShu0()
 int CBJPK10Rule::GetQiShu(int sec)
 {
 	int qishu = 0;
-	if (sec < 33000) //第1期没开奖
+	if (sec < 34200) //第1期没开奖
 	{				
 		qishu = 0;
 	}
-	else if (sec >= 33000 && sec<85800) //第1期开奖——第44期没开奖
+	else if (sec >= 34200 && sec<85800) //第1期开奖——第44期没开奖
 	{				
-		long total = sec - 33000;
-		qishu = (int)(total / 1200 + 1);
+		long total = sec - 34200;
+		qishu = (int)(total / 1200+1);
 	}
 	else //第44期开奖
 	{
@@ -2198,7 +2198,7 @@ int CBJPK10Rule::GetKjShj(int qishu)
 	//等差数列求通项公式
 	if(qishu>=1 && qishu<=44)
 	{
-	   int iKjShj=33000+1200*(qishu-1);
+	   int iKjShj=34200+1200*(qishu-1);
 	   return iKjShj;
 	}
 	return 0;
@@ -2209,20 +2209,20 @@ string CBJPK10Rule::GetNextExpect(int nDelta)
 {
 	if(getIsStopSell()) return "0";
 	
-	xDate	xD;
-	int iLunarYear=0;
-	int iLunarMon=0;
-	int iLunarDay=0;
+	//xDate	xD;
+	//int iLunarYear=0;
+	//int iLunarMon=0;
+	//int iLunarDay=0;
 	time_t ct_now;
 	theApp->GetTime(ct_now);
 	tm *tmLocal = localtime(&ct_now);
-	xD.GetLunarDate(1900+tmLocal->tm_year, tmLocal->tm_mon+1, tmLocal->tm_mday, iLunarYear, iLunarMon, iLunarDay);
-	int nRestDays = (1900+tmLocal->tm_year-iLunarYear)*7;
+	//xD.GetLunarDate(1900+tmLocal->tm_year, tmLocal->tm_mon+1, tmLocal->tm_mday, iLunarYear, iLunarMon, iLunarDay);
+	//int nRestDays = (1900+tmLocal->tm_year-iLunarYear)*7;
     int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
 	int qishu=GetQiShu(sec);
 	int qishu0 = GetQiShu0();
 	int nQiHao = qishu0+qishu;
-	nQiHao -= nRestDays* 44;	//扣除休息日7天
+	//nQiHao -= nRestDays* 44;	//扣除休息日7天
 	char sztmp[32];
 	sprintf(sztmp, "%ld", nQiHao);
 	return string(sztmp);
