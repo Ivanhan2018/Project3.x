@@ -2673,7 +2673,7 @@ int CKuaiLe8Rule::GetQiShu(int sec)
 	{				
 		qishu = 0;
 	}
-	else if (sec >= 32700 && sec<86100) //第1期开奖——第44期没开奖
+	else if (sec >= 32700 && sec<86100) //第1期开奖——第179期没开奖
 	{				
 		long total = sec - 32700;
 		qishu = (int)(total / 300+1);
