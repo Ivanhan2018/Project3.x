@@ -633,6 +633,12 @@ public:
 	//下期开奖时间
 	virtual time_t GetNextKjShj();
 
+	//获取今天第一期的期号	
+	int GetQiShu0();
+	//今天到了多少期
+	int GetQiShu(int sec);
+	//获取开奖时间
+	int GetKjShj(int qishu);
 private:
 
 	int timespan_kj_shj;

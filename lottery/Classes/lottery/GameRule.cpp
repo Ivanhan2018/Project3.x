@@ -2631,8 +2631,23 @@ time_t CQiXingCaiRule::GetNextKjShj()
 CKuaiLe8Rule::CKuaiLe8Rule(void)
 	: timespan_kj_shj(300)
 {
-	m_nStartQihao = 805244-7;
-	m_tStartTime = 1486083900;
+    //937517	0103091012212325273132384145535758686977	2019-02-23 09:05:16 
+#if 0
+	tm tm_today;
+	tm_today.tm_hour = 9;
+	tm_today.tm_min = 5;
+	tm_today.tm_sec = 0;
+	tm_today.tm_year = 119;
+	tm_today.tm_mon = 1;
+	tm_today.tm_mday = 23;
+	tm_today.tm_wday = 6;
+	tm_today.tm_yday = 53;
+	tm_today.tm_isdst = 0;
+	m_tStartTime=mktime(&tm_today);
+#else
+    m_tStartTime = 1550883900;
+#endif
+	m_nStartQihao = 937517;
 
 	fenDanDuration = 60;
 }
@@ -2642,64 +2657,60 @@ CKuaiLe8Rule::~CKuaiLe8Rule(void)
 	
 }
 
+int CKuaiLe8Rule::GetQiShu0()
+{
+	time_t ct;
+	theApp->GetTime(ct);
+    time_t tStartTime=GetMorningTime(ct)+32700;//今天第一期的开奖时间
+	int qishu0 = m_nStartQihao + (tStartTime - m_tStartTime )/ 86400 * 179;
+	return qishu0;
+}
+
+int CKuaiLe8Rule::GetQiShu(int sec)
+{
+	int qishu = 0;
+	if (sec < 32700||sec>=86100) //第1期没开奖
+	{				
+		qishu = 0;
+	}
+	else if (sec >= 32700 && sec<86100) //第1期开奖——第44期没开奖
+	{				
+		long total = sec - 32700;
+		qishu = (int)(total / 300+1);
+	}
+	else //第179期开奖
+	{
+		qishu = 0;
+	}
+	return qishu;
+}
+
+int CKuaiLe8Rule::GetKjShj(int qishu)
+{
+	//等差数列求通项公式
+	if(qishu>=1 && qishu<=179)
+	{
+	   int iKjShj=32700+300*(qishu-1);
+	   return iKjShj;
+	}
+	return 32700;
+}
+
 //下期期号
 string CKuaiLe8Rule::GetNextExpect(int nDelta)
 {
 	if(getIsStopSell()) return "0";
 
-	int nQiHao =0;
-
-	xDate	xD;
-	int iLunarYear=0;
-	int iLunarMon=0;
-	int iLunarDay=0;
 	time_t ct_now;
 	theApp->GetTime(ct_now);
 	tm *tmLocal = localtime(&ct_now);
-
-	xD.GetLunarDate(1900+tmLocal->tm_year, tmLocal->tm_mon+1, tmLocal->tm_mday, iLunarYear, iLunarMon, iLunarDay);
-	int nRestDays = (iLunarYear - 2017)*4;		//not 7, but 4 休息日，放过过年放假的期号
-
-	int TodayQihao = 1;
-	if ((tmLocal->tm_hour >= 9)&&(tmLocal->tm_hour < 23)  || (tmLocal->tm_hour == 23)&&(tmLocal->tm_min < 55))
-	{		
-		tm *tmToday = localtime(&ct_now);
-		tmToday->tm_hour = 9;
-		tmToday->tm_min = 5;
-		tmToday->tm_sec = 0;
-
-		time_t tCha = mktime(tmToday);
-
-		long deltaToday = ct_now - tCha;
-
-		//if(deltaToday % 300 > 280)
-		//	TodayQihao = deltaToday / 300 + 2;
-		//else
-			TodayQihao = deltaToday / 300 + 1;
-	}
-	else
-	{	
-		time_t ct_today = ct_now;
-
-		if((tmLocal->tm_hour == 23)&&(tmLocal->tm_min > 55)) 
-		{
-			ct_today += 86400;
-		}	
-		tm *tmToday = localtime(&ct_today);
-		tmToday->tm_hour = 9;
-		tmToday->tm_min = 5;
-		tmToday->tm_sec = 0;
-
-		ct_now = mktime(tmToday);		
-
-		TodayQihao = 0;
-	}
-
-	long deltaNow = ct_now - m_tStartTime;
-
-	nQiHao = m_nStartQihao + deltaNow / 86400 * 179 + TodayQihao + nDelta;
-	nQiHao -= nRestDays * 179;
-	return String::createWithFormat("%ld", nQiHao)->getCString();
+    int sec=GetSecByHMS(tmLocal->tm_hour,tmLocal->tm_min,tmLocal->tm_sec);
+	int qishu=GetQiShu(sec);
+	int qishu0 = GetQiShu0();
+	int nQiHao = qishu0+qishu;
+	char sztmp[32];
+	sprintf(sztmp, "%ld", nQiHao);
+	return string(sztmp);
 }
 
 //下期开奖时间
