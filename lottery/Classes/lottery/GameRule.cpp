@@ -617,7 +617,20 @@ int CJxSSCRule::GetKjShj(int qishu)
 //----------------------------------------------------------------
 CXJSSCRule::CXJSSCRule(void)
 {
-	fenDanDuration = 60-15;
+	m_iKjShjFirst=37200;
+	m_iKjShjLast=93600;//第二天的凌晨2时整
+	m_qishu=48;
+	m_timespan=1200;
+	fenDanDuration = 60;//封单时间
+}
+
+CXJSSCRule::CXJSSCRule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan)
+{
+	m_iKjShjFirst=iKjShjFirst;
+	m_iKjShjLast=iKjShjLast;
+	m_qishu=qishu;
+	m_timespan=timespan;
+	fenDanDuration = fdtimespan;
 }
 
 CXJSSCRule::~CXJSSCRule(void)
@@ -639,7 +652,7 @@ string CXJSSCRule::GetNextExpect(int nDelta)
 	//qishu += nDelta;
  
 	tm *tmLocal=my_tm;
-	if(sec<37200)//期号算到前一天的后七期
+	if(sec<m_iKjShjLast-86400)//期号算到前一天的后七期
 	{
 	    time_t ct1=GetMorningTime(ct-86400);
 	    tmLocal = localtime(&ct1);
@@ -669,16 +682,17 @@ time_t CXJSSCRule::GetNextKjShj()
 
 int CXJSSCRule::GetQiShu(int sec)
 {
-	int sec1=(sec+86400-7200)%86400;//乌鲁木齐时间sec1比北京时间sec晚两个小时
+	int sc=m_iKjShjLast-86400;//时差为2小时
+	int sec1=(sec+86400-sc)%86400;//乌鲁木齐时间sec1比北京时间sec晚两个小时
 	int qishu = 0;
-	if (sec1 < 30000) //001期没开奖
+	if (sec1 < (m_iKjShjFirst-sc)) //001期没开奖
 	{				
 		qishu = 1;
 	}
-	else if (sec1 >= 30000 && sec1 < 86400) //001期开奖——048期没开奖
+	else if (sec1 >= (m_iKjShjFirst-sc) && sec1 < (m_iKjShjLast-sc)) //001期开奖——m_qishu期没开奖
 	{
-		long total = sec1 - 30000;
-		qishu = (int)(total / 1200+2);
+		long total = sec1 - (m_iKjShjFirst-sc);
+		qishu = (int)(total / m_timespan+2);
 	}
 	return qishu;
 }
@@ -686,12 +700,12 @@ int CXJSSCRule::GetQiShu(int sec)
 int CXJSSCRule::GetKjShj(int qishu)
 {
 	//等差数列求通项公式
-	if(qishu>=1 && qishu<=48)
+	if(qishu>=1 && qishu<=m_qishu)
 	{
-	   int iKjShj=37200+1200*(qishu-1);//取值范围为[30000, 93600]
+	   int iKjShj=m_iKjShjFirst+m_timespan*(qishu-1);//取值范围为[m_iKjShjFirst, m_iKjShjLast]
 	   return iKjShj;
 	}
-	return 37200;
+	return m_iKjShjFirst;
 }
 ////////////////////////////////////////////
 

@@ -190,18 +190,19 @@ class CXJSSCRule  : public CGameRule
 {
 public:
 	CXJSSCRule(void);
+	CXJSSCRule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
 	virtual ~CXJSSCRule(void);
 
 public:
 	//下期期号
-	string GetNextExpect(int nDelta=0);
+	virtual string GetNextExpect(int nDelta=0);
 	//下期开奖时间
 	virtual time_t GetNextKjShj();
 
 	//获取期号
-	int GetQiShu(int sec);
+	virtual int GetQiShu(int sec);
 	//获取开奖时间
-	int GetKjShj(int qishu);
+	virtual int GetKjShj(int qishu);
 };
 
 ////////////////////////////////////////////////////////////////////////
