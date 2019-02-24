@@ -227,7 +227,7 @@ void ChongQingGambleLayer::setGameKind(CaiZhong kind)
 			gameRule = new CFC3DRule();
 		else if (gameKind == CZ_TIANJIN_SSC) 
 		{
-			gameRule = new CJxSSCRule();
+			gameRule = new CJxSSCRule(33600,82800,42,1200,45);
 		}
 		else if (gameKind == CZ_KOREA_FEN_CAI)
 		{

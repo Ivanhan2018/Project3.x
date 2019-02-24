@@ -525,7 +525,20 @@ time_t CCanadaSDWFRule::GetNextKjShj()
 ///////////////////////天津彩//////////////////////////////////////////////////////////
 CJxSSCRule::CJxSSCRule(void)
 {
-	fenDanDuration = 120-45; //封单时间180秒 修改为120秒
+	m_iKjShjFirst=33600;
+	m_iKjShjLast=82800;
+	m_qishu=42;
+	m_timespan=1200;
+	fenDanDuration = 45; //封单时间
+}
+
+CJxSSCRule::CJxSSCRule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan)
+{
+	m_iKjShjFirst=iKjShjFirst;
+	m_iKjShjLast=iKjShjLast;
+	m_qishu=qishu;
+	m_timespan=timespan;
+	fenDanDuration = fdtimespan;
 }
 
 CJxSSCRule::~CJxSSCRule(void)
@@ -547,7 +560,7 @@ string CJxSSCRule::GetNextExpect(int nDelta)
 	//qishu += nDelta;
  
 	tm *tmLocal=my_tm;
-	if(sec>=82800)//期号算到第二天的第一期
+	if(sec>=m_iKjShjLast)//期号算到第二天的第一期
 	{
 	    time_t ct1=GetMorningTime(ct+86400);
 	    tmLocal = localtime(&ct1);
@@ -570,7 +583,7 @@ time_t CJxSSCRule::GetNextKjShj()
 	
 	int qishu=GetQiShu(sec);
     int kjshj=GetKjShj(qishu);
-	time_t ct0=GetMorningTime(sec>=82800?ct+86400:ct);//凌晨零时整的时间戳
+	time_t ct0=GetMorningTime(sec>=m_iKjShjLast?ct+86400:ct);//凌晨零时整的时间戳
 	time_t t1 = ct0+kjshj;
 	return t1;
 }
@@ -578,14 +591,14 @@ time_t CJxSSCRule::GetNextKjShj()
 int CJxSSCRule::GetQiShu(int sec)
 {
 	int qishu = 0;
-	if (sec < 33600||sec>=82800) //001期没开奖
+	if (sec < m_iKjShjFirst||sec>=m_iKjShjLast) //001期没开奖
 	{				
 		qishu = 1;
 	}
-	else if (sec >= 33600 && sec < 82800) //001期开奖——042期没开奖
+	else if (sec >= m_iKjShjFirst && sec < m_iKjShjLast) //001期开奖——m_qishu期没开奖
 	{
-		long total = sec - 33600;
-		qishu = (int)(total / 1200+2);
+		long total = sec - m_iKjShjFirst;
+		qishu = (int)(total / m_timespan+2);
 	}
 	return qishu;
 }
@@ -593,12 +606,12 @@ int CJxSSCRule::GetQiShu(int sec)
 int CJxSSCRule::GetKjShj(int qishu)
 {
 	//等差数列求通项公式
-	if(qishu>=1 && qishu<=42)
+	if(qishu>=1 && qishu<=m_qishu)
 	{
-	   int iKjShj=33600+1200*(qishu-1);
+	   int iKjShj=m_iKjShjFirst+m_timespan*(qishu-1);
 	   return iKjShj;
 	}
-	return 33600;
+	return m_iKjShjFirst;
 }
 
 //----------------------------------------------------------------

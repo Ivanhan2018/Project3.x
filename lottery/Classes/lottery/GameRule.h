@@ -46,6 +46,11 @@ public:
 	int  m_nStartQihao;      //开始的期号
 	time_t	m_tStartTime;	//开始的时间
 
+	int m_iKjShjFirst;//每天第一期开奖时间
+	int m_iKjShjLast;//每天最后一期开奖时间
+	int m_qishu;//每天开奖期数
+	int m_timespan;//开奖频率
+
 	//是否在封单时间内
 	bool IsFenDanDuration();
 
@@ -163,6 +168,7 @@ class CJxSSCRule  : public CGameRule
 {
 public:
 	CJxSSCRule(void);
+	CJxSSCRule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
 	virtual ~CJxSSCRule(void);
 
 public:
