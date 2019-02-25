@@ -1731,7 +1731,7 @@ void GuangDong11Xuan5Layer::setGameKind(CaiZhong kind)
 		else if(gameKind == CZJX11Xuan5)
 			gameRule = new CGD11X5Rule(CZJX11Xuan5,"%s%02d",34200,83400,42,1200,60);
 		else if(gameKind == CZ_HLJ11Xuan5)
-			gameRule = new CHlj11X5Rule();
+			gameRule = new CGD11X5Rule(CZ_HLJ11Xuan5,"%s%02d",30300,81900,44,1200,50);
 		this->addChild(gameRule);
 
 		m_bIsFendan = gameRule->IsFenDanDuration();
