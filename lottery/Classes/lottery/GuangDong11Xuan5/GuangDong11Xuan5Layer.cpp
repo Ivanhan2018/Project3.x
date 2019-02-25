@@ -723,32 +723,32 @@ void GuangDong11Xuan5Layer::queryGameRet(Object *obj)
 			szShijian->retain();
 			if(id->getValue() == CZGD11Xuan5)
 			{
-				memset(CGD11X5Rule::m_lastExpect, 0, KJ_QIHAO_LENGTH);
-				memset(CGD11X5Rule::m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
-				memcpy(CGD11X5Rule::m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
-				memcpy(CGD11X5Rule::m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
+				memset(CGD11X5Rule::m_mapStr[CZGD11Xuan5].m_lastExpect, 0, KJ_QIHAO_LENGTH);
+				memset(CGD11X5Rule::m_mapStr[CZGD11Xuan5].m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
+				memcpy(CGD11X5Rule::m_mapStr[CZGD11Xuan5].m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
+				memcpy(CGD11X5Rule::m_mapStr[CZGD11Xuan5].m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
 			}
 			if(id->getValue() == CZSD11Xuan5)
 			{
-				memset(CSD11X5Rule::m_lastExpect, 0, KJ_QIHAO_LENGTH);
-				memset(CSD11X5Rule::m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
-				memcpy(CSD11X5Rule::m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
-				memcpy(CSD11X5Rule::m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
+				memset(CGD11X5Rule::m_mapStr[CZSD11Xuan5].m_lastExpect, 0, KJ_QIHAO_LENGTH);
+				memset(CGD11X5Rule::m_mapStr[CZSD11Xuan5].m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
+				memcpy(CGD11X5Rule::m_mapStr[CZSD11Xuan5].m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
+				memcpy(CGD11X5Rule::m_mapStr[CZSD11Xuan5].m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
 			}
 			if(id->getValue() ==  CZJX11Xuan5)
 			{
-				memset(CJX11X5Rule::m_lastExpect, 0, KJ_QIHAO_LENGTH);
-				memset(CJX11X5Rule::m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
-				memcpy(CJX11X5Rule::m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
-				memcpy(CJX11X5Rule::m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
+				memset(CGD11X5Rule::m_mapStr[CZJX11Xuan5].m_lastExpect, 0, KJ_QIHAO_LENGTH);
+				memset(CGD11X5Rule::m_mapStr[CZJX11Xuan5].m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
+				memcpy(CGD11X5Rule::m_mapStr[CZJX11Xuan5].m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
+				memcpy(CGD11X5Rule::m_mapStr[CZJX11Xuan5].m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
 
 			}
 			if(id->getValue() ==  CZ_HLJ11Xuan5)
 			{
-				memset(CHlj11X5Rule::m_lastExpect, 0, KJ_QIHAO_LENGTH);
-				memset(CHlj11X5Rule::m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
-				memcpy(CHlj11X5Rule::m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
-				memcpy(CHlj11X5Rule::m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
+				memset(CGD11X5Rule::m_mapStr[CZ_HLJ11Xuan5].m_lastExpect, 0, KJ_QIHAO_LENGTH);
+				memset(CGD11X5Rule::m_mapStr[CZ_HLJ11Xuan5].m_lastKjShj, 0, KJ_SHIJIAN_LENGTH);
+				memcpy(CGD11X5Rule::m_mapStr[CZ_HLJ11Xuan5].m_lastExpect, mPeriod->getCString(), strlen(mPeriod->getCString()));
+				memcpy(CGD11X5Rule::m_mapStr[CZ_HLJ11Xuan5].m_lastKjShj, szShijian->getCString(), strlen(szShijian->getCString()));
 					
 			}
 			//this->updateLotteryId();
@@ -1726,10 +1726,10 @@ void GuangDong11Xuan5Layer::setGameKind(CaiZhong kind)
 			gameRule = new CGD11X5Rule();
 		}else if(gameKind == CZSD11Xuan5)
 		{
-			gameRule = new CSD11X5Rule();
+			gameRule = new CGD11X5Rule(CZSD11Xuan5,"%s%02d",32400,82800,43,1200,60);
 		}
 		else if(gameKind == CZJX11Xuan5)
-			gameRule = new CJX11X5Rule();
+			gameRule = new CGD11X5Rule(CZJX11Xuan5,"%s%02d",34200,83400,42,1200,60);
 		else if(gameKind == CZ_HLJ11Xuan5)
 			gameRule = new CHlj11X5Rule();
 		this->addChild(gameRule);

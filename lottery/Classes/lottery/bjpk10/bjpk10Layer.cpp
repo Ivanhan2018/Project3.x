@@ -1689,7 +1689,7 @@ void bjpk10Layer::setGameKind(CaiZhong kind)
 		}
 		else if (gameKind == CZSD11Xuan5)
 		{
-			gameRule = new CSD11X5Rule();
+			gameRule = new CGD11X5Rule(CZSD11Xuan5,"%s%02d",32400,82800,43,1200,60);
 		}
 		else if (gameKind == CZ_BJPK10)
 			gameRule = new CBJPK10Rule();
