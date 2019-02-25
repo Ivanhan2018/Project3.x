@@ -330,12 +330,22 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////////
-//广东11选5
+//广东11选5、山东11选5、江西11选5
 class CGD11X5Rule : public CJxSSCRule
 {
 public:
+	struct tagStr
+	{
+		tagStr()
+		{
+			memset(this,0,sizeof(*this));
+		}
+		char m_lastExpect[KJ_QIHAO_LENGTH];
+	    char m_lastKjShj[KJ_SHIJIAN_LENGTH];  
+	};
+
 	CGD11X5Rule(void);
-	CGD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
+	CGD11X5Rule(CaiZhong gameKind,const char *para1,int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
 	virtual ~CGD11X5Rule(void);
 
 public:
@@ -343,8 +353,9 @@ public:
 	virtual string GetNextExpect(int nDelta=0);
 
 public:
-	static char m_lastExpect[KJ_QIHAO_LENGTH];
-	static char m_lastKjShj[KJ_SHIJIAN_LENGTH];
+	static map<CaiZhong,tagStr> m_mapStr;
+	CaiZhong m_gameKind;
+	char m_para1[20];
 };
 
 //////////////////////////////////////////////////////////////////
@@ -354,41 +365,6 @@ class CCQ11X5Rule : public CGameRule
 public:
 	CCQ11X5Rule(void);
 	virtual ~CCQ11X5Rule(void);
-
-public:
-	//下期期号
-	virtual string GetNextExpect(int nDelta=0);
-	//下期开奖时间
-	virtual time_t GetNextKjShj();
-	//bool IsCanCancel(string qihao);
-	////离下次封单时间还剩下的时间
-	//long GetFdShjDiff();
-
-private:
-	//时间1 00:00-02:00
-	int m_t1_start;
-	int m_t1_end;
-	//时间2 10:00-22:00
-	int m_t2_start;
-	int m_t2_end;	
-	//时间3 22:00-24:00
-	int m_t3_start;
-	int m_t3_end;	
-public:
-	static char m_lastExpect[KJ_QIHAO_LENGTH];
-	static char m_lastKjShj[KJ_SHIJIAN_LENGTH];
-
-	int timespan_kj_shj;
-	int timespan_ye_kj_shj;
-};
-
-//////////////////////////////////////////////////////
-//江西11选5
-class CJX11X5Rule : public CGameRule
-{
-public:
-	CJX11X5Rule(void);
-	virtual ~CJX11X5Rule(void);
 
 public:
 	//下期期号
@@ -452,24 +428,6 @@ public:
 	int timespan_ye_kj_shj;
 };
 ///////////////////////////////////////////////////////////////
-//山东11选5
-class CSD11X5Rule : public CJxSSCRule
-{
-public:
-	CSD11X5Rule(void);
-	CSD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
-	virtual ~CSD11X5Rule(void);
-
-public:
-	//下期期号
-	virtual string GetNextExpect(int nDelta=0);
-
-public:
-	static char m_lastExpect[KJ_QIHAO_LENGTH];
-	static char m_lastKjShj[KJ_SHIJIAN_LENGTH];
-};
-
-
 //PK10:
 class  CBJPK10Rule : public CGameRule
 {

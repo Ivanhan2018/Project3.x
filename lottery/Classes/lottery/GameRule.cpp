@@ -1236,8 +1236,14 @@ time_t CWuFenCaiRule::GetNextKjShj()
 
 ///////////////////////////////////////////////////
 //广东11选5
-char CGD11X5Rule::m_lastExpect[KJ_QIHAO_LENGTH] = "";
-char CGD11X5Rule::m_lastKjShj[KJ_SHIJIAN_LENGTH] = "";
+pair<CaiZhong,CGD11X5Rule::tagStr> pairArray[] = 
+{
+	make_pair(CZGD11Xuan5,CGD11X5Rule::tagStr()),
+	make_pair(CZSD11Xuan5,CGD11X5Rule::tagStr()),
+	make_pair(CZJX11Xuan5,CGD11X5Rule::tagStr()),
+	make_pair(CZ_HLJ11Xuan5,CGD11X5Rule::tagStr())
+};
+map<CaiZhong,CGD11X5Rule::tagStr> CGD11X5Rule::m_mapStr(pairArray,pairArray+sizeof(pairArray)/sizeof(pairArray[0]));
 CGD11X5Rule::CGD11X5Rule(void)
 {
 	m_iKjShjFirst=34200;
@@ -1245,10 +1251,14 @@ CGD11X5Rule::CGD11X5Rule(void)
 	m_qishu=42;
 	m_timespan=1200;
 	fenDanDuration = 60; //封单时间
+	m_gameKind=CZGD11Xuan5;
+	strcpy(m_para1,"%s%02d");
 }
 
-CGD11X5Rule::CGD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan):CJxSSCRule(iKjShjFirst,iKjShjLast,qishu,timespan,fdtimespan)
+CGD11X5Rule::CGD11X5Rule(CaiZhong gameKind,const char *para1,int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan):CJxSSCRule(iKjShjFirst,iKjShjLast,qishu,timespan,fdtimespan)
 {
+	m_gameKind=gameKind;
+	strcpy(m_para1,para1);
 }
 
 CGD11X5Rule::~CGD11X5Rule(void)
@@ -1261,7 +1271,7 @@ string CGD11X5Rule::GetNextExpect(int nDelta)
 {
 	if(getIsStopSell()) return "0";
 
-	if (strlen(m_lastExpect) == 0)
+	if (strlen(m_mapStr[m_gameKind].m_lastExpect) == 0)
 	{
 		return "---";
 	}
@@ -1284,7 +1294,7 @@ string CGD11X5Rule::GetNextExpect(int nDelta)
 	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
 
 	char last[64] = {0};
-	sprintf(last, "%s%02d", temp, qishu);
+	sprintf(last, m_para1, temp, qishu);
 	return last;
 }
 
@@ -1408,212 +1418,6 @@ time_t CCQ11X5Rule::GetNextKjShj()
 //
 //	return GetFdShjDiff() > fenDanDuration; 
 //}
-
-////////////////////////////////////////////
-//江西11选5
-char CJX11X5Rule::m_lastExpect[KJ_QIHAO_LENGTH] = "";
-char CJX11X5Rule::m_lastKjShj[KJ_SHIJIAN_LENGTH] = "";
-
-CJX11X5Rule::CJX11X5Rule(void)
-	: timespan_kj_shj(600)
-	, timespan_ye_kj_shj(300)
-{
-	fenDanDuration = 60;
-}
-
-CJX11X5Rule::~CJX11X5Rule(void)
-{
-
-}
-//long CJX11X5Rule::GetFdShjDiff()
-//{
-//	if (strlen(m_lastExpect) == 0)
-//	{
-//		return 0;
-//	}
-//	time_t current_t;
-//	//current_t = time(NULL);
-//	theApp->GetTime(current_t);
-//	time_t next_t = GetNextKjShj();
-//	double total = difftime(next_t,current_t);
-//
-//	return (long)total;
-//}
-////是否可撤单-离开奖时间大于两分钟
-//bool CJX11X5Rule::IsCanCancel(string qihao)
-//{
-//	//比下期旗号还要早，允许撤单
-//	if(qihao > GetNextExpect())
-//		return true;
-//
-//	if(qihao != GetNextExpect())
-//	{
-//		return false;
-//	}
-//
-//	return GetFdShjDiff() > fenDanDuration; 
-//}
-
-//下期期号
-string CJX11X5Rule::GetNextExpect(int nDelta)
-{
-	if(getIsStopSell()) return "0";
-
-	if (strlen(m_lastExpect) == 0)
-	{
-		return "---";
-	}
-
-	time_t ct;
-	//ct = time(NULL);
-	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
-	struct tm *my_tm = localtime(&ct);
-	string rQh;
-
-	if (((my_tm->tm_hour == 9 && my_tm->tm_min>=10)||my_tm->tm_hour>=10) && (my_tm->tm_hour < 22) ){
-		string qihao = CJX11X5Rule::m_lastExpect;
-		string qh1 = qihao.substr(0,8);
-		string qh2 = qihao.substr(qihao.length()-2,2);
-
-		int iQh = atoi(qh2.c_str());
-		iQh ++;
-		//做出调整
-		iQh += nDelta;
-		string lastKjShj = m_lastKjShj;
-		
-		struct tm *temp_tm = localtime(&ct);    
-		sscanf(m_lastKjShj,"%04d-%02d-%02d %02d:%02d:%02d",&(temp_tm->tm_year),&(temp_tm->tm_mon),&(temp_tm->tm_mday),
-			&(temp_tm->tm_hour),&(temp_tm->tm_min),&(temp_tm->tm_sec));  
-		temp_tm->tm_year-=1900;
-		temp_tm->tm_mon -= 1;
-		time_t ctm = mktime(temp_tm);
-
-		ctm -= 197;
-
-		ctm += timespan_kj_shj;
-
-		time_t tmp_ct = mktime(my_tm);
-		long lSecond = (long)difftime(ctm,ct);
-		if(lSecond<0)
-		{
-			iQh ++;
-		}
-
-		char tmp[120] = {0};
-		sprintf(tmp, "%s%02d", qh1.c_str(), iQh);
-		rQh = string(tmp);
-	}
-	else {
-		if(my_tm->tm_hour >=22 && my_tm->tm_hour <=24)
-			ct += 86400;
-		struct tm *tmp_tm = localtime(&ct);
-		char temp[KJ_QIHAO_LENGTH] = {0};
-		sprintf(temp, "%d%02d%02d01", tmp_tm->tm_year+1900, tmp_tm->tm_mon+1, tmp_tm->tm_mday);
-		rQh = string(temp);
-	}
-
-	return rQh;
-}
-
-//下期开奖时间
-time_t CJX11X5Rule::GetNextKjShj()
-{
-	time_t ct;
-	//ct = time(NULL);
-	theApp->GetTime(ct);
-	tm *tmLocal = localtime(&ct);
-	struct tm *my_tm = localtime(&ct);
-	string rQh;
-
-	if (((my_tm->tm_hour == 9 && my_tm->tm_min>=10)||my_tm->tm_hour>=10) && (my_tm->tm_hour < 22) ){
-		struct tm *tmp_tm = localtime(&ct);
-		tmp_tm->tm_hour = 8;
-		tmp_tm->tm_min = 59;
-		tmp_tm->tm_sec = 30;
-		time_t temp_start = mktime(tmp_tm);
-
-		//算出和第一期相差的时间
-		long total = (long)difftime(ct, temp_start); 
-		int nQihao = 1;
-
-		//if (total % timespan_kj_shj >= 540)
-		//{
-		//	nQihao = total / timespan_kj_shj+2;
-		//} else
-		//{
-			nQihao = total / timespan_kj_shj+1;
-		//}
-
-		temp_start += nQihao * timespan_kj_shj;
-
-		return temp_start;
-	}
-	else {
-		if(my_tm->tm_hour >=22 && my_tm->tm_hour <=24)
-			ct += 86400;
-		struct tm *tmp_tm = localtime(&ct);
-		tmp_tm->tm_hour = 9;
-		tmp_tm->tm_min = 10;
-		tmp_tm->tm_sec = 0;
-		return mktime(tmp_tm);
-	}
-}
-
-////////////////////////////////////////////
-//山东11选5
-char CSD11X5Rule::m_lastExpect[KJ_QIHAO_LENGTH] = "";
-char CSD11X5Rule::m_lastKjShj[KJ_SHIJIAN_LENGTH] = "";
-
-CSD11X5Rule::CSD11X5Rule(void)
-{
-	m_iKjShjFirst=32400;
-	m_iKjShjLast=82800;
-	m_qishu=43;
-	m_timespan=1200;
-	fenDanDuration = 50+10; //封单时间
-}
-
-CSD11X5Rule::CSD11X5Rule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan):CJxSSCRule(iKjShjFirst,iKjShjLast,qishu,timespan,fdtimespan)
-{
-}
-
-CSD11X5Rule::~CSD11X5Rule(void)
-{
-
-}
-
-//下期期号
-string CSD11X5Rule::GetNextExpect(int nDelta)
-{
-	if(getIsStopSell()) return "0";
-
-	if (strlen(m_lastExpect) == 0)
-	{
-		return "---";
-	}
-
-	time_t ct;
-	theApp->GetTime(ct);
-	struct tm *my_tm = localtime(&ct);
-    int sec=GetSecByHMS(my_tm->tm_hour,my_tm->tm_min,my_tm->tm_sec);
-	int qishu=GetQiShu(sec);
-	////做出调整
-	//qishu += nDelta;
- 
-	tm *tmLocal=my_tm;
-	if(sec>=m_iKjShjLast)//期号算到第二天的第一期
-	{
-	    time_t ct1=GetMorningTime(ct+86400);
-	    tmLocal = localtime(&ct1);
-	}
-	char temp[64] = {0};
-	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
-
-	char last[64] = {0};
-	sprintf(last, "%s%02d", temp, qishu);
-	return last;
-}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //黑龙江11选5
