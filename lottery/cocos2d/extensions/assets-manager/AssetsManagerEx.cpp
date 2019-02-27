@@ -850,6 +850,7 @@ void AssetsManagerEx::onError(const network::DownloadTask& task,
         // Found unit and add it to failed units
         if (unitIt != _downloadUnits.end())
         {
+            --_totalWaitToDownload;//by hxh
             DownloadUnit unit = unitIt->second;
             _failedUnits.emplace(unit.customId, unit);
         }
