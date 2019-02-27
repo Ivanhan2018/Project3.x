@@ -1693,6 +1693,8 @@ void bjpk10Layer::setGameKind(CaiZhong kind)
 		}
 		else if (gameKind == CZ_BJPK10)
 			gameRule = new CBJPK10Rule();
+		else if (gameKind == CZ_XYFT)
+			gameRule = new CXJSSCRule(CZ_XYFT,"%s%03d",46809,100804,180,300,50);
 		this->addChild(gameRule);
 
 		m_bIsFendan = gameRule->IsFenDanDuration();

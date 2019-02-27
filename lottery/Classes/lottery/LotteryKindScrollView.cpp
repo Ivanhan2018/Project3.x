@@ -140,7 +140,7 @@ void LotteryKindScrollView::pressKindButton(int tag)
 		layer->setGameKind((CaiZhong)pressedGameKind);
 		Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
 	}
-	else if (pressedGameKind == CZ_BJPK10)
+	else if (pressedGameKind == CZ_BJPK10||pressedGameKind == CZ_XYFT)
 	{
 		bjpk10Layer *layer = bjpk10Layer::create();
 		Scene *scene = Scene::create();
@@ -433,7 +433,7 @@ void LotteryKindScrollView::resetTable(const char* preName,const int count,const
 	{
 		table_idx = LOTTERY_KIND_SPRITE_TAG;
 
-		static int vec_ssc[8] = {CZChongQingSSC,CZ_FENFEN_CAI,CZ_BJPK10,CZ_JILI_2FEN_CAI,CZ_WUFEN_CAI,CZ_BEIJING_5FEN_CAI,CZ_TIANJIN_SSC,CZXinJiangSSC};
+		static int vec_ssc[9] = {CZChongQingSSC,CZ_FENFEN_CAI,CZ_XYFT,CZ_BJPK10,CZ_JILI_2FEN_CAI,CZ_WUFEN_CAI,CZ_BEIJING_5FEN_CAI,CZ_TIANJIN_SSC,CZXinJiangSSC};
 		static int vec_11x5[4] = {CZGD11Xuan5,CZSD11Xuan5,CZJX11Xuan5,CZ_HLJ11Xuan5};
 		static int vec_klc[3] = {CZKUAILE8,CZ_LUCKY_28,CZ_HK6HeCai};
 		static int vec_3d[3] = {CZ3D,CZPailie3,CZ_SEVENSTAR};
@@ -565,7 +565,7 @@ TableViewCell* LotteryKindScrollView::tableCellAtIndex(TableView *table, ssize_t
 			kindSprite->setTag(LOTTERY_KIND_SPRITE_TAG+kindId);
 			cell->addChild(kindSprite);
 
-			if(kindId==CZChongQingSSC)
+			if(kindId==CZChongQingSSC||kindId==CZ_FENFEN_CAI||kindId==CZ_XYFT)
 			{
 				Sprite *remenSprite = Sprite::createWithSpriteFrame(spriteFrame("remen.png"));
 				if(remenSprite)

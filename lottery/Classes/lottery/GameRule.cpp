@@ -525,10 +525,10 @@ time_t CCanadaSDWFRule::GetNextKjShj()
 ///////////////////////天津彩//////////////////////////////////////////////////////////
 CJxSSCRule::CJxSSCRule(void)
 {
-	m_iKjShjFirst=33600;
-	m_iKjShjLast=82800;
-	m_qishu=42;
-	m_timespan=1200;
+	m_iKjShjFirst=33600;//第一期001期开奖时间为9：20
+	m_iKjShjLast=82800;//最后一期042期开奖时间为23：00
+	m_qishu=42;//每日开奖42期
+	m_timespan=1200;//开奖频率20分钟
 	fenDanDuration = 45; //封单时间
 }
 
@@ -622,15 +622,19 @@ CXJSSCRule::CXJSSCRule(void)
 	m_qishu=48;
 	m_timespan=1200;
 	fenDanDuration = 60;//封单时间
+	m_gameKind=CZXinJiangSSC;
+	strcpy(m_para1,"%s%02d");
 }
 
-CXJSSCRule::CXJSSCRule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan)
+CXJSSCRule::CXJSSCRule(CaiZhong gameKind,const char *para1,int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan)
 {
 	m_iKjShjFirst=iKjShjFirst;
 	m_iKjShjLast=iKjShjLast;
 	m_qishu=qishu;
 	m_timespan=timespan;
 	fenDanDuration = fdtimespan;
+	m_gameKind=gameKind;
+	strcpy(m_para1,para1);
 }
 
 CXJSSCRule::~CXJSSCRule(void)
@@ -661,7 +665,7 @@ string CXJSSCRule::GetNextExpect(int nDelta)
 	strftime(temp, sizeof(temp), "%Y%m%d",tmLocal);
 
 	char last[64] = {0};
-	sprintf(last, "%s%02d", temp, qishu);
+	sprintf(last, m_para1, temp, qishu);
 	return last;
 }
 

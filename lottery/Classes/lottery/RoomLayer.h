@@ -26,7 +26,7 @@
 #define LOTTERY_KIND_SPRITE_TAG 9527
 
 //彩票种类个数 
-#define LOTTERY_COUNT 18
+#define LOTTERY_COUNT 19
 #define RANK_COUNT 5
 
 USING_NS_CC;

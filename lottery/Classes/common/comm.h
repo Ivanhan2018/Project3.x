@@ -108,6 +108,7 @@ typedef enum {
 	CZ_TENCENT_2FC,			//腾讯2分彩
 	CZ_QQ_2FEN_CAI,				//QQ2分彩
 	CZ_SOCCER_TEAM,			//足球
+	CZ_XYFT,				//幸运飞艇		33
 	CZCount
 }CaiZhong;
 

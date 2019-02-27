@@ -190,7 +190,7 @@ class CXJSSCRule  : public CGameRule
 {
 public:
 	CXJSSCRule(void);
-	CXJSSCRule(int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
+	CXJSSCRule(CaiZhong gameKind,const char *para1,int iKjShjFirst,int iKjShjLast,int qishu,int timespan,int fdtimespan);
 	virtual ~CXJSSCRule(void);
 
 public:
@@ -203,6 +203,10 @@ public:
 	virtual int GetQiShu(int sec);
 	//获取开奖时间
 	virtual int GetKjShj(int qishu);
+
+public:
+	CaiZhong m_gameKind;
+	char m_para1[20];
 };
 
 ////////////////////////////////////////////////////////////////////////

@@ -33,6 +33,7 @@ int BetLimit::GetMaxBetFromId(int gameKind,int wanfaId)
 		kindid = 1;
 		break;
 	case CZ_BJPK10:	//PK10
+	case CZ_XYFT:
 		kindid = 2;
 		break;
 	case CZ3D:		//福彩
@@ -454,6 +455,7 @@ std::string BetLimit::GetWanFaNameFromId(const int gameId,const int wanfaId)
 		result = ConfigMgr::instance()->text("display_11xuan5.xml", String::createWithFormat("t%d", 20 + wanfaId)->getCString());
 		break;
 	case CZ_BJPK10:	//PK10
+	case CZ_XYFT:
 		result = ConfigMgr::instance()->text("display_pk10.xml", String::createWithFormat("t%d", 20 + wanfaId)->getCString());
 		break;
 	case CZ3D:		//福彩
@@ -1634,6 +1636,11 @@ long long BetLimit::getRealQihao(long long iQihao,int gameKind, long long GDsele
 						caiWei = 100;
 					}		 
 					else if (gameKind == CZ_BJPK10)//北京
+					{
+						caiTypeValue = 0;
+						caiWei = 1;
+					} 
+					else if (gameKind == CZ_XYFT)
 					{
 						caiTypeValue = 0;
 						caiWei = 1;

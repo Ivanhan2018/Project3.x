@@ -625,7 +625,7 @@ void LotteryGameResult::pressBuy(Object *obj)
 		layer->setGameKind((CaiZhong)pressedGameKind);
 		Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
 	}
-	else if (pressedGameKind == CZ_BJPK10)
+	else if (pressedGameKind == CZ_BJPK10||pressedGameKind == CZ_XYFT)
 	{
 		bjpk10Layer *layer = bjpk10Layer::create();
 		Scene *scene = Scene::create();

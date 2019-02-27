@@ -1,7 +1,7 @@
 #include "LotteryGlobal.h"
 
 //д╛хопРап
-static int tempArr[] = {1,11,26,12,24,23,4,6,8,9,16,3,5,10,13,17,15,14};
+static int tempArr[] = {1,11,26,12,24,23,4,6,8,9,16,3,5,10,13,17,15,14,33};
 
 MyBetNumber* MyBetNumber::_instance = nullptr;
 

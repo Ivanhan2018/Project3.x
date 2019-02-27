@@ -48,13 +48,13 @@
 #include "ChongQingGambleLayer.h"
 #include "LotterySettingView.h"
 #include "LotteryMyLot.h"
-#include	"LotteryGameResult.h"
+#include "LotteryGameResult.h"
 #include "LotterySceneControl.h"
 #include "LotteryUserInfo.h"
 #include "LotteryMemberShipManagement.h"
 #include "LotteryKindScrollView.h"
 #include "LotteryActiveCenter.h"
-
+#include "LotteryRecharge.h"
 #include "LotteryUpdate.h"
 #include "HotUpdateLayer.h"//by hxh
 #include "ChongQingGambleLayer.h"
@@ -594,12 +594,20 @@ bool RoomLayer::init()
 	this->addChild(sptTopBack,2);
 
 	//其它的图片加到这个sprite上面
-	//理财宝
-	Sprite* sptLiCaiBao = Sprite::createWithSpriteFrame(spriteFrame("yx_02_02.png"));
-	sptLiCaiBao->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	sptLiCaiBao->setPosition(Vec2(sptTopBack->getContentSize().width / 4,sptLiCaiBao->getContentSize().height / 2 + 10));
-	sptTopBack->addChild(sptLiCaiBao);
-	
+	//充值中心
+	ui::Button* btRecharge = ui::Button::create("yx_02_02.png","yx_02_02.png","yx_02_02.png",ui::Widget::TextureResType::LOCAL);
+	btRecharge->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	btRecharge->setPosition(Vec2(180,605));
+	this->addChild(btRecharge, 5);
+	//添加点击事件
+	auto funRecharge = [=](Ref *obj){
+		//点击跳转到充值界面
+		playButtonSound();
+		Scene *scene = LotteryRecharge::scene();
+		Director::getInstance()->pushScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
+	};
+	btRecharge->addClickEventListener(funRecharge);
+
 	//猜涨跌 
 	Sprite* sptCaiZhangDie = Sprite::createWithSpriteFrame(spriteFrame("yx_02_01.png"));
 	sptCaiZhangDie->setAnchorPoint(Vec2::ANCHOR_MIDDLE);

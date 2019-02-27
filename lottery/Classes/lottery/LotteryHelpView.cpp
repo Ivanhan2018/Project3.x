@@ -123,7 +123,7 @@ void LotteryHelpView::back(Object *obj)
 		layer->setGameKind(helpId);
 		Director::getInstance()->replaceScene(LotterySceneControl::sharedSceneControl()->getScene(scene));
 	} else
-	if (helpId == CZ_BJPK10)
+	if (helpId == CZ_BJPK10||helpId == CZ_XYFT)
 	{
 		bjpk10Layer *layer = bjpk10Layer::create();
 		Scene *scene = Scene::create();
@@ -232,7 +232,7 @@ void LotteryHelpView::setHelpId(CaiZhong id)
 	{
 		refreshContent("11Xuan5_help_%02d.png", 4,"11Xuan5_help_01.png");
 	}else
-	if (helpId == CZ_BJPK10)			//北京快车
+	if (helpId == CZ_BJPK10||helpId == CZ_XYFT)			//北京快车
 	{
 		refreshContent("PK10_%02d.png", 4,"PK10_01.png");
 	}else
