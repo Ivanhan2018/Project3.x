@@ -1737,7 +1737,7 @@ void FC3DPL3Layer::setGameKind(CaiZhong kind)
 			gameRule = new CBJPK10Rule();
 		}
 		else if (gameKind == CZ_XYFT)
-			gameRule = new CXJSSCRule(CZ_XYFT,"%s%03d",46809,100804,180,300,50);
+			gameRule = new CXJSSCRule(CZ_XYFT,"%s%03d",47340,101040,180,300,50);
 		else if (gameKind == CZ3D)
 		{
 			gameRule = new CFC3DRule();

@@ -224,7 +224,7 @@ void ChongQingGambleLayer::setGameKind(CaiZhong kind)
 		else if (gameKind == CZ_BJPK10)
 			gameRule = new CBJPK10Rule();
 		else if (gameKind == CZ_XYFT)
-			gameRule = new CXJSSCRule(CZ_XYFT,"%s%03d",46809,100804,180,300,50);
+			gameRule = new CXJSSCRule(CZ_XYFT,"%s%03d",47340,101040,180,300,50);
 		else if (gameKind == CZ3D || gameKind == CZPailie3)
 			gameRule = new CFC3DRule();
 		else if (gameKind == CZ_TIANJIN_SSC) 
