@@ -232,9 +232,13 @@ void LotteryHelpView::setHelpId(CaiZhong id)
 	{
 		refreshContent("11Xuan5_help_%02d.png", 4,"11Xuan5_help_01.png");
 	}else
-	if (helpId == CZ_BJPK10||helpId == CZ_XYFT)			//北京快车
+	if (helpId == CZ_BJPK10)		//北京快车
 	{
 		refreshContent("PK10_%02d.png", 4,"PK10_01.png");
+	}else
+	if (helpId == CZ_XYFT)			//幸运飞艇
+	{
+		refreshContent("PK10_%02d.png", 4,"XYFT_01.png");
 	}else
 	if (helpId == CZ3D || helpId == CZPailie3)
 	{
