@@ -486,6 +486,7 @@ void LotteryAddSub::initView()
 		editBox->setFontSize(fontSize);
 		editBox->setColor(ccc3(112,112,112));
 		editBox->setEnabled(false);
+		editBox->setTag(EDITBOX_TAG+50);
 		this->addChild(editBox, 1);
 
 		//LabelTTF *ltUrl = LabelTTF::create();
