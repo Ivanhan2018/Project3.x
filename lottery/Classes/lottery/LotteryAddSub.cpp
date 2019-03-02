@@ -520,9 +520,9 @@ void LotteryAddSub::initView()
 	row_count = 8;
 #endif
 
-#ifdef VER_369
-	row_count = 8;
-#endif
+//#ifdef VER_369
+//	row_count = 8;
+//#endif
 
 	for(int i = 0 ; i < row_count ; i++){
 		String *labelStr = String::create(ConfigMgr::instance()->text("display_text.xml",
@@ -565,7 +565,7 @@ void LotteryAddSub::initView()
 			editBox->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
 			//            editBox->setText("123456");
 		}
-		if(i == 8)
+		if(i>=8&&i<=9)
 		{
 			editBox->setInputMode(EditBox::InputMode::NUMERIC);
 		}
@@ -824,12 +824,14 @@ void LotteryAddSub::pressConfirm(Object *obj)
 	EditBox *surePassEditBox = (EditBox *)this->getChildByTag(EDITBOX_TAG+5);
 	EditBox *securePassEditBox = (EditBox *)this->getChildByTag(EDITBOX_TAG+6);
 	EditBox *sureSecurePassEditBox = (EditBox *)this->getChildByTag(EDITBOX_TAG+7);	
+	EditBox *qqEditBox = (EditBox *)this->getChildByTag(EDITBOX_TAG+8);	
 
 	const char* szAccount = accountEditBox->getText();
 	const char* szLoginPass = passEditBox->getText();
 	const char* szSureLoginPass = surePassEditBox->getText();
 	const char* szSecurePass = securePassEditBox->getText();
 	const char* szSureSecurePass = sureSecurePassEditBox->getText();
+	const char* szQQ = qqEditBox->getText();
 
 	//用户名不能为空！
 	if (strcmp(szAccount, "") == 0) {
@@ -895,6 +897,14 @@ void LotteryAddSub::pressConfirm(Object *obj)
 		return;
 	}
 
+	//联系QQ必须>=5位
+	if(strlen(szQQ) < 5)
+	{
+		MovingLabelLayer* layer = MovingLabelLayer::MovingLabelLayerWith(ConfigMgr::instance()->text("t37"), Vec2(SCREEN_WIDTH/2, 427));
+		this->addChild(layer,20);
+		return;
+	}
+
 	EditBox *editBox = (EditBox *)this->getChildByTag(EDITBOX_TAG+2);
 	const char* szFandian = editBox->getText();	
 
@@ -920,7 +930,7 @@ void LotteryAddSub::pressConfirm(Object *obj)
 		return;
 	}
 
-	std::string tempQQ = "";
+	std::string tempQQ = szQQ;
 
 #ifdef VER_9YI
 	EditBox *qqEditBox = (EditBox *)this->getChildByTag(EDITBOX_TAG+8);
